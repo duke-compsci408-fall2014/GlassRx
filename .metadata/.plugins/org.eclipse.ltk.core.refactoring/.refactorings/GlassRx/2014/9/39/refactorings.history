@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;com.example.glassrx&apos; to &apos;com.compsci408.glassrx&apos;&#x0D;&#x0A;- Original project: &apos;GlassRx&apos;&#x0D;&#x0A;- Original element: &apos;GlassRx/src/com.example.glassrx&apos;&#x0D;&#x0A;- Renamed element: &apos;GlassRx/src/com.compsci408.glassrx&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;com.example.glassrx&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;com.example.glassrx" name="com.compsci408.glassrx" qualified="false" references="true" stamp="1411854957733" textual="false" version="1.0"/>
+</session>
