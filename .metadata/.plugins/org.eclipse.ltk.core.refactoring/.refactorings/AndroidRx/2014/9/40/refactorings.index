@@ -18,3 +18,15 @@
 1411928552518	Rename local variable 'emails'
 1411931891777	Copy compilation unit
 1411932751694	Rename package 'com.compsci408s.androidrx.patient'
+1412019171771	Delete element
+1412022546427	Rename field 'textView1'
+1412022753406	Rename local variable 'myTypeface'
+1412023102006	Move compilation unit
+1412023105028	Delete element
+1412023186453	Delete element
+1412023728103	Rename package 'com.example.androidrx'
+1412023753346	Delete element
+1412025234269	Rename field 'textView1'
+1412028079117	Rename resource 'custom_button_pressed.xml'
+1412028090119	Rename resource 'custom_button_focused.xml'
+1412028247920	Rename field 'email_login_form'

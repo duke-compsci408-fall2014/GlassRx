@@ -1,0 +1,5 @@
+package com.compsci408.alarms;
+
+public class AlarmModel {
+
+}
