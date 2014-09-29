@@ -1,0 +1,20 @@
+package com.compsci408.androidrx;
+
+import com.example.androidrx.R;
+import com.example.androidrx.R.id;
+import com.example.androidrx.R.layout;
+import com.example.androidrx.R.menu;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+public class SplashActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_splash);
+	}
+}
