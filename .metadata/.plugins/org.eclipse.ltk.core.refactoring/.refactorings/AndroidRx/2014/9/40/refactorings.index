@@ -1,0 +1,20 @@
+1411923847650	Move compilation unit
+1411923851395	Move compilation unit
+1411923856810	Delete element
+1411923998262	Delete element
+1411924011526	Delete element
+1411924452453	Delete element
+1411924548727	Delete element
+1411924554923	Delete elements
+1411924579673	Delete element
+1411924792606	Move compilation unit
+1411924795987	Delete element
+1411925870088	Rename field 'mEmailView'
+1411925884911	Rename field 'email'
+1411925893009	Rename field 'email_sign_in_button'
+1411927308772	Move compilation unit
+1411927944985	Rename method 'isEmailValid'
+1411928361868	Rename local variable 'email'
+1411928552518	Rename local variable 'emails'
+1411931891777	Copy compilation unit
+1411932751694	Rename package 'com.compsci408s.androidrx.patient'

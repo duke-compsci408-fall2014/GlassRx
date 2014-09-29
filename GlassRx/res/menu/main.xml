@@ -1,11 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.glassrx.MainActivity" >
+    tools:context="com.example.patientpretotype.MainActivity" >
+    
+    
+    <item android:id="@+id/more_info_menu_item" android:title="@string/more_info"></item>
+    <item android:id="@+id/med_list_menu_item" android:title="@string/med_list"></item>
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
 
 </menu>
