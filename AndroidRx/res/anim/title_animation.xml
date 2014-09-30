@@ -10,8 +10,22 @@
    
    <translate
        android:fromYDelta="50"
-       android:toYDelta="0"
+       android:toYDelta="-15"
        android:duration="1000"
        android:interpolator="@android:anim/overshoot_interpolator" />
+   
+   <translate
+       android:fromYDelta="-10"
+       android:toYDelta="0"
+       android:duration="500"
+       android:startOffset="1100"
+       android:interpolator="@android:anim/overshoot_interpolator" />
+   
+   <translate
+       android:fromYDelta="0%p"
+       android:toYDelta="-40%p"
+       android:duration="1500"
+       android:startOffset="3000"
+       android:interpolator="@android:anim/accelerate_interpolator" />
    
 </set>

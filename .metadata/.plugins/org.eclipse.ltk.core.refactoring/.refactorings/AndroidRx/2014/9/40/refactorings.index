@@ -30,3 +30,16 @@
 1412028079117	Rename resource 'custom_button_pressed.xml'
 1412028090119	Rename resource 'custom_button_focused.xml'
 1412028247920	Rename field 'email_login_form'
+1412034785432	Delete element
+1412101082236	Move compilation unit
+1412101544101	Delete element
+1412101666695	Rename local variable 'email'
+1412101673990	Rename field 'mEmail'
+1412102724176	Move file
+1412102730671	Move file
+1412102737864	Move file
+1412102744615	Move file
+1412102747796	Move folder
+1412102750971	Delete element
+1412103882277	Delete element
+1412103930631	Move compilation unit

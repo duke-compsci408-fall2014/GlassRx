@@ -1,6 +1,6 @@
 package com.compsci408.androidrx.patient;
 
-import com.example.androidrx.R;
+import com.compsci408.androidrx.R;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -18,9 +18,9 @@
 <fullyQualifiedTypeName name="android.view.animation.AnimationUtils"/>
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="android.widget.RelativeLayout.LayoutParams"/>
-<fullyQualifiedTypeName name="com.example.androidrx.R.id"/>
 <fullyQualifiedTypeName name="android.R.attr"/>
-<fullyQualifiedTypeName name="com.example.androidrx.R.anim"/>
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.R.color"/>
+<fullyQualifiedTypeName name="com.example.androidrx.R.anim"/>
+<fullyQualifiedTypeName name="com.example.androidrx.R.id"/>
 </qualifiedTypeNameHistroy>

@@ -20,6 +20,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -30,7 +31,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.androidrx.R;
+import com.compsci408.androidrx.patient.MainActivity;
+import com.compsci408.androidrx.provider.PatientListActivity;
 
 /**
  * A login screen that offers login via email/password.
@@ -42,7 +44,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	 * TODO: remove after connecting to a real authentication system.
 	 */
 	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world" };
+			"test:12345:patient", "admin:admin:provider" };
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
@@ -59,6 +61,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
@@ -262,14 +265,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	 */
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-		private final String mEmail;
+		private final String mUsername;
 		private final String mPassword;
 		private final String mAccountType;
 
-		UserLoginTask(String email, String password, String accountType) {
-			mEmail = email;
+		UserLoginTask(String username, String password, String accountType) {
+			mUsername = username;
 			mPassword = password;
-			mAccountType = accountType;
+			String[] accountTypeTokens = accountType.split("\\s+");
+			mAccountType = accountTypeTokens[accountTypeTokens.length-1];
 		}
 
 		@Override
@@ -285,9 +289,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 			for (String credential : DUMMY_CREDENTIALS) {
 				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
+				if (pieces[0].equals(mUsername)) {
 					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
+					return pieces[1].equals(mPassword) && pieces[2].equalsIgnoreCase(mAccountType);
 				}
 			}
 
@@ -302,14 +306,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 			if (success) {
 				finish();
-				if (mAccountType.equals(LoginActivity.this.getResources()
-						.getStringArray(R.id.account_type)[0])) {
+				if (mAccountType.equalsIgnoreCase(LoginActivity.this.getResources().
+						getString(R.string.patient))) {
 					LoginActivity.this.startActivity(new Intent(LoginActivity.this, 
-							com.compsci408.androidrx.patient.MainActivity.class));
+							MainActivity.class));
+					overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				}
 				else {
 					LoginActivity.this.startActivity(new Intent(LoginActivity.this, 
-							com.compsci408.androidrx.provider.MainActivity.class));
+							PatientListActivity.class));
+					overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				}
 			} else {
 				mPasswordView

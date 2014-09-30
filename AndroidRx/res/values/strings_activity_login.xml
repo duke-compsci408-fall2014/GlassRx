@@ -12,6 +12,8 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="androidrx">AndroidRx</string>
+    <string name="patient">Patient</string>
+    <string name="provider">Provider</string>
     <string-array name="account_types">
         <item >I am a patient</item>
         <item >I am a provider</item>
