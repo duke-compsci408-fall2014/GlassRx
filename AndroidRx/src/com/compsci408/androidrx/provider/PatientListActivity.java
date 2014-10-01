@@ -1,10 +1,7 @@
 package com.compsci408.androidrx.provider;
 
+import com.compsci408.androidrx.LoginActivity;
 import com.compsci408.androidrx.R;
-import com.compsci408.androidrx.R.id;
-import com.compsci408.androidrx.R.layout;
-import com.compsci408.androidrx.R.menu;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,7 +31,7 @@ public class PatientListActivity extends Activity {
 				Intent intent = new Intent(PatientListActivity.this, PatientActivity.class);
 				// TODO:  Pass appropriate patient identifier to load right data
 				intent.putExtra("PatientId", position);
-				intent.putExtra("PatientName", ((TextView)view).getText());		
+				intent.putExtra("PatientName", ((TextView)view).getText());	
 				
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -56,7 +53,9 @@ public class PatientListActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.action_logout) {
+			startActivity(new Intent(PatientListActivity.this, LoginActivity.class));
+			overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
