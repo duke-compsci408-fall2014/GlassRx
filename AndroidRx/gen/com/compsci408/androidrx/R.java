@@ -14,11 +14,11 @@ public final class R {
         public static final int title_animation=0x7f040002;
     }
     public static final class array {
-        public static final int account_types=0x7f080002;
-        public static final int med_list=0x7f080001;
+        public static final int account_types=0x7f070002;
+        public static final int med_list=0x7f070001;
         /**  For testing purposes only; remove when real data is available 
          */
-        public static final int patient_list=0x7f080000;
+        public static final int patient_list=0x7f070000;
     }
     public static final class attr {
     }
@@ -30,8 +30,8 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f070000;
-        public static final int activity_vertical_margin=0x7f070001;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
         public static final int custom_button=0x7f020000;
@@ -44,82 +44,86 @@ public final class R {
     }
     public static final class id {
         public static final int account_type=0x7f0a0006;
-        public static final int action_logout=0x7f0a0023;
-        public static final int action_settings=0x7f0a0022;
-        public static final int add_med=0x7f0a001d;
-        public static final int add_med_complete=0x7f0a001b;
+        public static final int action_logout=0x7f0a0024;
+        public static final int action_settings=0x7f0a0023;
+        public static final int add_med=0x7f0a001e;
+        public static final int add_med_complete=0x7f0a000a;
+        public static final int add_time_complete=0x7f0a000c;
         public static final int androidrx=0x7f0a0008;
         public static final int androidrx_login_form=0x7f0a0002;
-        public static final int checkBoxFriday=0x7f0a0014;
-        public static final int checkBoxMonday=0x7f0a000c;
-        public static final int checkBoxSaturday=0x7f0a0016;
-        public static final int checkBoxSunday=0x7f0a0018;
-        public static final int checkBoxThursday=0x7f0a0012;
-        public static final int checkBoxTuesday=0x7f0a000e;
-        public static final int checkBoxWednesday=0x7f0a0010;
-        public static final int dosageLabel=0x7f0a0019;
-        public static final int dosagePicker=0x7f0a001a;
-        public static final int friday=0x7f0a0013;
+        public static final int checkBoxFriday=0x7f0a0018;
+        public static final int checkBoxMonday=0x7f0a0010;
+        public static final int checkBoxSaturday=0x7f0a001a;
+        public static final int checkBoxSunday=0x7f0a001c;
+        public static final int checkBoxThursday=0x7f0a0016;
+        public static final int checkBoxTuesday=0x7f0a0012;
+        public static final int checkBoxWednesday=0x7f0a0014;
+        public static final int dosageLabel=0x7f0a000d;
+        public static final int dosagePicker=0x7f0a000b;
+        public static final int friday=0x7f0a0017;
         public static final int login=0x7f0a0005;
         public static final int login_form=0x7f0a0001;
         public static final int login_progress=0x7f0a0000;
-        public static final int monday=0x7f0a000b;
+        public static final int monday=0x7f0a000f;
         public static final int new_med_title=0x7f0a0009;
         public static final int password=0x7f0a0004;
-        public static final int patient_list=0x7f0a001f;
-        public static final int patient_med_list=0x7f0a001e;
-        public static final int patient_name=0x7f0a001c;
-        public static final int saturday=0x7f0a0015;
+        public static final int patient_list=0x7f0a0020;
+        public static final int patient_med_list=0x7f0a001f;
+        public static final int patient_name=0x7f0a001d;
+        public static final int saturday=0x7f0a0019;
         public static final int sign_in_button=0x7f0a0007;
-        public static final int splash_layout=0x7f0a0020;
-        public static final int splash_title_view=0x7f0a0021;
-        public static final int sunday=0x7f0a0017;
-        public static final int tableLayout1=0x7f0a000a;
-        public static final int thursday=0x7f0a0011;
-        public static final int tuesday=0x7f0a000d;
+        public static final int splash_layout=0x7f0a0021;
+        public static final int splash_title_view=0x7f0a0022;
+        public static final int sunday=0x7f0a001b;
+        public static final int tableLayout1=0x7f0a000e;
+        public static final int thursday=0x7f0a0015;
+        public static final int tuesday=0x7f0a0011;
         public static final int username=0x7f0a0003;
-        public static final int wednesday=0x7f0a000f;
+        public static final int wednesday=0x7f0a0013;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int activity_new_med=0x7f030002;
-        public static final int activity_patient=0x7f030003;
-        public static final int activity_patient_list=0x7f030004;
-        public static final int activity_splash=0x7f030005;
+        public static final int activity_new_time=0x7f030003;
+        public static final int activity_patient=0x7f030004;
+        public static final int activity_patient_list=0x7f030005;
+        public static final int activity_splash=0x7f030006;
     }
     public static final class menu {
         public static final int main=0x7f090000;
         public static final int new_med=0x7f090001;
-        public static final int patient=0x7f090002;
-        public static final int patient_list=0x7f090003;
+        public static final int new_time=0x7f090002;
+        public static final int patient=0x7f090003;
+        public static final int patient_list=0x7f090004;
     }
     public static final class string {
-        public static final int action_logout=0x7f050003;
-        public static final int action_settings=0x7f050002;
-        public static final int action_sign_in=0x7f05000f;
-        public static final int action_sign_in_short=0x7f050010;
-        public static final int add_med=0x7f050005;
-        public static final int androidrx=0x7f050004;
-        public static final int app_name=0x7f050000;
-        public static final int error_field_required=0x7f050014;
-        public static final int error_incorrect_password=0x7f050013;
-        public static final int error_invalid_password=0x7f050012;
-        public static final int error_invalid_username=0x7f050011;
-        public static final int hello_world=0x7f050001;
-        public static final int new_med=0x7f050006;
-        public static final int patient=0x7f050015;
-        public static final int prompt_password=0x7f05000e;
+        public static final int action_logout=0x7f060003;
+        public static final int action_settings=0x7f060002;
+        public static final int action_sign_in=0x7f060010;
+        public static final int action_sign_in_short=0x7f060011;
+        public static final int add_med=0x7f060005;
+        public static final int androidrx=0x7f060004;
+        public static final int app_name=0x7f060000;
+        public static final int error_field_required=0x7f060015;
+        public static final int error_incorrect_password=0x7f060014;
+        public static final int error_invalid_password=0x7f060013;
+        public static final int error_invalid_username=0x7f060012;
+        public static final int hello_world=0x7f060001;
+        public static final int new_med=0x7f060006;
+        public static final int patient=0x7f060016;
+        public static final int prompt_password=0x7f06000f;
         /**  Strings related to login 
          */
-        public static final int prompt_username=0x7f05000d;
-        public static final int provider=0x7f050016;
-        public static final int title_activity_login=0x7f05000c;
-        public static final int title_activity_main=0x7f050007;
-        public static final int title_activity_new_med=0x7f05000b;
-        public static final int title_activity_patient=0x7f05000a;
-        public static final int title_activity_patient_list=0x7f050009;
-        public static final int title_activity_splash=0x7f050008;
+        public static final int prompt_username=0x7f06000e;
+        public static final int provider=0x7f060017;
+        public static final int title_activity_login=0x7f06000d;
+        public static final int title_activity_main=0x7f060007;
+        public static final int title_activity_new_med=0x7f06000b;
+        public static final int title_activity_new_time=0x7f06000c;
+        public static final int title_activity_patient=0x7f06000a;
+        public static final int title_activity_patient_list=0x7f060009;
+        public static final int title_activity_splash=0x7f060008;
     }
     public static final class style {
         /** 
@@ -142,34 +146,12 @@ public final class R {
         res/values-v11/styles.xml on API 14+ devices.
     
  API 14 theme customizations can go here. 
-
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
-
-        Base application theme for API 11+. This theme completely replaces
-        AppBaseTheme from res/values/styles.xml on API 11+ devices.
-    
- API 11 theme customizations can go here. 
-
-        Base application theme for API 14+. This theme completely replaces
-        AppBaseTheme from BOTH res/values/styles.xml and
-        res/values-v11/styles.xml on API 14+ devices.
-    
- API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
- Application theme. 
          */
-        public static final int AppTheme=0x7f060001;
-        public static final int App_ButtonStyle=0x7f060003;
-        public static final int App_EditTextStyle=0x7f060002;
+        public static final int AppTheme=0x7f080001;
+        public static final int App_ButtonStyle=0x7f080003;
+        public static final int App_EditTextStyle=0x7f080002;
     }
 }
