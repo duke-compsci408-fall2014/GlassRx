@@ -73,7 +73,7 @@ public class LowFreqLiveCardService extends Service {
     public void onDestroy() {
         if (mLiveCard != null && mLiveCard.isPublished()) {
           //Stop the handler from queuing more Runnable jobs
-            mUpdateLiveCardRunnable.setStop(true);
+            //mUpdateLiveCardRunnable.setStop(true);
 
             mLiveCard.unpublish();
             mLiveCard = null;
@@ -110,15 +110,15 @@ public class LowFreqLiveCardService extends Service {
                 mHandler.postDelayed(mUpdateLiveCardRunnable, DELAY_MILLIS);
             }
         }
-
-        public boolean isStopped() {
-            return mIsStopped;
-        }
-
-        public void setStop(boolean isStopped) {
-            this.mIsStopped = isStopped;
-        }
-    }
+//
+//        public boolean isStopped() {
+//            return mIsStopped;
+//        }
+//
+//        public void setStop(boolean isStopped) {
+//            this.mIsStopped = isStopped;
+//        }
+//    }
 
     @Override
     public IBinder onBind(Intent intent) {
