@@ -51,8 +51,12 @@
             android:label="@string/title_activity_patient" >
         </activity>
         <activity
-            android:name="com.compsci408.androidrx.provider.NewMedActivity"
+            android:name=".provider.NewMedActivity"
             android:label="@string/title_activity_new_med" >
+        </activity>
+        <activity
+            android:name="com.compsci408.androidrx.provider.NewTimeActivity"
+            android:label="@string/title_activity_new_time" >
         </activity>
     </application>
 
