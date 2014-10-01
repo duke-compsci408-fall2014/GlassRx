@@ -18,7 +18,7 @@ import android.widget.EditText;
 public class NewMedActivity extends Activity {
 
 	Button addMedComplete;
-	Button addTimeComplete;
+	Button addTime;
 	EditText newMedName;
 	
 	@Override
@@ -28,7 +28,7 @@ public class NewMedActivity extends Activity {
 		
 		addMedComplete = (Button) findViewById(R.id.add_med_complete);
 		newMedName = (EditText) findViewById(R.id.new_med_title);
-		addTimeComplete = (Button) findViewById(R.id.add_time_complete);
+		addTime = (Button) findViewById(R.id.add_time_complete);
 		
 		addMedComplete.setOnClickListener(new OnClickListener() {
 
@@ -44,7 +44,7 @@ public class NewMedActivity extends Activity {
 			
 		});
 		
-		addTimeComplete.setOnClickListener(new OnClickListener() {
+		addTime.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(NewMedActivity.this, NewTimeActivity.class);
@@ -77,7 +77,4 @@ public class NewMedActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void addNewTime(View view){
-		
-	}
 }
