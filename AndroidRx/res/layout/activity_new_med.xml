@@ -18,6 +18,7 @@
         android:hint="@string/new_med"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+
     <TableLayout
         android:id="@+id/tableLayout1"
         android:layout_width="wrap_content"
@@ -109,30 +110,42 @@
         </TableRow>
     </TableLayout>
 
+=======
+>>>>>>> 95cdca5a3f56f8ccc6b1600e301725674dba9c38
     <Button
         android:id="@+id/add_med_complete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dosagePicker"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp"
         android:text="Add" />
 
-    <SeekBar
-        android:id="@+id/seekBarDosage"
+    <Button
+        android:id="@+id/add_time_complete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tableLayout1"
-        android:layout_toRightOf="@+id/new_med_title"
-        android:max="10" />
+        android:layout_above="@+id/add_med_complete"
+        android:layout_alignLeft="@+id/add_med_complete"
+        android:layout_marginBottom="30dp"
+        android:onClick="addNewTime"
+        android:text="Add New Time" />
+
+    <NumberPicker
+        android:id="@+id/dosagePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/new_med_title"
+        android:layout_below="@+id/new_med_title"
+        android:layout_marginTop="41dp" />
 
     <TextView
         android:id="@+id/dosageLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/seekBarDosage"
-        android:layout_below="@+id/seekBarDosage"
-        android:layout_marginRight="25dp"
+        android:layout_alignRight="@+id/new_med_title"
+        android:layout_alignTop="@+id/dosagePicker"
+        android:layout_marginTop="50dp"
         android:text="Dosage"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

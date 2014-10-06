@@ -1,9 +1,5 @@
 package com.compsci408.glassrx;
 
-import com.example.glassrx.R;
-import com.google.android.glass.view.WindowUtils;
-import com.google.android.glass.widget.CardBuilder;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +7,10 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.example.glassrx.R;
+import com.google.android.glass.view.WindowUtils;
+import com.google.android.glass.widget.CardBuilder;
 
 
 public class MainActivity extends Activity {

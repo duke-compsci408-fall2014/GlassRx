@@ -1,0 +1,10 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.patientpretotype.MainActivity" >
+    
+    
+    <item android:id="@+id/updated_pill_info" android:title="@string/more_info"></item>
+    <item android:id="@+id/time_to_take_pill" android:title="@string/med_list"></item>
+
+
+</TextView>
