@@ -109,6 +109,15 @@
         </TableRow>
     </TableLayout>
 
+    <TextView
+        android:id="@+id/dosageLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/dosagePicker"
+        android:layout_toRightOf="@+id/dosagePicker"
+        android:text="Dosage"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <Button
         android:id="@+id/add_med_complete"
         android:layout_width="match_parent"
@@ -117,23 +126,12 @@
         android:layout_centerHorizontal="true"
         android:text="Add" />
 
-    <SeekBar
-        android:id="@+id/seekBarDosage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tableLayout1"
-        android:layout_toRightOf="@+id/new_med_title"
-        android:max="10" />
-
-    <TextView
-        android:id="@+id/dosageLabel"
+    <NumberPicker
+        android:id="@+id/dosagePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/seekBarDosage"
-        android:layout_below="@+id/seekBarDosage"
-        android:layout_marginRight="25dp"
-        android:text="Dosage"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_alignBottom="@+id/tableLayout1"
+        android:layout_toRightOf="@+id/tableLayout1"
+        android:layout_toEndOf="@+id/tableLayout1" />
 
 </RelativeLayout>

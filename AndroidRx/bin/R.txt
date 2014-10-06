@@ -17,7 +17,7 @@ int id account_type 0x7f0a0006
 int id action_logout 0x7f0a0023
 int id action_settings 0x7f0a0022
 int id add_med 0x7f0a001d
-int id add_med_complete 0x7f0a001b
+int id add_med_complete 0x7f0a0019
 int id androidrx 0x7f0a0008
 int id androidrx_login_form 0x7f0a0002
 int id checkBoxFriday 0x7f0a0014
@@ -27,8 +27,7 @@ int id checkBoxSunday 0x7f0a0018
 int id checkBoxThursday 0x7f0a0012
 int id checkBoxTuesday 0x7f0a000e
 int id checkBoxWednesday 0x7f0a0010
-int id dosageLabel 0x7f0a0019
-int id dosagePicker 0x7f0a001a
+int id dosageLabel 0x7f0a001b
 int id friday 0x7f0a0013
 int id login 0x7f0a0005
 int id login_form 0x7f0a0001
@@ -40,6 +39,7 @@ int id patient_list 0x7f0a001f
 int id patient_med_list 0x7f0a001e
 int id patient_name 0x7f0a001c
 int id saturday 0x7f0a0015
+int id seekBarDosage 0x7f0a001a
 int id sign_in_button 0x7f0a0007
 int id splash_layout 0x7f0a0020
 int id splash_title_view 0x7f0a0021

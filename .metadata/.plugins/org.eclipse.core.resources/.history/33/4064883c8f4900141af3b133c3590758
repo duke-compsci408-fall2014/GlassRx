@@ -121,19 +121,16 @@
         android:id="@+id/seekBarDosage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tableLayout1"
-        android:layout_toRightOf="@+id/new_med_title"
-        android:max="10" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/new_med_title"
+        android:layout_below="@+id/tableLayout1" />
 
     <TextView
         android:id="@+id/dosageLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/seekBarDosage"
-        android:layout_below="@+id/seekBarDosage"
-        android:layout_marginRight="25dp"
         android:text="Dosage"
+        android:layout_below="@+id/seekBarDosage"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
