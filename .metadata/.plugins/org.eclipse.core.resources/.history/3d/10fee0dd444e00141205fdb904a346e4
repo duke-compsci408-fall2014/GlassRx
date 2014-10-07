@@ -1,0 +1,24 @@
+package com.compsci408.datatypes;
+
+/**
+ * Enum describing possible pill shapes
+ * @author Evan
+ *
+ */
+public enum Shape {
+	ROUND,
+	CAPSULE,
+	OVAL,
+	EGG,
+	BARREL,
+	RECTANGLE,
+	USHAPED,
+	FIGURE8,
+	HEART,
+	KIDNEY,
+	GEAR,
+	CHARACTER
+	
+	
+
+}

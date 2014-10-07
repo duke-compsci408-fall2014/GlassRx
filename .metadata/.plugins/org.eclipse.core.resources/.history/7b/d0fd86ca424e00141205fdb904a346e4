@@ -1,0 +1,7 @@
+package com.compsci408.datatypes;
+
+public class Medication {
+
+	private static int mId;
+	private static String mName;
+}

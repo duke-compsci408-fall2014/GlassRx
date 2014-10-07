@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.widget.RemoteViews;
 
-import com.example.glassrx.R;
+import com.compsci408.glassrx.R;
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
 

@@ -1,0 +1,17 @@
+package com.compsci408.datatypes;
+
+/**
+ * Class describing the attributes of a
+ * medication object.  Includes names,
+ * colors, shapes, and associated alarms.
+ * @author Evan
+ *
+ */
+public class Medication {
+
+	private static int mId;
+	private static String mName;
+	private static int mColor;
+	private static int mShape;
+	
+}
