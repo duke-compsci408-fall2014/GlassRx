@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+    <issue id="NewApi" severity="ignore" />
+>>>>>>> f629fe81bc4eff8220714f1517832a9770d91f6a
+>>>>>>> 95cdca5a3f56f8ccc6b1600e301725674dba9c38
+</lint>

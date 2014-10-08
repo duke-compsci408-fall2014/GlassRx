@@ -6,8 +6,6 @@ import com.compsci408.androidrx.LoginActivity;
 import com.compsci408.androidrx.R;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -60,6 +58,7 @@ public class PatientActivity extends Activity {
 				intent.putExtra("PatientName", patientName.getText().toString());
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+				finish();
 			}
 			
 		});

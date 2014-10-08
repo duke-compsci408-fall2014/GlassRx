@@ -1,0 +1,12 @@
+package com.compsci408.androidrx.provider;
+
+import android.content.Context;
+import android.widget.ArrayAdapter;
+
+public class PatientMedListAdapter<Medication> extends ArrayAdapter<Medication> {
+
+	public PatientMedListAdapter(Context context, int layoutResource, Medication[] data) {
+		super(context, resource);
+	}
+
+}
