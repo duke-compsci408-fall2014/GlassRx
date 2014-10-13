@@ -11,7 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+<<<<<<< HEAD
 import com.compsci408.rxcore.datatypes.Medication;
+=======
+import com.compsci408.datatypes.Medication; //don't have this folder?
+>>>>>>> a5aea2eaddf82fd71e867f70cf33c874af615997
 
 public class PatientMedListAdapter extends ArrayAdapter<Medication> {
 
