@@ -1,0 +1,65 @@
+package com.compsci408.requests;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import android.os.AsyncTask;
+import android.util.Log;
+
+import com.compsci408.datatypes.Constants;
+
+public class PostTask extends AsyncTask<String, Void, String>{
+
+private static final String TAG = "GetTask";
+	
+	private InputStream is = null;
+	private ResponseCallback mCallback;
+	
+	public PostTask(ResponseCallback callback) {
+		mCallback = callback;
+	}
+	
+	@Override
+	protected String doInBackground(String... address) {
+		URL url;
+		HttpURLConnection urlConnection = null;
+		String result = null;
+		try {
+	        url = new URL(address[0]);
+
+	        urlConnection = (HttpURLConnection) url.openConnection();
+	        
+	        urlConnection.setReadTimeout(Constants.READ_TIMEOUT);
+	        urlConnection.setConnectTimeout(Constants.CONNECT_TIMEOUT);
+	        urlConnection.setRequestMethod(Constants.POST);
+	        urlConnection.setDoInput(true);
+	        urlConnection.connect();
+	        
+	        int response = urlConnection.getResponseCode();
+	        Log.d(TAG, "Server response code:  " + response);
+	        is = urlConnection.getInputStream();
+	        
+	        result = NetworkUtils.readStream(is);
+	    } catch (Exception e) {
+	    	// TODO:  Improve exception handling
+	        e.printStackTrace();
+	    } finally {
+	    	try {
+				is.close();
+			} catch (IOException e) {
+				// TODO:  Improve exception handling
+				e.printStackTrace();
+			}
+	    	urlConnection.disconnect();
+	    }
+		return result;
+	}
+	
+	@Override
+	public void onPostExecute(String result) {
+		mCallback.onResponseReceived(result);
+	}
+
+}

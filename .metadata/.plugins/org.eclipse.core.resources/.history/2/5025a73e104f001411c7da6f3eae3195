@@ -1,0 +1,35 @@
+package com.compsci408.requests;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+public class NetworkUtils {
+	
+	public static String readStream(InputStream stream, int len) throws IOException {
+		Reader reader = null;
+		reader = new InputStreamReader(stream, "UTF-8");
+		char[] buffer = new char[len];
+		reader.read(buffer);
+		return new String(buffer);
+	}
+	
+	/**
+	 * Check the current network connectivity
+	 * @return  Boolean indicating availability of network connection
+	 */
+	private boolean checkConnection(Context context) {
+		ConnectivityManager connMgr = (ConnectivityManager) 
+		        context.getSystemService(Context.CONNECTIVITY_SERVICE);
+	    
+		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+	    return networkInfo != null && networkInfo.isConnected();
+	}
+	
+
+}

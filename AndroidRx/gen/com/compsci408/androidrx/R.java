@@ -44,8 +44,8 @@ public final class R {
     }
     public static final class id {
         public static final int account_type=0x7f0a0006;
-        public static final int action_logout=0x7f0a002d;
-        public static final int action_settings=0x7f0a002c;
+        public static final int action_logout=0x7f0a0030;
+        public static final int action_settings=0x7f0a002f;
         public static final int add_med=0x7f0a0027;
         public static final int add_med_complete=0x7f0a0019;
         public static final int add_time_complete=0x7f0a001b;
@@ -72,6 +72,9 @@ public final class R {
         public static final int login=0x7f0a0005;
         public static final int login_form=0x7f0a0001;
         public static final int login_progress=0x7f0a0000;
+        public static final int medIcon=0x7f0a002c;
+        public static final int medName=0x7f0a002d;
+        public static final int medNickname=0x7f0a002e;
         public static final int monday=0x7f0a000b;
         public static final int new_med_title=0x7f0a0009;
         public static final int password=0x7f0a0004;
@@ -98,6 +101,7 @@ public final class R {
         public static final int activity_patient=0x7f030004;
         public static final int activity_patient_list=0x7f030005;
         public static final int activity_splash=0x7f030006;
+        public static final int med_list_item=0x7f030007;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -109,30 +113,31 @@ public final class R {
     public static final class string {
         public static final int action_logout=0x7f050003;
         public static final int action_settings=0x7f050002;
-        public static final int action_sign_in=0x7f050010;
-        public static final int action_sign_in_short=0x7f050011;
+        public static final int action_sign_in=0x7f050011;
+        public static final int action_sign_in_short=0x7f050012;
         public static final int add_med=0x7f050005;
         public static final int androidrx=0x7f050004;
         public static final int app_name=0x7f050000;
-        public static final int error_field_required=0x7f050015;
-        public static final int error_incorrect_password=0x7f050014;
-        public static final int error_invalid_password=0x7f050013;
-        public static final int error_invalid_username=0x7f050012;
+        public static final int error_field_required=0x7f050016;
+        public static final int error_incorrect_password=0x7f050015;
+        public static final int error_invalid_password=0x7f050014;
+        public static final int error_invalid_username=0x7f050013;
         public static final int hello_world=0x7f050001;
+        public static final int medication_icon=0x7f050007;
         public static final int new_med=0x7f050006;
-        public static final int patient=0x7f050016;
-        public static final int prompt_password=0x7f05000f;
+        public static final int patient=0x7f050017;
+        public static final int prompt_password=0x7f050010;
         /**  Strings related to login 
          */
-        public static final int prompt_username=0x7f05000e;
-        public static final int provider=0x7f050017;
-        public static final int title_activity_login=0x7f05000d;
-        public static final int title_activity_main=0x7f050007;
-        public static final int title_activity_new_med=0x7f05000b;
-        public static final int title_activity_new_time=0x7f05000c;
-        public static final int title_activity_patient=0x7f05000a;
-        public static final int title_activity_patient_list=0x7f050009;
-        public static final int title_activity_splash=0x7f050008;
+        public static final int prompt_username=0x7f05000f;
+        public static final int provider=0x7f050018;
+        public static final int title_activity_login=0x7f05000e;
+        public static final int title_activity_main=0x7f050008;
+        public static final int title_activity_new_med=0x7f05000c;
+        public static final int title_activity_new_time=0x7f05000d;
+        public static final int title_activity_patient=0x7f05000b;
+        public static final int title_activity_patient_list=0x7f05000a;
+        public static final int title_activity_splash=0x7f050009;
     }
     public static final class style {
         /** 

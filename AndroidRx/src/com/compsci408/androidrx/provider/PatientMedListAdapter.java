@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.compsci408.datatypes.Medication;
+import com.compsci408.rxcore.datatypes.Medication;
 
 public class PatientMedListAdapter extends ArrayAdapter<Medication> {
 

@@ -16,3 +16,22 @@
 1412702292974	Rename field 'alarmTone'
 1412702299419	Rename field 'name'
 1412702305412	Rename field 'isEnabled'
+1412712537744	Rename type 'HttpGet'
+1412712601660	Delete element
+1412729147302	Rename type 'FieldNames'
+1412729229284	Delete element
+1412732127138	Rename type 'HttpGet'
+1412732307503	Rename type 'HttpClient'
+1412732649485	Rename type 'HttpPost'
+1412788513185	Delete element
+1412788529838	Rename type 'GetResponse'
+1412788540401	Rename method 'onGetComplete'
+1412788593723	Rename local variable 'response'
+1412789050957	Rename type 'Utils'
+1412790514012	Rename type 'RESTClient'
+1412796224300	Rename type 'NetworkUtils'
+1412796415477	Rename type 'HttpRequest'
+1412796971626	Rename package 'com.compsci408.alarms'
+1412796979890	Rename package 'com.compsci408.requests'
+1412796987960	Rename package 'com.compsci408.JSON'
+1412796994892	Rename package 'com.compsci408.datatypes'

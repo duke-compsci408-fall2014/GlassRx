@@ -8,6 +8,7 @@
     <string name="androidrx">AndroidRx</string>
     <string name="add_med">+ Add Medication</string>
     <string name="new_med">New Medication</string>
+    <string name="medication_icon">Medication Icon</string>
 
     <!-- For testing purposes only; remove when real data is available -->
     <string-array name="patient_list">

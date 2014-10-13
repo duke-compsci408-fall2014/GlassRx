@@ -1,0 +1,7 @@
+package com.compsci408.requests;
+
+public abstract class ResponseCallback {
+
+	abstract void onGetComplete(String response);
+	
+}
