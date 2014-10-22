@@ -9,8 +9,6 @@ import android.os.IBinder;
 import android.widget.RemoteViews;
 
 import com.compsci408.glassrx.R;
-import com.compsci408.glassrx.R.id;
-import com.compsci408.glassrx.R.layout;
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
 
@@ -98,7 +96,8 @@ public class LowFreqLiveCardService extends Service {
          * live card(e.g, making a web call), do this in another thread or
          * AsyncTask.
          */
-        public void run(){
+        @Override
+		public void run(){
 
 
                 // Update the remote view with current pill info and make a notification somehow

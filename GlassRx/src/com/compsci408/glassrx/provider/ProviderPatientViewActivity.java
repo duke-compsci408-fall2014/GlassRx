@@ -9,8 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.compsci408.glassrx.R;
-import com.compsci408.glassrx.R.id;
-import com.compsci408.glassrx.R.menu;
 import com.google.android.glass.view.WindowUtils;
 import com.google.android.glass.widget.CardBuilder;
 
