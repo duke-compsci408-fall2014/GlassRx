@@ -1,4 +1,4 @@
-package com.compsci408.glassrx;
+package com.compsci408.glassrx.provider;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,10 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.compsci408.glassrx.R;
+import com.compsci408.glassrx.R.id;
+import com.compsci408.glassrx.R.menu;
 import com.google.android.glass.view.WindowUtils;
 import com.google.android.glass.widget.CardBuilder;
 
-public class MedListActivity extends Activity {
+public class ProviderPatientViewActivity extends Activity {
 
 	View card;
 	
@@ -21,7 +23,7 @@ public class MedListActivity extends Activity {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(WindowUtils.FEATURE_VOICE_COMMANDS);
         card = new CardBuilder(this, CardBuilder.Layout.TEXT)
-        .setText("1.  Aricept\n2.  Vitamin E\n3.  Flintstones")
+        .setText("Jurrell Casey\n1.  Aricept\n2.  Vitamin E\n3.  Flintstones")
         .setTimestamp("just now")
         .getView();
 		
@@ -50,10 +52,10 @@ public class MedListActivity extends Activity {
         if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS) {
             switch (item.getItemId()) {
                 case R.id.main_menu_item:
-                	startActivity(new Intent(this, MainActivity.class));
+                	startActivity(new Intent(this, ProviderMainActivity.class));
                     break;
                 case R.id.item_number_menu_item:
-                    startActivity(new Intent(this, MoreInfoActivity.class));
+                    startActivity(new Intent(this, ProviderMoreInfoActivity.class));
                     break;
                 default:
                     return true;
@@ -67,7 +69,7 @@ public class MedListActivity extends Activity {
     @Override
     public boolean onKeyDown(int keycode, KeyEvent event) {
         if (keycode == KeyEvent.KEYCODE_DPAD_CENTER) {
-        	startActivity(new Intent(this, MainActivity.class));
+        	startActivity(new Intent(this, ProviderMainActivity.class));
             return true;
         }
         return super.onKeyDown(keycode, event);

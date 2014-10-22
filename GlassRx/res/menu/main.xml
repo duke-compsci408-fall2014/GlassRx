@@ -2,6 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.patientpretotype.MainActivity" >
     
+    <item android:id="@+id/user_patient" android:title="@string/patient"></item>
+    <item android:id="@+id/user_provider" android:title="@string/provider"></item>
+    
     
     <item android:id="@+id/more_info_menu_item" android:title="@string/more_info"></item>
     <item android:id="@+id/med_list_menu_item" android:title="@string/med_list"></item>

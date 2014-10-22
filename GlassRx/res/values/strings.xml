@@ -8,10 +8,16 @@
     <string name="start_glassrx">Start Glass RX</string>
     
 	<string name="main">Main</string>
+	
+
+		
+	
+	
     <string name="more_info">More Info</string>
     <string name="med_list">Med List</string>
     <string name="item_one">Item One</string>
-    
+	<string name="patient">Patient</string>
+    <string name="provider">Provider</string>
     <string name="aricept">Aricept</string>
     <string-array name="aricept_alert">
         <item >Name:  Aricept</item>

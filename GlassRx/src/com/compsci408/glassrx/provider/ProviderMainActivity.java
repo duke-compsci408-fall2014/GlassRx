@@ -1,18 +1,21 @@
-package com.compsci408.glassrx;
+package com.compsci408.glassrx.provider;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.compsci408.glassrx.patient.PatientMainActivity;
-import com.compsci408.glassrx.provider.ProviderMainActivity;
+import com.compsci408.glassrx.R;
+import com.compsci408.glassrx.R.id;
+import com.compsci408.glassrx.R.menu;
 import com.google.android.glass.view.WindowUtils;
 import com.google.android.glass.widget.CardBuilder;
 
-public class MainActivity extends Activity {
+
+public class ProviderMainActivity extends Activity {
 
     View card;
 	
@@ -49,11 +52,11 @@ public class MainActivity extends Activity {
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS) {
             switch (item.getItemId()) {
-                case R.id.user_patient:
-                	startActivity(new Intent(this, PatientMainActivity.class));
+                case R.id.more_info_menu_item:
+                	startActivity(new Intent(this, ProviderMoreInfoActivity.class));
                     break;
-                case R.id.user_provider:
-                    startActivity(new Intent(this, ProviderMainActivity.class));
+                case R.id.med_list_menu_item:
+                    startActivity(new Intent(this, ProviderPatientViewActivity.class));
                     break;
                 default:
                     return true;
@@ -64,14 +67,14 @@ public class MainActivity extends Activity {
         return super.onMenuItemSelected(featureId, item);
     }
     
-//    @Override
-//    public boolean onKeyDown(int keycode, KeyEvent event) {
-//        if (keycode == KeyEvent.KEYCODE_DPAD_CENTER) {
-//        	startActivity(new Intent(this, PatientMoreInfoActivity.class));
-//            return true;
-//        }
-//        return super.onKeyDown(keycode, event);
-//    }
+    @Override
+    public boolean onKeyDown(int keycode, KeyEvent event) {
+        if (keycode == KeyEvent.KEYCODE_DPAD_CENTER) {
+        	startActivity(new Intent(this, ProviderMoreInfoActivity.class));
+            return true;
+        }
+        return super.onKeyDown(keycode, event);
+    }
     
     @Override
     public void onResume() {

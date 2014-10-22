@@ -1,4 +1,4 @@
-package com.compsci408.glassrx;
+package com.compsci408.glassrx.provider;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,10 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.compsci408.glassrx.R;
+import com.compsci408.glassrx.R.id;
+import com.compsci408.glassrx.R.menu;
 import com.google.android.glass.view.WindowUtils;
 import com.google.android.glass.widget.CardBuilder;
 
-public class MoreInfoActivity extends Activity {
+public class ProviderMoreInfoActivity extends Activity {
 
 	View card;
 	
@@ -50,10 +52,10 @@ public class MoreInfoActivity extends Activity {
         if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS) {
             switch (item.getItemId()) {
                 case R.id.main_menu_item:
-                	startActivity(new Intent(this, MainActivity.class));
+                	startActivity(new Intent(this, ProviderMainActivity.class));
                     break;
                 case R.id.med_list_menu_item:
-                    startActivity(new Intent(this, MedListActivity.class));
+                    startActivity(new Intent(this, ProviderPatientViewActivity.class));
                     break;
                 default:
                     return true;
@@ -67,7 +69,7 @@ public class MoreInfoActivity extends Activity {
     @Override
     public boolean onKeyDown(int keycode, KeyEvent event) {
         if (keycode == KeyEvent.KEYCODE_DPAD_CENTER) {
-        	startActivity(new Intent(this, MedListActivity.class));
+        	startActivity(new Intent(this, ProviderPatientViewActivity.class));
             return true;
         }
         return super.onKeyDown(keycode, event);

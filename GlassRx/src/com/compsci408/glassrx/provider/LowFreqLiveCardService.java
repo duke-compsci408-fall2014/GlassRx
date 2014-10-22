@@ -1,4 +1,4 @@
-package com.compsci408.glassrx;
+package com.compsci408.glassrx.provider;
 import java.util.Random;
 
 import android.app.PendingIntent;
@@ -9,6 +9,8 @@ import android.os.IBinder;
 import android.widget.RemoteViews;
 
 import com.compsci408.glassrx.R;
+import com.compsci408.glassrx.R.id;
+import com.compsci408.glassrx.R.layout;
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
 
@@ -54,7 +56,7 @@ public class LowFreqLiveCardService extends Service {
 
             // Set up the live card's action with a pending intent
             // to show a menu when tapped
-            Intent menuIntent = new Intent(this, MainActivity.class);
+            Intent menuIntent = new Intent(this, ProviderMainActivity.class);
             menuIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
             mLiveCard.setAction(PendingIntent.getActivity(
