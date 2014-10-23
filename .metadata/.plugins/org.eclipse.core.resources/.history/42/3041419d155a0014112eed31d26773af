@@ -1,0 +1,22 @@
+package com.compsci408.androidrx.provider;
+
+import com.compsci408.rxcore.alarms.Alarm;
+import com.compsci408.rxcore.datatypes.Medication;
+
+import android.content.Context;
+import android.widget.ArrayAdapter;
+
+public class AlarmListAdapter extends ArrayAdapter<Alarm> {
+
+	Context mContext;
+	int mLayoutId;
+	Medication[] mData = null;
+	
+	public AlarmListAdapter(Context context, int layoutResource, List<Alarm> data) {
+		super(context, layoutResource, data);
+		mContext = context;
+		mLayoutId = layoutResource;
+		mData = data
+	}
+
+}

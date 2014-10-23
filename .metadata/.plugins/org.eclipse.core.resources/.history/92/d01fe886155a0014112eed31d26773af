@@ -1,0 +1,15 @@
+package com.compsci408.androidrx.provider;
+
+import com.compsci408.rxcore.alarms.Alarm;
+
+import android.content.Context;
+import android.widget.ArrayAdapter;
+
+public class AlarmListAdapter extends ArrayAdapter<Alarm> {
+
+	public AlarmListAdapter(Context context, int resource) {
+		super(context, resource);
+		// TODO Auto-generated constructor stub
+	}
+
+}

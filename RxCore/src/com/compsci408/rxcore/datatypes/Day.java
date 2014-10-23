@@ -6,20 +6,26 @@ package com.compsci408.rxcore.datatypes;
  * @author Evan
  */
 public enum Day {
-	SUNDAY(0),
-	MONDAY(1),
-	TUESDAY(2),
-	WEDNESDAY(3),
-    THURSDAY(4),
-    FRIDAY(5),
-    SATURDAY(6); 
+	SUNDAY(0, "Sunday"),
+	MONDAY(1, "Monday"),
+	TUESDAY(2, "Tuesday"),
+	WEDNESDAY(3, "Wednesday"),
+    THURSDAY(4, "Thursday"),
+    FRIDAY(5, "Friday"),
+    SATURDAY(6, "Saturday"); 
     
     private final int mId;
-	Day(int id) {
+    private final String mName;
+	Day(int id, String name) {
 		mId = id;
+		mName = name;
 	}
 	
 	public int getId() {
 		return mId;
+	}
+	
+	public String getName() {
+		return mName;
 	}
 }

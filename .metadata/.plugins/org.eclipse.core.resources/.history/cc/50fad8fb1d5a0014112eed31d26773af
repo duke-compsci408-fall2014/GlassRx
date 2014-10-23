@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.compsci408.androidrx.MedicationActivity" >
+
+    <ImageView
+        android:id="@+id/medImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/medication_icon"
+        android:src="@drawable/acetaminophen" />
+
+    <TextView
+        android:id="@+id/medNameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/medImage"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/medNicknameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:padding="5dp"
+        android:layout_below="@+id/medImage"
+        android:text="@string/med_nickname"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/medDosageLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/medNicknameLabel"
+        android:layout_alignStart="@+id/medNicknameLabel"
+        android:padding="5dp"
+        android:layout_below="@+id/medNicknameLabel"
+        android:text="@string/med_dosage"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/medNickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/medNicknameLabel"
+        android:layout_alignBottom="@+id/medNicknameLabel"
+        android:layout_toRightOf="@+id/medNicknameLabel"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/medDosage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/medDosageLabel"
+        android:layout_alignBottom="@+id/medDosageLabel"
+        android:layout_toRightOf="@+id/medDosageLabel"
+        android:text="" />
+
+</RelativeLayout>

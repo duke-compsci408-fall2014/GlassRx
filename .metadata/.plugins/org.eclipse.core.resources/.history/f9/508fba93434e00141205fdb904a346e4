@@ -1,6 +1,0 @@
-package com.compsci408.datatypes;
-
-public enum Days {
-	SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
-    THURSDAY, FRIDAY, SATURDAY 
-}

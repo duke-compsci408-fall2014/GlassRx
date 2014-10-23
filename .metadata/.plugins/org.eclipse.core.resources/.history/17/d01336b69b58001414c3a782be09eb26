@@ -1,0 +1,37 @@
+package com.compsci408.rxcore.alarms;
+
+import com.compsci408.rxcore.database.SQLiteHelper;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+
+public class AlarmsDataSource {
+	
+	private SQLiteDatabase database;
+	private SQLiteHelper dbHelper;
+	private String[] allColumns = { SQLiteHelper.COLUMN_ID,
+			SQLiteHelper.COLUMN_NAME, SQLiteHelper.COLUMN_HOUR,
+			SQLiteHelper.COLUMN_MINUTE, SQLiteHelper.COLUMN_DAY,
+			SQLiteHelper.COLUMN_MED, SQLiteHelper.COLUMN_ENABLED };
+	
+	
+	public AlarmsDataSource(Context context) {
+	    dbHelper = new SQLiteHelper(context);
+	  }
+
+	  public void open() throws SQLException {
+	    database = dbHelper.getWritableDatabase();
+	  }
+
+	  public void close() {
+	    dbHelper.close();
+	  }
+	  
+	  public Alarm createAlarm(int hour, int min, int day,
+			  String name) {
+		  ContentValues values = new ContentValues();
+	  }
+
+}

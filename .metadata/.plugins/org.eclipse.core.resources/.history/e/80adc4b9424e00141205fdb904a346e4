@@ -1,7 +1,0 @@
-package com.compsci408.datatypes;
-
-public class Medication {
-
-	private static int id;
-	private 
-}

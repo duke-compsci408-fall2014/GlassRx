@@ -3,6 +3,7 @@ package com.compsci408.androidrx.provider;
 import java.util.ArrayList;
 
 import com.compsci408.androidrx.LoginActivity;
+import com.compsci408.androidrx.MedicationActivity;
 import com.compsci408.androidrx.R;
 
 import android.app.Activity;
@@ -12,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -43,6 +46,21 @@ public class PatientActivity extends Activity {
 		adapter.addAll(getResources().getStringArray(R.array.med_list));
 		medList = (ListView) findViewById(R.id.patient_med_list);
 	    medList.setAdapter(adapter);
+	    medList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				
+				Intent intent = new Intent(PatientActivity.this, MedicationActivity.class);
+				intent.putExtra("MedName", parent.getItemAtPosition(position).toString());
+				intent.putExtra("Nickname", "The Round White One");
+				intent.putExtra("Dosage", "2 pills");
+				startActivity(intent);
+				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+			}
+	    	
+	    });
 		
 	    if (intent.getStringExtra("NewMed") != null) {
 			listItems.add(intent.getStringExtra("NewMed"));
@@ -54,7 +72,7 @@ public class PatientActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(PatientActivity.this, NewMedActivity.class);
+				Intent intent = new Intent(PatientActivity.this, EditMedActivity.class);
 				intent.putExtra("PatientName", patientName.getText().toString());
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

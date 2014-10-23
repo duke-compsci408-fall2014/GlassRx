@@ -5,23 +5,28 @@ import com.compsci408.androidrx.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
-public class PatientListActivity extends Activity {
+public class PatientListActivity extends Activity implements SearchView.OnQueryTextListener {
 
 	ListView patientList;
+	SearchView patientSearch;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_patient_list);
 		
+		patientSearch = (SearchView) findViewById(R.id.patient_search);
+		setUpSearch();
 		patientList = (ListView) findViewById(R.id.patient_list);
 		patientList.setOnItemClickListener(new OnItemClickListener() {
 
@@ -36,8 +41,15 @@ public class PatientListActivity extends Activity {
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 			}
-			
 		});
+		patientList.setTextFilterEnabled(true);
+	}
+	
+	private void setUpSearch() {
+		patientSearch.setIconifiedByDefault(false);
+        patientSearch.setOnQueryTextListener(this);
+        patientSearch.setSubmitButtonEnabled(false);
+        patientSearch.setQueryHint("Filter Results");
 	}
 
 	@Override
@@ -60,4 +72,17 @@ public class PatientListActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	 public boolean onQueryTextChange(String newText) {
+	        if (TextUtils.isEmpty(newText)) {
+	            patientList.clearTextFilter();
+	        } else {
+	            patientList.setFilterText(newText.toString());
+	        }
+	        return true;
+	    }
+
+	    public boolean onQueryTextSubmit(String query) {
+	        return false;
+	    }
 }

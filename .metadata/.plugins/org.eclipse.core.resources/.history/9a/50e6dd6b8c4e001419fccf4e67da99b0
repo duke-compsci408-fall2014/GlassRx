@@ -1,7 +1,0 @@
-package com.compsci408.requests;
-
-public abstract class GetResponse {
-
-	public abstract String onGetComplete(String response);
-	
-}

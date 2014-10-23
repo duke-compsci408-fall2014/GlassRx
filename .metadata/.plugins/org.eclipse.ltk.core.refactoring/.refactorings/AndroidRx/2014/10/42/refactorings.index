@@ -1,0 +1,6 @@
+1413477511739	Rename field 'textView1'
+1413477643743	Extracts string 'null' into R.string.med_nickname
+1413477678471	Extracts string 'null' into R.string.med_dosage
+1413488646313	Rename type 'NewMedActivity'
+1413489164758	Rename resource 'activity_new_med.xml'
+1413489254162	Rename field 'timePicker1'
