@@ -1,0 +1,10 @@
+package com.compsci408.rxcore.requests;
+
+/**
+ * Class for handling long polling
+ * to the remote server
+ * @author Evan
+ */
+public class ServerPoll {
+
+}

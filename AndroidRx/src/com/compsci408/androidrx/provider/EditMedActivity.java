@@ -1,12 +1,7 @@
 package com.compsci408.androidrx.provider;
 
-import java.util.List;
-
 import com.compsci408.androidrx.LoginActivity;
 import com.compsci408.androidrx.R;
-import com.compsci408.rxcore.alarms.Alarm;
-import com.compsci408.rxcore.alarms.AlarmsDataSource;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,8 +26,6 @@ public class EditMedActivity extends Activity {
 		setContentView(R.layout.activity_edit_med);
 		
 		Intent intent = getIntent();
-		AlarmsDataSource ds = new AlarmsDataSource(this);
-		ds.open();
 		
 		addMedComplete = (Button) findViewById(R.id.add_med_complete);
 		newMedName = (EditText) findViewById(R.id.new_med_title);
@@ -64,14 +57,7 @@ public class EditMedActivity extends Activity {
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 			}			
-		});	
-		
-//		List<Alarm> alarms = ds.getAllAlarms();
-//		if (alarms != null) {
-//			AlarmListAdapter adapter = new AlarmListAdapter(this, R.layout.alarm_list_item, alarms);
-//			medAlarms.setAdapter(adapter);
-//		}
-		
+		});			
 		
 	}
 

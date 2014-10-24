@@ -25,7 +25,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.compsci408.androidrx.R;
-import com.compsci408.rxcore.alarms.AlarmsDataSource;
 import com.compsci408.rxcore.alarms.AlarmReceiver;
 import com.compsci408.rxcore.datatypes.Day;
 
@@ -48,25 +47,6 @@ public class NewTimeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				AlarmsDataSource ds = new AlarmsDataSource(NewTimeActivity.this);
-				CheckBox[] days = {(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox1),
-						(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox2),
-						(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox3),
-						(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox4),
-						(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox5),
-						(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox6),
-						(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox7) };
-				for (int i = 0; i < days.length; i++) {
-					if (days[i].isChecked()) {
-						ds.createAlarm(tp.getCurrentHour(), tp.getCurrentMinute(), i, Day.values()[i].getName());
-						setAlarm(tp.getCurrentHour(), tp.getCurrentMinute());
-					}
-				}
-				Intent intent = new Intent(NewTimeActivity.this, EditMedActivity.class);
-				intent.putExtra("medName", mMedName);
-				startActivity(intent);
-				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-				finish();
 			}
 			
 		});
@@ -152,22 +132,6 @@ public class NewTimeActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
-//		AlarmsDataSource ds = new AlarmsDataSource(NewTimeActivity.this);
-//		ds.open();
-//		CheckBox[] days = {(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox1),
-//				(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox2),
-//				(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox3),
-//				(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox4),
-//				(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox5),
-//				(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox6),
-//				(CheckBox) NewTimeActivity.this.findViewById(R.id.checkBox7) };
-//		for (int i = 0; i < days.length; i++) {
-//			if (days[i].isChecked()) {
-//				ds.createAlarm(tp.getCurrentHour(), tp.getCurrentMinute(), i, Day.values()[i].getName());
-//				setAlarm(tp.getCurrentHour(), tp.getCurrentMinute());
-//			}
-//		}
-//		ds.close();
 		Intent intent = new Intent(NewTimeActivity.this, EditMedActivity.class);
 		intent.putExtra("medName", mMedName);
 		startActivity(intent);

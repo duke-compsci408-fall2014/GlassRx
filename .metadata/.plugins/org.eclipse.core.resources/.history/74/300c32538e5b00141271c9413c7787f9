@@ -1,0 +1,12 @@
+package com.compsci408.rxcore;
+
+import android.content.Context;
+
+public class Controller {
+	
+	
+	public Controller getInstance(Context context) {
+		
+	}
+
+}

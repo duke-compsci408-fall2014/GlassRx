@@ -3,8 +3,11 @@ package com.compsci408.rxcore.requests;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
-import com.compsci408.rxcore.datatypes.Constants;
+import org.apache.http.NameValuePair;
+
+import com.compsci408.rxcore.Constants;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -15,13 +18,15 @@ import android.util.Log;
  */
 public class GetTask extends AsyncTask<String, Void, String> {
 	
-	private static final String TAG = "PostTask";
+	private static final String TAG = "GetTask";
 	
 	private InputStream is = null;
 	private ResponseCallback mCallback;
+	private List<NameValuePair> mParams;
 	
-	public GetTask(ResponseCallback callback) {
+	public GetTask(ResponseCallback callback, List<NameValuePair> params) {
 		mCallback = callback;
+		mParams = params;
 	}
 	
 	@Override

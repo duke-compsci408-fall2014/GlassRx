@@ -21,12 +21,19 @@ public class ServerRequest {
 			instance = new ServerRequest();
 			instance.mContext = context;
 		}
+		instance.mContext = context;
 		return instance;
 	}
 	
-	public void doGet(String url, ResponseCallback callback) {
+	/**
+	 * Perform a GET request
+	 * @param url  URL of 
+	 * @param callback
+	 * @param params
+	 */
+	public void doGet(String url, ResponseCallback callback, List<NameValuePair> params) {
 		if (RequestUtils.checkConnection(mContext)) {
-			new GetTask(callback).execute(url);
+			new GetTask(callback, params).execute(url);
 		}
 	}
 	
@@ -35,5 +42,4 @@ public class ServerRequest {
 			new PostTask(callback, params).execute(url);
 		}
 	}
-
 }

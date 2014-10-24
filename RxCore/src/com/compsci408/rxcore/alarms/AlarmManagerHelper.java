@@ -1,6 +1,6 @@
 package com.compsci408.rxcore.alarms;
 
-import com.compsci408.rxcore.datatypes.Constants;
+import com.compsci408.rxcore.Constants;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;

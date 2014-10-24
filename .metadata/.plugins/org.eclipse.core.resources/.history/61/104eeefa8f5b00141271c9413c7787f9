@@ -1,0 +1,26 @@
+package com.compsci408.rxcore;
+
+import android.content.Context;
+
+public class Controller {
+	
+	public static Controller instance;
+	public static Context context;
+	
+	public Controller getInstance(Context ctxt) {
+		if (instance == null) {
+			instance = new Controller();
+			context = ctxt;
+		}
+		return instance;
+	}
+	
+	/**
+	 * Log user into the system.
+	 * @return Boolean indicating whether log in was successful
+	 */
+	public boolean logIn(String username, String password) {
+		return false;
+	}
+
+}

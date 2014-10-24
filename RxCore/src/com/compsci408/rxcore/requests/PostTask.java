@@ -12,7 +12,7 @@ import org.apache.http.NameValuePair;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.compsci408.rxcore.datatypes.Constants;
+import com.compsci408.rxcore.Constants;
 
 /**
  * {@link AsyncTask} for performing a POST request.
