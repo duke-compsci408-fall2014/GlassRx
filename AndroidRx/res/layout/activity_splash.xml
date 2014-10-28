@@ -17,8 +17,8 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/androidrx"
-        android:textColor="#FF000000"
         android:visibility="invisible"
+        android:textColor="@color/light_gray"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
 </RelativeLayout>

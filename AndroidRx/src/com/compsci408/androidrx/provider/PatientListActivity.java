@@ -42,7 +42,7 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 			}
 		});
-		patientList.setTextFilterEnabled(true);
+		patientList.setTextFilterEnabled(true);		
 	}
 	
 	private void setUpSearch() {

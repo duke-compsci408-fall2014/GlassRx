@@ -90,12 +90,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			}
 		});
 
+		Typeface typefaceAndroid = Typeface.createFromAsset(getAssets(), "fonts/Android.ttf");
+		
 		mLoginFormView = findViewById(R.id.login_form);
 		mProgressView = findViewById(R.id.login_progress);
 		mAccountTypeView = (Spinner) findViewById(R.id.account_type);
 		mTitleView = (TextView) findViewById(R.id.androidrx);
-		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Android.ttf");
-	    mTitleView.setTypeface(typeface);
+	    mTitleView.setTypeface(typefaceAndroid);
 	}
 
 	private void populateAutoComplete() {

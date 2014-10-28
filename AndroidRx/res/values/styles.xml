@@ -18,6 +18,9 @@
         <item name="android:windowBackground">@drawable/gradient_background</item>
         <item name="android:buttonStyle">@style/App_ButtonStyle</item>
         <item name="android:editTextStyle">@style/App_EditTextStyle</item>
+        <item name="android:spinnerItemStyle">@style/App_SpinnerItemStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/App_SpinnerItemDropDownStyle</item>
+        <item name="android:listViewStyle">@style/App_ListViewStyle</item>
     </style>
     
     <style name="App_EditTextStyle" parent="@android:style/Widget.EditText">
@@ -30,5 +33,18 @@
 	    <item name="android:textStyle">bold</item>
 	    <item name="android:height">45dp</item>
 	</style>
+
+    <style name="App_SpinnerItemStyle" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+
+    <style name="App_SpinnerItemDropDownStyle" parent="@android:style/Widget.DropDownItem.Spinner">
+        <item name="android:textColor">#FF000000</item>
+    </style>
+    
+    <style name="App_ListViewStyle" parent="@android:style/Widget.ListView">
+        <item name="android:background">@drawable/custom_listview</item>
+    </style>
+	
 
 </resources>
