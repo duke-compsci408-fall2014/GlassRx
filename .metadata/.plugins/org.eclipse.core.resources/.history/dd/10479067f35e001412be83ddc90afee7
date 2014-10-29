@@ -1,0 +1,7 @@
+package com.compsci408.androidrx.provider;
+
+import android.app.DialogFragment;
+
+public class DayTimeDialog extends DialogFragment {
+
+}

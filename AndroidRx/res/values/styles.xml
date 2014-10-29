@@ -21,10 +21,12 @@
         <item name="android:spinnerItemStyle">@style/App_SpinnerItemStyle</item>
         <item name="android:spinnerDropDownItemStyle">@style/App_SpinnerItemDropDownStyle</item>
         <item name="android:listViewStyle">@style/App_ListViewStyle</item>
+        <item name="android:calendarViewStyle">@style/App_CalendarViewStyle</item>
     </style>
     
     <style name="App_EditTextStyle" parent="@android:style/Widget.EditText">
 	    <item name="android:background">@drawable/custom_edittext</item>
+	    <item name="android:padding">5dp</item>
 	</style>
 	
     <style name="App_ButtonStyle" parent="@android:style/Widget.Button">
@@ -32,6 +34,7 @@
 	    <item name="android:textColor">#FFFFFFFF</item>
 	    <item name="android:textStyle">bold</item>
 	    <item name="android:height">45dp</item>
+	    <item name="android:padding">5dp</item>
 	</style>
 
     <style name="App_SpinnerItemStyle" parent="@android:style/Widget.TextView.SpinnerItem">
@@ -44,6 +47,12 @@
     
     <style name="App_ListViewStyle" parent="@android:style/Widget.ListView">
         <item name="android:background">@drawable/custom_listview</item>
+        <item name="android:padding">5dp</item>
+    </style>
+    
+    <style name="App_CalendarViewStyle" parent="@android:style/Widget.CalendarView">
+        <item name="android:padding">5dp</item>
+        <item name="android:showWeekNumber">false</item>
     </style>
 	
 

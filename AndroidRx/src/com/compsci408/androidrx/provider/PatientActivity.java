@@ -72,7 +72,7 @@ public class PatientActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(PatientActivity.this, EditMedActivity.class);
+				Intent intent = new Intent(PatientActivity.this, NewMedActivity.class);
 				intent.putExtra("PatientName", patientName.getText().toString());
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

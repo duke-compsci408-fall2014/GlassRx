@@ -6150,3 +6150,881 @@ com.android.ddmlib.ShellCommandUnresponsiveException
 
 !ENTRY com.android.ide.eclipse.adt 2 0 2014-10-27 21:54:44.994
 !MESSAGE Unexpected build target format: android-L
+!SESSION 2014-10-28 13:24:35.806 -----------------------------------------------
+eclipse.buildId=M20130204-1200
+java.version=1.8.0_20
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product com.android.ide.eclipse.adt.package.adtproduct
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product com.android.ide.eclipse.adt.package.adtproduct
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-10-28 13:25:00.419
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2014-10-28 13:25:00.465
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Evan'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 14:52:44.377
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 14:55:01.559
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 14:55:21.042
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 14:55:42.723
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 14:55:50.611
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 14:58:14.768
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:02:03.532
+!MESSAGE No command output when running: 'am start -n com.compsci408.androidrx/com.compsci408.androidrx.SplashActivity -a android.intent.action.MAIN -c android.intent.category.LAUNCHER' on device emulator-5554
+!STACK 0
+com.android.ddmlib.ShellCommandUnresponsiveException
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:430)
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:347)
+	at com.android.ddmlib.Device.executeShellCommand(Device.java:609)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:67)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:109)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1293)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1305)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launchApp(AndroidLaunchController.java:1277)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.simpleLaunch(AndroidLaunchController.java:913)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.continueLaunch(AndroidLaunchController.java:755)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launch(AndroidLaunchController.java:372)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.doLaunch(LaunchConfigDelegate.java:330)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.launch(LaunchConfigDelegate.java:246)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:855)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:704)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1047)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1251)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:03:40.905
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:06:04.407
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:06:31.511
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:08:20.744
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:08:26.506
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:08:34.299
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:10:11.281
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:12:11.290
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:13:34.028
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:13:51.473
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:14:10.451
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:15:38.217
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:17:25.226
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:17:29.242
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:17:49.654
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:17:57.494
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:18:39.627
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:20:44.383
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:20:50.590
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:20:54.762
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:21:06.724
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:22:20.781
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:22:49.458
+!MESSAGE No command output when running: 'am start -n com.compsci408.androidrx/com.compsci408.androidrx.SplashActivity -a android.intent.action.MAIN -c android.intent.category.LAUNCHER' on device emulator-5554
+!STACK 0
+com.android.ddmlib.ShellCommandUnresponsiveException
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:430)
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:347)
+	at com.android.ddmlib.Device.executeShellCommand(Device.java:609)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:67)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:109)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1293)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1305)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launchApp(AndroidLaunchController.java:1277)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.simpleLaunch(AndroidLaunchController.java:913)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.continueLaunch(AndroidLaunchController.java:755)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launch(AndroidLaunchController.java:372)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.doLaunch(LaunchConfigDelegate.java:330)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.launch(LaunchConfigDelegate.java:246)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:855)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:704)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1047)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1251)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:24:24.944
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:24:53.838
+!MESSAGE No command output when running: 'am start -n com.compsci408.androidrx/com.compsci408.androidrx.SplashActivity -a android.intent.action.MAIN -c android.intent.category.LAUNCHER' on device emulator-5554
+!STACK 0
+com.android.ddmlib.ShellCommandUnresponsiveException
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:430)
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:347)
+	at com.android.ddmlib.Device.executeShellCommand(Device.java:609)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:67)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:109)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1293)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1305)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launchApp(AndroidLaunchController.java:1277)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.simpleLaunch(AndroidLaunchController.java:913)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.continueLaunch(AndroidLaunchController.java:755)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launch(AndroidLaunchController.java:372)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.doLaunch(LaunchConfigDelegate.java:330)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.launch(LaunchConfigDelegate.java:246)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:855)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:704)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1047)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1251)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:25:56.960
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:27:26.375
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:27:42.341
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:27:56.774
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:28:02.141
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:28:09.862
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:28:32.707
+!MESSAGE No command output when running: 'am start -n com.compsci408.androidrx/com.compsci408.androidrx.SplashActivity -a android.intent.action.MAIN -c android.intent.category.LAUNCHER' on device emulator-5554
+!STACK 0
+com.android.ddmlib.ShellCommandUnresponsiveException
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:430)
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:347)
+	at com.android.ddmlib.Device.executeShellCommand(Device.java:609)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:67)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:109)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1293)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1305)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launchApp(AndroidLaunchController.java:1277)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.simpleLaunch(AndroidLaunchController.java:913)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.continueLaunch(AndroidLaunchController.java:755)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launch(AndroidLaunchController.java:372)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.doLaunch(LaunchConfigDelegate.java:330)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.launch(LaunchConfigDelegate.java:246)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:855)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:704)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1047)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1251)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:29:51.814
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:31:34.990
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:37:50.032
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY org.eclipse.ui 2 2 2014-10-28 15:37:53.587
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.xml.ui, propertyPage: org.eclipse.wst.xml.ui.propertyPage.project.validation)
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:38:06.440
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:39:32.962
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.192
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.196
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.197
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.199
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.262
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.266
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.267
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.271
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.272
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.274
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.277
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.278
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.280
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:40:15.349
+!MESSAGE palette: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:41:20.030
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:44:38.713
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:47:13.089
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:49:48.464
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:49:53.520
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:51:19.716
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:53:53.383
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:54:17.836
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:54:33.240
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 15:55:00.036
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 15:55:29.513
+!MESSAGE No command output when running: 'am start -n com.compsci408.androidrx/com.compsci408.androidrx.SplashActivity -a android.intent.action.MAIN -c android.intent.category.LAUNCHER' on device emulator-5554
+!STACK 0
+com.android.ddmlib.ShellCommandUnresponsiveException
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:430)
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:347)
+	at com.android.ddmlib.Device.executeShellCommand(Device.java:609)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:67)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:109)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1293)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1305)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launchApp(AndroidLaunchController.java:1277)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.simpleLaunch(AndroidLaunchController.java:913)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.continueLaunch(AndroidLaunchController.java:755)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launch(AndroidLaunchController.java:372)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.doLaunch(LaunchConfigDelegate.java:330)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.launch(LaunchConfigDelegate.java:246)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:855)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:704)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1047)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1251)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 18:17:40.737
+!MESSAGE No command output when running: 'am start -n com.compsci408.androidrx/com.compsci408.androidrx.SplashActivity -a android.intent.action.MAIN -c android.intent.category.LAUNCHER' on device emulator-5554
+!STACK 0
+com.android.ddmlib.ShellCommandUnresponsiveException
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:430)
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:347)
+	at com.android.ddmlib.Device.executeShellCommand(Device.java:609)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:67)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:109)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1293)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1305)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launchApp(AndroidLaunchController.java:1277)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.simpleLaunch(AndroidLaunchController.java:913)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.continueLaunch(AndroidLaunchController.java:755)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launch(AndroidLaunchController.java:372)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.doLaunch(LaunchConfigDelegate.java:330)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.launch(LaunchConfigDelegate.java:246)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:855)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:704)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1047)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1251)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:22:20.931
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 18:22:21.261
+!MESSAGE activity_new_time.xml: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:22:47.007
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:23:08.382
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:23:29.328
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:23:37.254
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:23:55.104
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:23:57.252
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:24:14.595
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 18:24:17.253
+!MESSAGE activity_new_time.xml: Path.isConvex is not supported.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:24:36.808
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:24:44.644
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:24:51.797
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:25:15.518
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:28:51.614
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:31:14.825
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:31:46.310
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:31:54.841
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:33:12.713
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:33:16.900
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:33:28.547
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:33:30.732
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:35:02.857
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE A conflict occurred for CTRL+SHIFT+/:
+Binding(CTRL+SHIFT+/,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.add.block.comment,Add Block Comment,
+		Enclose the selection with a block comment,
+		Category(org.eclipse.jdt.ui.category.source,Source,Java Source Actions,true),
+		org.eclipse.ui.internal.MakeHandlersGo@e4efe41,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.jdt.ui.javaEditorScope,,,system)
+Binding(CTRL+SHIFT+/,
+	ParameterizedCommand(Command(org.eclipse.wst.sse.ui.add.block.comment,Add Block Comment,
+		Add Block Comment,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@71926a36,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.wst.sse.ui.structuredTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE A conflict occurred for CTRL+O:
+Binding(CTRL+O,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.show.outline,Quick Outline,
+		Show the quick outline for the editor input,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@1b77bd41,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.jdt.ui.javaEditorScope,,,system)
+Binding(CTRL+O,
+	ParameterizedCommand(Command(org.eclipse.wst.sse.ui.quick_outline,Quick Outline,
+		Show the quick outline for the editor input,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@cea66f3,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.wst.sse.ui.structuredTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE A conflict occurred for ALT+SHIFT+ARROW_RIGHT:
+Binding(ALT+SHIFT+ARROW_RIGHT,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.select.next,Select Next Element,
+		Expand selection to include next sibling,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@3f24f89,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.jdt.ui.javaEditorScope,,,system)
+Binding(ALT+SHIFT+ARROW_RIGHT,
+	ParameterizedCommand(Command(org.eclipse.wst.sse.ui.structure.select.next,Select Next Element,
+		Expand selection to include next sibling,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@a96d56c,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.wst.sse.ui.structuredTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE A conflict occurred for CTRL+SHIFT+C:
+Binding(CTRL+SHIFT+C,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.toggle.comment,Toggle Comment,
+		Toggle comment the selected lines,
+		Category(org.eclipse.jdt.ui.category.source,Source,Java Source Actions,true),
+		org.eclipse.ui.internal.MakeHandlersGo@e74914d,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.jdt.ui.javaEditorScope,,,system)
+Binding(CTRL+SHIFT+C,
+	ParameterizedCommand(Command(org.eclipse.wst.sse.ui.toggle.comment,Toggle Comment,
+		Toggle Comment,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@63dfada0,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.wst.sse.ui.structuredTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE A conflict occurred for CTRL+SHIFT+F:
+Binding(CTRL+SHIFT+F,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.format,Format,
+		Format the selected text,
+		Category(org.eclipse.jdt.ui.category.source,Source,Java Source Actions,true),
+		org.eclipse.ui.internal.MakeHandlersGo@7a370540,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.jdt.ui.javaEditorScope,,,system)
+Binding(CTRL+SHIFT+F,
+	ParameterizedCommand(Command(org.eclipse.wst.sse.ui.format.document,Format,
+		Format selection,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@6c5ddccd,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.wst.sse.ui.structuredTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE A conflict occurred for CTRL+SHIFT+P:
+Binding(CTRL+SHIFT+P,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.goto.matching.bracket,Go to Matching Bracket,
+		Moves the cursor to the matching bracket,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@5c8c22f2,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.jdt.ui.javaEditorScope,,,system)
+Binding(CTRL+SHIFT+P,
+	ParameterizedCommand(Command(org.eclipse.wst.sse.ui.goto.matching.bracket,Matching Bracket,
+		Go to Matching Bracket,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@7f37b6d9,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.wst.sse.ui.structuredTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE A conflict occurred for CTRL+I:
+Binding(CTRL+I,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.indent,Correct Indentation,
+		Corrects the indentation of the selected lines,
+		Category(org.eclipse.jdt.ui.category.source,Source,Java Source Actions,true),
+		org.eclipse.ui.internal.MakeHandlersGo@38e0a6e,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.jdt.ui.javaEditorScope,,,system)
+Binding(CTRL+I,
+	ParameterizedCommand(Command(org.eclipse.wst.sse.ui.format.active.elements,Format Active Elements,
+		Format active elements,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@6732726,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.wst.sse.ui.structuredTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE A conflict occurred for CTRL+SHIFT+\:
+Binding(CTRL+SHIFT+\,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.remove.block.comment,Remove Block Comment,
+		Remove the block comment enclosing the selection,
+		Category(org.eclipse.jdt.ui.category.source,Source,Java Source Actions,true),
+		org.eclipse.ui.internal.MakeHandlersGo@12919391,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.jdt.ui.javaEditorScope,,,system)
+Binding(CTRL+SHIFT+\,
+	ParameterizedCommand(Command(org.eclipse.wst.sse.ui.remove.block.comment,Remove Block Comment,
+		Remove Block Comment,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@70211df5,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.wst.sse.ui.structuredTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE A conflict occurred for ALT+SHIFT+ARROW_DOWN:
+Binding(ALT+SHIFT+ARROW_DOWN,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.select.last,Restore Last Selection,
+		Restore last selection,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@504e8986,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.jdt.ui.javaEditorScope,,,system)
+Binding(ALT+SHIFT+ARROW_DOWN,
+	ParameterizedCommand(Command(org.eclipse.wst.sse.ui.structure.select.last,Restore Last Selection,
+		Restore last selection,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@4c7e978c,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.wst.sse.ui.structuredTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE A conflict occurred for CTRL+SHIFT+ARROW_UP:
+Binding(CTRL+SHIFT+ARROW_UP,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.goto.previous.member,Go to Previous Member,
+		Move the caret to the previous member of the compilation unit,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@6de8bacf,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.jdt.ui.javaEditorScope,,,system)
+Binding(CTRL+SHIFT+ARROW_UP,
+	ParameterizedCommand(Command(org.eclipse.wst.xml.ui.previousSibling,Previous Sibling,
+		Go to Previous Sibling,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@625a4ff,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.wst.sse.ui.structuredTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE A conflict occurred for ALT+SHIFT+ARROW_LEFT:
+Binding(ALT+SHIFT+ARROW_LEFT,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.select.previous,Select Previous Element,
+		Expand selection to include previous sibling,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@1ec60066,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.jdt.ui.javaEditorScope,,,system)
+Binding(ALT+SHIFT+ARROW_LEFT,
+	ParameterizedCommand(Command(org.eclipse.wst.sse.ui.structure.select.previous,Select Previous Element,
+		Expand selection to include previous sibling,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@2d4608a6,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.wst.sse.ui.structuredTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE A conflict occurred for CTRL+SHIFT+ARROW_DOWN:
+Binding(CTRL+SHIFT+ARROW_DOWN,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.goto.next.member,Go to Next Member,
+		Move the caret to the next member of the compilation unit,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@551534,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.jdt.ui.javaEditorScope,,,system)
+Binding(CTRL+SHIFT+ARROW_DOWN,
+	ParameterizedCommand(Command(org.eclipse.wst.xml.ui.nextSibling,Next Sibling,
+		Go to Next Sibling,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@1507c3c3,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.wst.sse.ui.structuredTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-10-28 18:35:15.639
+!MESSAGE A conflict occurred for ALT+SHIFT+ARROW_UP:
+Binding(ALT+SHIFT+ARROW_UP,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.select.enclosing,Select Enclosing Element,
+		Expand selection to include enclosing element,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@24f3be01,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.jdt.ui.javaEditorScope,,,system)
+Binding(ALT+SHIFT+ARROW_UP,
+	ParameterizedCommand(Command(org.eclipse.wst.sse.ui.structure.select.enclosing,Select Enclosing Element,
+		Expand selection to include enclosing element,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		org.eclipse.ui.internal.MakeHandlersGo@75a0c890,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.wst.sse.ui.structuredTextEditorScope,,,system)
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:35:16.983
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:35:24.601
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:35:32.427
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:35:38.610
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:35:42.506
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:37:34.249
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:39:58.562
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:40:24.098
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:41:33.891
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:42:12.180
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:42:21.128
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:42:36.236
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:42:42.744
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:42:54.443
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:42:58.818
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:43:03.892
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:43:12.714
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:43:23.079
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:44:46.368
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:45:11.405
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:45:45.563
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:46:04.366
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 18:46:08.989
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:06:25.522
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:06:37.213
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:06:57.691
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:07:26.010
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:12:52.110
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:13:17.617
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:21:33.192
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:33:57.617
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:34:14.303
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:34:25.754
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:34:30.554
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:35:27.290
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:38:58.676
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 19:39:03.842
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:29:14.311
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:37:42.758
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:37:45.934
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:38:59.532
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:39:04.818
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:39:08.746
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:39:51.358
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:39:57.775
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:43:59.310
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:44:11.049
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:46:43.425
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:46:56.693
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:47:51.054
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:48:49.486
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 20:49:03.840
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 21:03:45.955
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 21:18:22.771
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 21:18:46.385
+!MESSAGE No command output when running: 'am start -n com.compsci408.androidrx/com.compsci408.androidrx.SplashActivity -a android.intent.action.MAIN -c android.intent.category.LAUNCHER' on device emulator-5554
+!STACK 0
+com.android.ddmlib.ShellCommandUnresponsiveException
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:430)
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:347)
+	at com.android.ddmlib.Device.executeShellCommand(Device.java:609)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:67)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:109)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1293)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1305)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launchApp(AndroidLaunchController.java:1277)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.simpleLaunch(AndroidLaunchController.java:913)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.continueLaunch(AndroidLaunchController.java:755)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launch(AndroidLaunchController.java:372)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.doLaunch(LaunchConfigDelegate.java:330)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.launch(LaunchConfigDelegate.java:246)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:855)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:704)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1047)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1251)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 21:21:01.138
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 21:21:20.026
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-28 21:22:05.992
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-10-28 21:22:29.104
+!MESSAGE No command output when running: 'am start -n com.compsci408.androidrx/com.compsci408.androidrx.SplashActivity -a android.intent.action.MAIN -c android.intent.category.LAUNCHER' on device emulator-5554
+!STACK 0
+com.android.ddmlib.ShellCommandUnresponsiveException
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:430)
+	at com.android.ddmlib.AdbHelper.executeRemoteCommand(AdbHelper.java:347)
+	at com.android.ddmlib.Device.executeShellCommand(Device.java:609)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:67)
+	at com.android.ide.eclipse.adt.internal.launch.ActivityLaunchAction.doLaunchAction(ActivityLaunchAction.java:109)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1293)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.doLaunchAction(AndroidLaunchController.java:1305)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launchApp(AndroidLaunchController.java:1277)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.simpleLaunch(AndroidLaunchController.java:913)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.continueLaunch(AndroidLaunchController.java:755)
+	at com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController.launch(AndroidLaunchController.java:372)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.doLaunch(LaunchConfigDelegate.java:330)
+	at com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate.launch(LaunchConfigDelegate.java:246)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:855)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:704)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1047)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1251)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)

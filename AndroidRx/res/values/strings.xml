@@ -8,8 +8,13 @@
     <string name="androidrx">AndroidRx</string>
     <string name="add_med">+ Add Medication</string>
     <string name="new_med">New Medication</string>
+    <string name="enter_med_name">Medication Name</string>
     <string name="medication_icon">Medication Icon</string>
     <string name="duke_logo">Duke Logo</string>
+    <string name="set_day_time">Set Day and Time</string>
+    <string name="set">Set</string>
+    <string name="cancel">Cancel</string>
+    <string name="repeat_weekly">Repeat Weekly</string>
 
     <!-- For testing purposes only; remove when real data is available -->
     <string-array name="patient_list">
@@ -40,12 +45,12 @@
     <string name="title_activity_patient_list">Patient List</string>
     <string name="title_activity_patient">Patient Profile</string>
     <string name="title_activity_edit_med">Edit Medication</string>
-    <string name="title_activity_new_time">New Time</string>
+    <string name="title_activity_new_med">New Medication</string>
     <string name="title_activity_medication">Medication Details</string>
     <string name="med_nickname">Nickname:  </string>
     <string name="med_dosage">Dosage:  </string>
     <string name="done">Done</string>
     <string name="add_time">+ Add Time</string>
-    <string name="title_activity_med_info">MedInfoActivity</string>
+    <string name="title_activity_med_info">Med Info Activity</string>
 
 </resources>

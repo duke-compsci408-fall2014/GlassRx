@@ -62,8 +62,8 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".provider.NewTimeActivity"
-            android:label="@string/title_activity_new_time"
+            android:name=".provider.NewMedActivity"
+            android:label="@string/title_activity_new_med"
             android:screenOrientation="portrait" >
         </activity>
         <activity
