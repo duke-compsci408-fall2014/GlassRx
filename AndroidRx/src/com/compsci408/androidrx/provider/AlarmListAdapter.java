@@ -4,15 +4,12 @@ import java.util.List;
 
 import com.compsci408.androidrx.R;
 import com.compsci408.rxcore.alarms.Alarm;
-import com.compsci408.rxcore.datatypes.Medication;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class AlarmListAdapter extends ArrayAdapter<Alarm> {

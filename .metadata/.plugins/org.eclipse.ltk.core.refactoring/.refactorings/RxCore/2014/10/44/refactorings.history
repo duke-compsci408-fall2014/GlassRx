@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;alarm&apos; in &apos;com.compsci408.rxcore.requests.ServerPoll&apos; to &apos;receiver&apos;&#x0D;&#x0A;- Original project: &apos;RxCore&apos;&#x0D;&#x0A;- Original element: &apos;com.compsci408.rxcore.requests.ServerPoll.alarm&apos;&#x0D;&#x0A;- Renamed element: &apos;com.compsci408.rxcore.requests.ServerPoll.receiver&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;alarm&apos;" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;com.compsci408.rxcore.requests{ServerPoll.java[ServerPoll^alarm" name="receiver" references="true" setter="false" stamp="1414786270316" textual="false" version="1.0"/>
+</session>

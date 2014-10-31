@@ -67,6 +67,7 @@ public class PostTask extends AsyncTask<String, Void, String> {
 	        result = RequestUtils.readStream(is);
 	        Log.d(TAG, "Response:  " + result);
 	        is.close();
+	        
 	    } catch (Exception e) {
 	    	// TODO:  Improve exception handling
 	        e.printStackTrace();

@@ -17,6 +17,7 @@ public class Constants {
 	//  Network connection constants
 	public static final int READ_TIMEOUT				= 10000;
 	public static final int CONNECT_TIMEOUT				= 15000;
+	public static final int POLLING_INTERVAL			= 1000 * 60 * 10;  //  Ten minutes
 	
 	public static final String GET						= "GET";
 	public static final String POST						= "POST";

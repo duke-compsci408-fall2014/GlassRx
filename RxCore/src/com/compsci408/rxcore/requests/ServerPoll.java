@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Binder;
@@ -19,60 +20,30 @@ import android.os.IBinder;
  */
 public class ServerPoll extends Service {
 
-	private IBinder mBinder = new SocketServerBinder();
-    private Timer mTimer;
-    private boolean mRunning = false;
-
-    @Override
-    public void onCreate() {
-            super.onCreate();
-            mTimer = new Timer();
-            mTimer.schedule(new TimerTask() {
-
-                    @Override
-                    public void run() {
-
-                            if (mRunning) {
-                                    //TODO: Make network call
-                            }
-                    }
-            }, 10000, 10000);
+	PollReceiver receiver = new PollReceiver();
+    public void onCreate()
+    {
+        super.onCreate();       
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-            mRunning = true;
-            return super.onStartCommand(intent, flags, startId);
+    public int onStartCommand(Intent intent, int flags, int startId) 
+{
+         receiver.SetAlarm(ServerPoll.this);
+     return START_STICKY;
+}
+
+
+
+    public void onStart(Context context,Intent intent, int startId)
+    {
+        receiver.SetAlarm(context);
     }
 
     @Override
-    public IBinder onBind(Intent arg0) {
-            mRunning = true;
-            return mBinder;
-    }
-
-    @Override
-    public boolean onUnbind(Intent intent) {
-            mRunning = false;
-            return super.onUnbind(intent);
-    }
-
-    public class SocketServerBinder extends Binder {
-
-            public ServerPoll getService() {
-                    return ServerPoll.this;
-            }
-
-    }
-    
-    class MakePoll extends AsyncTask<String, String, String> {
-
-		@Override
-		protected String doInBackground(String... arg0) {
-			// TODO Implement polling
-			return null;
-		}
-    	
+    public IBinder onBind(Intent intent) 
+    {
+        return null;
     }
 	
 	

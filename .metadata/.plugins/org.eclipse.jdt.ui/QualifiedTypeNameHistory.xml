@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.app.Activity"/>
-<fullyQualifiedTypeName name="android.view.LayoutInflater"/>
-<fullyQualifiedTypeName name="com.compsci408.androidrx.R"/>
-<fullyQualifiedTypeName name="java.net.URL"/>
-<fullyQualifiedTypeName name="java.net.HttpURLConnection"/>
-<fullyQualifiedTypeName name="java.io.BufferedInputStream"/>
-<fullyQualifiedTypeName name="android.net.ConnectivityManager"/>
-<fullyQualifiedTypeName name="android.net.NetworkInfo"/>
-<fullyQualifiedTypeName name="org.json.JSONArray"/>
 <fullyQualifiedTypeName name="com.compsci408.requests.GetTask"/>
 <fullyQualifiedTypeName name="com.compsci408.datatypes.Constants"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
@@ -41,7 +32,6 @@
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="android.widget.ListView"/>
 <fullyQualifiedTypeName name="com.compsci408.rxcore.alarms.AlarmsDataSource"/>
-<fullyQualifiedTypeName name="com.compsci408.androidrx.R.layout"/>
 <fullyQualifiedTypeName name="com.compsci408.rxcore.datatypes.Day"/>
 <fullyQualifiedTypeName name="android.widget.AdapterView.OnItemClickListener"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
@@ -58,6 +48,16 @@
 <fullyQualifiedTypeName name="java.util.Timer"/>
 <fullyQualifiedTypeName name="java.util.TimerTask"/>
 <fullyQualifiedTypeName name="android.os.AsyncTask"/>
-<fullyQualifiedTypeName name="com.compsci408.androidrx.R.id"/>
 <fullyQualifiedTypeName name="android.widget.Filter"/>
+<fullyQualifiedTypeName name="android.app.Dialog"/>
+<fullyQualifiedTypeName name="android.os.Bundle"/>
+<fullyQualifiedTypeName name="android.app.AlertDialog"/>
+<fullyQualifiedTypeName name="com.compsci408.androidrx.R"/>
+<fullyQualifiedTypeName name="android.content.DialogInterface"/>
+<fullyQualifiedTypeName name="android.view.LayoutInflater"/>
+<fullyQualifiedTypeName name="com.compsci408.androidrx.R.layout"/>
+<fullyQualifiedTypeName name="android.widget.CalendarView"/>
+<fullyQualifiedTypeName name="android.widget.CalendarView.OnDateChangeListener"/>
+<fullyQualifiedTypeName name="android.widget.EditText"/>
+<fullyQualifiedTypeName name="com.compsci408.androidrx.R.id"/>
 </qualifiedTypeNameHistroy>

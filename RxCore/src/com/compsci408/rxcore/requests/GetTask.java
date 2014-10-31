@@ -37,8 +37,8 @@ public class GetTask extends AsyncTask<String, Void, String> {
 		String result = null;
 		
 		try {
-	        url = new URL(address[0]);
-
+	        url = new URL(address[0] + RequestUtils.getQuery(mParams));
+	        
 	        urlConnection = (HttpURLConnection) url.openConnection();
 	        
 	        urlConnection.setReadTimeout(Constants.READ_TIMEOUT);
@@ -50,10 +50,10 @@ public class GetTask extends AsyncTask<String, Void, String> {
 	        int response = urlConnection.getResponseCode();
 	        Log.d(TAG, "Server response code:  " + response);
 	        is = urlConnection.getInputStream();
-	        
 	        result = RequestUtils.readStream(is);
-	        Log.d(TAG, "Respnse:  " + result);
+	        Log.d(TAG, "Response:  " + result);
 	        is.close();
+	        
 	    } catch (Exception e) {
 	    	// TODO:  Improve exception handling
 	        e.printStackTrace();

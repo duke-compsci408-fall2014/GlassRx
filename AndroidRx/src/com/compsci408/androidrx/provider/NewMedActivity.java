@@ -23,15 +23,13 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.EditText;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.compsci408.androidrx.LoginActivity;
-import com.compsci408.androidrx.MedicationActivity;
 import com.compsci408.androidrx.R;
 import com.compsci408.rxcore.alarms.AlarmReceiver;
 
-public class NewMedActivity extends Activity {
+public class NewMedActivity extends Activity implements OnDateChangeListener{
 
 	private Button addTimeComplete;
 	private CalendarView calendar;
@@ -46,20 +44,11 @@ public class NewMedActivity extends Activity {
 		setContentView(R.layout.activity_new_med);
 		mPatientName = getIntent().getStringExtra("PatientName");
 		medName = (EditText) findViewById(R.id.new_med_name);
-		calendar = (CalendarView) findViewById(R.id.calendar);
 		
-		calendar.setOnDateChangeListener(new OnDateChangeListener() {
-
-			@Override
-			public void onSelectedDayChange(CalendarView view, int year,
-					int month, int dayOfMonth) {
-				new DayTimeDialog().show(getFragmentManager(), "DayTimeDialog");				
-			}
-			
-		});
+		calendar = (CalendarView) findViewById(R.id.calendar);
+		calendar.setOnDateChangeListener(this);
 		
 		addTimeComplete = (Button) findViewById(R.id.add_med_complete);
-		
 		addTimeComplete.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -170,5 +159,14 @@ public class NewMedActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onSelectedDayChange(CalendarView view, int year, int month,
+			int dayOfMonth) {
+		String date = Integer.toString(month) + "/" + Integer.toString(dayOfMonth)
+				+ "/" + Integer.toString(year);
+		
+		new DayTimeDialog(date).show(getFragmentManager(), "DayTimeDialog");
 	}
 }
