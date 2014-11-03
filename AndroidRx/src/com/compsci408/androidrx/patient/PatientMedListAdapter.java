@@ -39,9 +39,9 @@ public class PatientMedListAdapter extends ArrayAdapter<Medication> {
 			row = inflater.inflate(mLayoutId, parent, false);
 			
 			holder = new MedicationHolder();
-			holder.icon = (ImageView) row.findViewById(R.id.medIcon);
-			holder.name = (TextView) row.findViewById(R.id.medName);
-			holder.nickname = (TextView) row.findViewById(R.id.medNickname);
+			holder.icon = (ImageView) row.findViewById(R.id.imageview_med_icon);
+			holder.name = (TextView) row.findViewById(R.id.textview_med_name);
+			holder.nickname = (TextView) row.findViewById(R.id.textview_med_nickname);
 			
 			row.setTag(holder);
 			

@@ -36,19 +36,22 @@ public class NewMedActivity extends Activity implements OnDateChangeListener{
 	private EditText medName;
 	private NotificationCompat.Builder mBuilder;
 	private int mNotificationId = 001;
+	
 	private String mPatientName;
+	private int mWeeks = 1;
+	private int mTime;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_med);
 		mPatientName = getIntent().getStringExtra("PatientName");
-		medName = (EditText) findViewById(R.id.new_med_name);
+		medName = (EditText) findViewById(R.id.edittext_new_med_name);
 		
-		calendar = (CalendarView) findViewById(R.id.calendar);
+		calendar = (CalendarView) findViewById(R.id.calendar_med_schedule);
 		calendar.setOnDateChangeListener(this);
 		
-		addTimeComplete = (Button) findViewById(R.id.add_med_complete);
+		addTimeComplete = (Button) findViewById(R.id.button_add_med_complete);
 		addTimeComplete.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -67,78 +70,78 @@ public class NewMedActivity extends Activity implements OnDateChangeListener{
 		
 	}
 	
-	private void setAlarm(int hour, int min) {
-		
-		Date dat  = new Date();//initializes to now
-	    Calendar cal_alarm = Calendar.getInstance();
-	    Calendar cal_now = Calendar.getInstance();
-	    cal_now.setTime(dat);
-	    cal_alarm.setTime(dat);
-	    cal_alarm.set(Calendar.HOUR_OF_DAY,hour);//set the alarm time
-	    cal_alarm.set(Calendar.MINUTE, min);
-	    cal_alarm.set(Calendar.SECOND,0);
-	    if(cal_alarm.before(cal_now)){//if its in the past increment
-	        cal_alarm.add(Calendar.DATE,1);
-	    }
-	    Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
-	    PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 1, intent, 0);
-	    AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-	    alarmManager.set(AlarmManager.RTC_WAKEUP, cal_alarm.getTimeInMillis(), pendingIntent);
-	}
+//	private void setAlarm(int hour, int min) {
+//		
+//		Date dat  = new Date();//initializes to now
+//	    Calendar cal_alarm = Calendar.getInstance();
+//	    Calendar cal_now = Calendar.getInstance();
+//	    cal_now.setTime(dat);
+//	    cal_alarm.setTime(dat);
+//	    cal_alarm.set(Calendar.HOUR_OF_DAY,hour);//set the alarm time
+//	    cal_alarm.set(Calendar.MINUTE, min);
+//	    cal_alarm.set(Calendar.SECOND,0);
+//	    if(cal_alarm.before(cal_now)){//if its in the past increment
+//	        cal_alarm.add(Calendar.DATE,1);
+//	    }
+//	    Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+//	    PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 1, intent, 0);
+//	    AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//	    alarmManager.set(AlarmManager.RTC_WAKEUP, cal_alarm.getTimeInMillis(), pendingIntent);
+//	}
 
-	public void addTimeComplete(View view){
-		
-
-		mBuilder =
-		        new NotificationCompat.Builder(this)
-		        .setSmallIcon(R.drawable.custom_button_default)
-		        .setContentTitle("Pill Reminder")
-		        .setContentText("Time to take your Teamocil!");
-		
-		Intent resultIntent = new Intent(this, PatientActivity.class);
-		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-		stackBuilder.addParentStack(PatientActivity.class);
-		stackBuilder.addNextIntent(resultIntent);
-
-		PendingIntent resultPendingIntent =
-			    PendingIntent.getActivity(
-			    this,
-			    0,
-			    resultIntent,
-			    PendingIntent.FLAG_UPDATE_CURRENT
-			);
-		
-    	mBuilder.setContentIntent(resultPendingIntent);
-
-		
-		BroadcastReceiver receiver = new BroadcastReceiver() {
-            @Override public void onReceive( Context context, Intent _ )
-            {
-                NotificationManager mNotifyMgr = 
-                        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                mNotifyMgr.notify(mNotificationId, mBuilder.build());
-                   }
-        };
-        
-        
-        this.registerReceiver( receiver, new IntentFilter("com.blah.blah.somemessage") );
-
-        PendingIntent pintent = PendingIntent.getBroadcast( this, 0, new Intent("com.blah.blah.somemessage"), 0 );
-        AlarmManager manager = (AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
-
-        // set alarm to fire 5 sec (1000*5) from now (SystemClock.elapsedRealtime())
-        manager.set( AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 5000, pintent );
-        Toast.makeText(this, "Alarm set!", Toast.LENGTH_SHORT).show();
-
-			
-		
-		
-		
-		Intent intent = new Intent(NewMedActivity.this, EditMedActivity.class);
-		startActivity(intent);
-//		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-//		finish();
-		}
+//	public void addTimeComplete(View view){
+//		
+//
+//		mBuilder =
+//		        new NotificationCompat.Builder(this)
+//		        .setSmallIcon(R.drawable.custom_button_default)
+//		        .setContentTitle("Pill Reminder")
+//		        .setContentText("Time to take your Teamocil!");
+//		
+//		Intent resultIntent = new Intent(this, PatientActivity.class);
+//		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+//		stackBuilder.addParentStack(PatientActivity.class);
+//		stackBuilder.addNextIntent(resultIntent);
+//
+//		PendingIntent resultPendingIntent =
+//			    PendingIntent.getActivity(
+//			    this,
+//			    0,
+//			    resultIntent,
+//			    PendingIntent.FLAG_UPDATE_CURRENT
+//			);
+//		
+//    	mBuilder.setContentIntent(resultPendingIntent);
+//
+//		
+//		BroadcastReceiver receiver = new BroadcastReceiver() {
+//            @Override public void onReceive( Context context, Intent _ )
+//            {
+//                NotificationManager mNotifyMgr = 
+//                        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//                mNotifyMgr.notify(mNotificationId, mBuilder.build());
+//                   }
+//        };
+//        
+//        
+//        this.registerReceiver( receiver, new IntentFilter("com.blah.blah.somemessage") );
+//
+//        PendingIntent pintent = PendingIntent.getBroadcast( this, 0, new Intent("com.blah.blah.somemessage"), 0 );
+//        AlarmManager manager = (AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
+//
+//        // set alarm to fire 5 sec (1000*5) from now (SystemClock.elapsedRealtime())
+//        manager.set( AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 5000, pintent );
+//        Toast.makeText(this, "Alarm set!", Toast.LENGTH_SHORT).show();
+//
+//			
+//		
+//		
+//		
+//		Intent intent = new Intent(NewMedActivity.this, EditMedActivity.class);
+//		startActivity(intent);
+////		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+////		finish();
+//		}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

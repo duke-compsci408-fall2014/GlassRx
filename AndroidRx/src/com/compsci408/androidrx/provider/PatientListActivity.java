@@ -25,9 +25,9 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_patient_list);
 		
-		patientSearch = (SearchView) findViewById(R.id.patient_search);
+		patientSearch = (SearchView) findViewById(R.id.search_patient);
 		setUpSearch();
-		patientList = (ListView) findViewById(R.id.patient_list);
+		patientList = (ListView) findViewById(R.id.listview_patients);
 		patientList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

@@ -11,8 +11,6 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -33,23 +31,16 @@ import java.util.List;
 
 import com.compsci408.androidrx.patient.MainActivity;
 import com.compsci408.androidrx.provider.PatientListActivity;
+import com.compsci408.rxcore.Constants;
+import com.compsci408.rxcore.Controller;
+import com.compsci408.rxcore.datatypes.AccountType;
+import com.compsci408.rxcore.requests.ResponseCallback;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via username/password.
  */
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
-
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"test:12345:patient", "admin:admin:provider" };
-	/**
-	 * Keep track of the login task to ensure we can cancel it if requested.
-	 */
-	private UserLoginTask mAuthTask = null;
-
+	
 	// UI references.
 	private AutoCompleteTextView mUsernameView;
 	private EditText mPasswordView;
@@ -57,6 +48,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	private View mLoginFormView;
 	private Spinner mAccountTypeView;
 	private TextView mTitleView;
+	private TextView mErrorView;
+	
+	//  Controller reference
+	private Controller mController;
+	
+	//  Callback from server
+	private ResponseCallback mCallback;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +80,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 					}
 				});
 
-		Button mEmailSignInButton = (Button) findViewById(R.id.sign_in_button);
-		mEmailSignInButton.setOnClickListener(new OnClickListener() {
+		Button mSignInButton = (Button) findViewById(R.id.sign_in_button);
+		mSignInButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				attemptLogin();
@@ -95,8 +93,41 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 		mLoginFormView = findViewById(R.id.login_form);
 		mProgressView = findViewById(R.id.login_progress);
 		mAccountTypeView = (Spinner) findViewById(R.id.account_type);
-		mTitleView = (TextView) findViewById(R.id.androidrx);
+		
+		mTitleView = (TextView) findViewById(R.id.textview_androidrx_title);
 	    mTitleView.setTypeface(typefaceAndroid);
+	    
+	    mErrorView = (TextView) findViewById(R.id.textview_login_error);
+	    
+	    mController = Controller.getInstance(this);
+	    
+	    mCallback = new ResponseCallback() {
+
+			@Override
+			public void onResponseReceived(String response) {
+				showProgress(false);
+				switch (response) {
+					case Constants.RESPONSE_SUCCESS:
+						Intent intent;
+						String accountType = mAccountTypeView.getSelectedItem().toString();
+						
+						if (accountType.equals(AccountType.PATIENT.getName())) {
+							intent = new Intent(LoginActivity.this, MainActivity.class);
+						} else {
+							intent = new Intent(LoginActivity.this, PatientListActivity.class);
+						}
+						
+						startActivity(intent);
+						overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+						break;
+					
+					default:
+						mErrorView.setText("Error:  " + response);
+						break;
+				}
+			}
+	    	
+	    };
 	}
 
 	private void populateAutoComplete() {
@@ -109,13 +140,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	 * errors are presented and no actual login attempt is made.
 	 */
 	public void attemptLogin() {
-		if (mAuthTask != null) {
-			return;
-		}
-
 		// Reset errors.
 		mUsernameView.setError(null);
 		mPasswordView.setError(null);
+		mErrorView.setText("");
 
 		// Store values at the time of the login attempt.
 		String username = mUsernameView.getText().toString();
@@ -132,7 +160,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			cancel = true;
 		}
 
-		// Check for a valid email address.
+		// Check for a valid username.
 		if (TextUtils.isEmpty(username)) {
 			mUsernameView.setError(getString(R.string.error_field_required));
 			focusView = mUsernameView;
@@ -151,8 +179,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
 			showProgress(true);
-			mAuthTask = new UserLoginTask(username, password, accountType);
-			mAuthTask.execute((Void) null);
+			mController.logIn(username, password, accountType, mCallback);
 		}
 	}
 
@@ -258,77 +285,5 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 				emailAddressCollection);
 
 		mUsernameView.setAdapter(adapter);
-	}
-
-	/**
-	 * Represents an asynchronous login/registration task used to authenticate
-	 * the user.
-	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-		private final String mUsername;
-		private final String mPassword;
-		private final String mAccountType;
-
-		UserLoginTask(String username, String password, String accountType) {
-			mUsername = username;
-			mPassword = password;
-			String[] accountTypeTokens = accountType.split("\\s+");
-			mAccountType = accountTypeTokens[accountTypeTokens.length-1];
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
-
-			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				return false;
-			}
-
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mUsername)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword) && pieces[2].equalsIgnoreCase(mAccountType);
-				}
-			}
-
-			// TODO: register the new account here.
-			return false;
-		}
-
-		@Override
-		protected void onPostExecute(final Boolean success) {
-			mAuthTask = null;
-			showProgress(false);
-
-			if (success) {
-				finish();
-				if (mAccountType.equalsIgnoreCase(LoginActivity.this.getResources().
-						getString(R.string.patient))) {
-					LoginActivity.this.startActivity(new Intent(LoginActivity.this, 
-							MainActivity.class));
-					overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-				}
-				else {
-					LoginActivity.this.startActivity(new Intent(LoginActivity.this, 
-							PatientListActivity.class));
-					overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-				}
-			} else {
-				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
-				mPasswordView.requestFocus();
-			}
-		}
-
-		@Override
-		protected void onCancelled() {
-			mAuthTask = null;
-			showProgress(false);
-		}
 	}
 }

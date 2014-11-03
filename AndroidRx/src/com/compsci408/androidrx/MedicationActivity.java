@@ -14,11 +14,7 @@ public class MedicationActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_medication);
 		Intent i = getIntent();
-		((TextView) findViewById(R.id.medNameView)).setText(i.getStringExtra("MedName"));
-		((TextView) findViewById(R.id.medNickname)).setText("\"" + i.getStringExtra("Nickname") + "\"");
-		((TextView) findViewById(R.id.medDosage)).setText(i.getStringExtra("Dosage"));
-		((TextView) findViewById(R.id.nextDose)).setText("Today at 6:00PM");
-		
+
 	}
 
 	@Override

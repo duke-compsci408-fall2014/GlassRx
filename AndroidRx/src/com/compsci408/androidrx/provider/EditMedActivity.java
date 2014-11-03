@@ -27,10 +27,10 @@ public class EditMedActivity extends Activity {
 		
 		Intent intent = getIntent();
 		
-		addMedComplete = (Button) findViewById(R.id.add_med_complete);
-		newMedName = (EditText) findViewById(R.id.new_med_title);
-		addTime = (Button) findViewById(R.id.add_time);
-		medAlarms = (ListView) findViewById(R.id.med_alarm_list);
+		addMedComplete = (Button) findViewById(R.id.button_add_med_complete);
+		newMedName = (EditText) findViewById(R.id.edittext_med_name);
+		addTime = (Button) findViewById(R.id.button_add_alarm);
+		medAlarms = (ListView) findViewById(R.id.listview_med_alarm);
 		
 		newMedName.setText(intent.getStringExtra("MedName"));
 		

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ 
+    <item name="black" type="color">#FF000000</item>
+    <item name="white" type="color">#FFFFFFFF</item>
+    <item name="duke_blue" type="color">#FF001A57</item>
+    <item name="dark_gray" type="color">#FF666666</item>
+    <item name="light_gray" type="color">#FFE5E5E5</item>
+ 
+    <integer-array name="colors">
+        <item>@color/black</item> 
+        <item>@color/white</item> 
+        <item>@color/duke_blue</item> 
+        <item>@color/dark_gray</item> 
+        <item>@color/light_gray</item> 
+    </integer-array>
+ 
+</resources> 

@@ -10,24 +10,32 @@ public class Alarm {
 	public long mId;
 	public int mTimeHour;
 	public int mTimeMinute;
-	private boolean mRepeatingDays[];
-	public boolean mRepeatWeekly;
+//	private boolean mRepeatingDays[];
+//	public boolean mRepeatWeekly;
 	public Uri mAlarmTone;
 	public String mName;
 	public boolean mIsEnabled;
 	private Medication mMedication;
 	
 	public Alarm() {
-		mRepeatingDays = new boolean[7];
+//		mRepeatingDays = new boolean[7];
 	}
 	
-	public void setRepeatingDay(Day dayOfWeek, boolean value) {
-		mRepeatingDays[dayOfWeek.getId()] = value;
+	public Alarm(int hour, int min, String name, boolean enabled, Medication med) {
+		mTimeHour = hour;
+		mTimeMinute = min;
+		mName = name;
+		mIsEnabled = enabled;
+		mMedication = med;
 	}
 	
-	public boolean getRepeatingDay(int dayOfWeek) {
-		return mRepeatingDays[dayOfWeek];
-	}
+//	public void setRepeatingDay(Day dayOfWeek, boolean value) {
+//		mRepeatingDays[dayOfWeek.getId()] = value;
+//	}
+//	
+//	public boolean getRepeatingDay(int dayOfWeek) {
+//		return mRepeatingDays[dayOfWeek];
+//	}
 	
 	public long getId() {
 		return mId;

@@ -35,8 +35,8 @@ public class AlarmListAdapter extends ArrayAdapter<Alarm> {
 			row = inflater.inflate(mLayoutId, parent, false);
 			
 			holder = new MedicationHolder();
-			holder.day = (TextView) row.findViewById(R.id.alarmDay);
-			holder.time = (TextView) row.findViewById(R.id.alarmTime);
+			holder.day = (TextView) row.findViewById(R.id.textview_alarm_day);
+			holder.time = (TextView) row.findViewById(R.id.textview_alarm_time);
 			
 			row.setTag(holder);
 			

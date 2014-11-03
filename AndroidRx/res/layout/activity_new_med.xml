@@ -8,83 +8,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.compsci408.androidrx.provider.NewMedActivity" >
 
-    <!--
-    <TimePicker
-        android:id="@+id/med_time_picker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/med_time_picker"
-        android:orientation="horizontal"
-        android:id="@+id/checkbox_layout" >
-        
-        <LinearLayout
-            android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:orientation="vertical" >
-            
-            <CheckBox
-		        android:id="@+id/checkBox1"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Monday" />
-	        
-	        <CheckBox
-		        android:id="@+id/checkBox3"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Tuesday" />
-	        
-	        <CheckBox
-		        android:id="@+id/checkBox5"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Wednesday" />
-	        
-	        <CheckBox
-		        android:id="@+id/checkBox2"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Thursday" />
-            
-        </LinearLayout> 
-        
-        <LinearLayout
-            android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:orientation="vertical" >
-	
-	         <CheckBox
-		        android:id="@+id/checkBox4"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Friday" />
-		    
-		
-		    <CheckBox
-		        android:id="@+id/checkBox6"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Saturday" />
-		
-		    
-		    <CheckBox
-		        android:id="@+id/checkBox7"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Sunday" />
-		    </LinearLayout>
-	
-	</LinearLayout>
-    -->
-
     <EditText
-        android:id="@+id/new_med_name"
+        android:id="@+id/edittext_new_med_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -99,23 +24,23 @@
     </EditText>
 
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/layout_schedule_set"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/new_med_name"
+        android:layout_below="@+id/edittext_new_med_name"
         android:background="@color/white"
         android:orientation="vertical"
         android:weightSum="1" >
 
         <android.widget.CalendarView
-            android:id="@+id/calendar"
+            android:id="@+id/calendar_med_schedule"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".85"
             android:padding="5dp" />
 
         <Button
-            android:id="@+id/add_med_complete"
+            android:id="@+id/button_add_med_complete"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".15"

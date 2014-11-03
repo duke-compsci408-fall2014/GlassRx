@@ -1,8 +1,13 @@
 package com.compsci408.rxcore;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import com.compsci408.rxcore.alarms.Alarm;
+import com.compsci408.rxcore.requests.ResponseCallback;
 import com.compsci408.rxcore.requests.ServerRequest;
 
 import android.content.Context;
@@ -11,16 +16,18 @@ public class Controller {
 	
 	public static Controller instance;
 	
-	public Context mContext;
-	private ServerRequest mServerRequest;
+	private static Context mContext;
+	private static ServerRequest mServerRequest;
 	
-	public Controller getInstance(Context ctxt) {
+	private String mUsername;
+	private String mId;
+	
+	public static Controller getInstance(Context ctxt) {
 		if (instance == null) {
 			instance = new Controller();
-			instance.mContext = mContext;
-			mServerRequest = ServerRequest.getInstance(mContext);
 		}
-		instance.mContext = mContext;
+		mServerRequest = ServerRequest.getInstance(getContext());
+		instance.setContext(ctxt);
 		return instance;
 	}
 	
@@ -28,11 +35,20 @@ public class Controller {
 	 * Log user with given username and password into the system.
 	 * @param username Username entered by user
 	 * @param password Password entered by user
+	 * @param accountType Account type selected (patient or provider)
+	 * @param callback ResponseCallback from server
 	 * @return Response string from server
 	 */
-	public String logIn(String username, String password) {
-		//TODO:  Implement log in
-		return "";
+	public void logIn(String username, String password, String accountType, ResponseCallback callback) {
+		
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair(Constants.USERNAME, username));
+		params.add(new BasicNameValuePair(Constants.PASSWORD, password));
+		params.add(new BasicNameValuePair(Constants.ACCOUNT_TYPE, accountType));
+		
+		setUsername(username);
+		
+		mServerRequest.doGet(Constants.URL_LOG_IN, callback, params);
 	}
 	
 	/**
@@ -72,9 +88,13 @@ public class Controller {
 	 * @param alarm Alarm to be added
 	 * @return Response string from server
 	 */
-	public String addAlarm(Alarm alarm) {
-		//TODO:  Implement function
-		return "";
+	public void addAlarm(int hour, int min, String name, boolean enabled, String med, ResponseCallback callback) {
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		
+		params.add(new BasicNameValuePair(Constants.TIME_HOUR, Integer.toString(hour)));
+		params.add(new BasicNameValuePair(Constants.TIME_MINUTE, Integer.toString(min)));
+		
+		mServerRequest.doPost(Constants.URL_ADD_ALARM, callback, params);
 	}
 	
 	/**
@@ -85,6 +105,30 @@ public class Controller {
 	public String removeAlarm(int alarmId) {
 		//TODO:  Implement function
 		return "";
+	}
+
+	public static Context getContext() {
+		return mContext;
+	}
+
+	public void setContext(Context mContext) {
+		Controller.mContext = mContext;
+	}
+
+	public String getUsername() {
+		return mUsername;
+	}
+
+	public void setUsername(String mUsername) {
+		this.mUsername = mUsername;
+	}
+
+	public String getId() {
+		return mId;
+	}
+
+	public void setId(String mId) {
+		this.mId = mId;
 	}
 	
 

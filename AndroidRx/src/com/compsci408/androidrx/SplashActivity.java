@@ -62,7 +62,7 @@ public class SplashActivity extends Activity {
 					Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/Android.ttf");
 					Animation anim = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.title_animation);
 					
-					TextView titleView = (TextView) SplashActivity.this.findViewById(R.id.splash_title_view);
+					TextView titleView = (TextView) SplashActivity.this.findViewById(R.id.textview_splash_title);
 					titleView.setTypeface(typeFace);
 					titleView.startAnimation(anim);
 					titleView.setVisibility(View.VISIBLE);

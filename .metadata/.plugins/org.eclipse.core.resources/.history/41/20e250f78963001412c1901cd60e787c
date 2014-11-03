@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/layout_time_week_pickers"
+        android:orientation="horizontal"
+        android:weightSum="1" >
+	    
+	    <TimePicker
+	        android:id="@+id/timepicker_alarm_time"
+	        android:layout_width="0dp"
+	        android:layout_weight=".6"
+	        android:layout_height="wrap_content" />
+	    
+	    <NumberPicker
+	        android:id="@+id/numberPicker1"
+	        android:layout_width="0dp"
+	        android:layout_weight=".4"
+	        android:layout_height="wrap_content"
+	        android:visibility="invisible" />
+	</LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkbox_repeat_weekly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_time_week_pickers"
+        android:text="@string/repeat_weekly" />
+
+
+</RelativeLayout>

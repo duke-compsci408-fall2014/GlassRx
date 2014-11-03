@@ -7,6 +7,6 @@ package com.compsci408.rxcore.requests;
  */
 public abstract class ResponseCallback {
 
-	abstract void onResponseReceived(String response);
+	public abstract void onResponseReceived(String response);
 	
 }

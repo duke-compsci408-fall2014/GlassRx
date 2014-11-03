@@ -40,11 +40,11 @@ public class PatientActivity extends Activity {
 		
 		Intent intent = getIntent();	
 		
-		patientName = (TextView) findViewById(R.id.patient_name);
+		patientName = (TextView) findViewById(R.id.textview_patient_name);
 		patientName.setText(intent.getStringExtra("PatientName"));
 		
 		adapter.addAll(getResources().getStringArray(R.array.med_list));
-		medList = (ListView) findViewById(R.id.patient_med_list);
+		medList = (ListView) findViewById(R.id.listview_patient_meds);
 	    medList.setAdapter(adapter);
 	    medList.setOnItemClickListener(new OnItemClickListener() {
 
@@ -67,7 +67,7 @@ public class PatientActivity extends Activity {
 	        adapter.notifyDataSetChanged();
 		}
 		
-		addMed = (Button) findViewById(R.id.add_med);
+		addMed = (Button) findViewById(R.id.button_add_med);
 		addMed.setOnClickListener(new OnClickListener() {
 
 			@Override

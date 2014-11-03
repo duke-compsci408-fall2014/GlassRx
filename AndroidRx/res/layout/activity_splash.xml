@@ -11,14 +11,14 @@
     tools:context="com.compsci408.androidrx.SplashActivity" >
 
     <TextView
-        android:id="@+id/splash_title_view"
+        android:id="@+id/textview_splash_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/androidrx"
-        android:visibility="invisible"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/light_gray"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:visibility="invisible" />
     
 </RelativeLayout>
