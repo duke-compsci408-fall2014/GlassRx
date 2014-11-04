@@ -21,11 +21,12 @@
 	        android:layout_height="wrap_content" />
 	    
 	    <NumberPicker
-	        android:id="@+id/numberPicker1"
+	        android:id="@+id/numberpicker_weeks"
 	        android:layout_width="0dp"
-	        android:layout_weight=".34"
 	        android:layout_height="wrap_content"
+	        android:layout_weight=".34"
 	        android:visibility="invisible" />
+
 	</LinearLayout>
 
     <CheckBox

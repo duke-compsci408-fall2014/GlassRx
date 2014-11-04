@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AndroidRx</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_logout">Log Out</string>
+    <string name="androidrx">AndroidRx</string>
+    <string name="add_med">+ Add Medication</string>
+    <string name="new_med">New Medication</string>
+    <string name="enter_med_name">Medication Name</string>
+    <string name="medication_icon">Medication Icon</string>
+    <string name="duke_logo">Duke Logo</string>
+    <string name="set_day_time">Set Day and Time</string>
+    <string name="set">Set</string>
+    <string name="cancel">Cancel</string>
+    <string name="repeat_weekly">Repeat Weekly</string>
+    <string name="dose_quantity">Dose</string>
+
+    <!-- For testing purposes only; remove when real data is available -->
+    <string-array name="patient_list">
+        <item>Eli Manning</item>
+        <item>Rashad Jennings</item>
+        <item>Jason Pierre-Paul</item>
+        <item>Victor Cruz</item>
+        <item>Larry Donnell</item>
+        <item>Cullen Jenkins</item>
+        <item>Prince Amukamara</item>
+        <item>Antrel Rolle</item>
+        <item>Steve Weatherford</item>
+        <item>Henry Hynoski</item>
+    </string-array>
+    <string-array name="med_list">
+        <item>Sertraline Hydrochloride</item>
+        <item>Acetaminophen</item>
+        <item>Monopril</item>
+    </string-array>
+    <string-array name="alarm_array">
+        <item>Today, 6PM</item>
+        <item>Friday, 6PM</item>
+        <item>Monday, 6PM</item>
+    </string-array>
+
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_patient_list">Patient List</string>
+    <string name="title_activity_patient">Patient Profile</string>
+    <string name="title_activity_edit_med">Edit Medication</string>
+    <string name="title_activity_new_med">New Medication</string>
+    <string name="title_activity_medication">Medication Details</string>
+    <string name="med_nickname">Nickname:  </string>
+    <string name="med_dosage">Dosage:  </string>
+    <string name="done">Done</string>
+    <string name="add_time">+ Add Time</string>
+    <string name="title_activity_med_info">Med Info Activity</string>
+
+</resources>

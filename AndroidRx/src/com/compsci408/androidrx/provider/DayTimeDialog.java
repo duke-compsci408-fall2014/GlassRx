@@ -61,7 +61,7 @@ public class DayTimeDialog extends DialogFragment {
 		};
 		
 		mTimePicker = (TimePicker) view.findViewById(R.id.timepicker_alarm_time);
-		mWeekNumberPicker = (NumberPicker) view.findViewById(R.id.numberPicker1);
+		mWeekNumberPicker = (NumberPicker) view.findViewById(R.id.numberpicker_weeks);
 		mRepeatWeeks = (CheckBox) view.findViewById(R.id.checkbox_repeat_weekly);
 		
 		mRepeatWeeks.setOnCheckedChangeListener(new OnCheckedChangeListener() {

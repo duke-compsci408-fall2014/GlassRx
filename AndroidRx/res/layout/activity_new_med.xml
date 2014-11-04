@@ -22,15 +22,41 @@
 
         <requestFocus />
     </EditText>
+    
+    
+    <EditText
+        android:id="@+id/edittext_dose_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/edittext_new_med_name"
+        android:hint="@string/dose_quantity"
+        android:inputType="number" />
+    
+    <EditText
+        android:id="@+id/edittext_dose_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_toRightOf="@+id/edittext_dose_quantity"
+		android:layout_toEndOf="@+id/edittext_dose_quantity"
+        android:layout_below="@+id/edittext_new_med_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:ems="10"
+        android:hint="@string/enter_dose_description"
+        android:inputType="text" />
 
     <LinearLayout
         android:id="@+id/layout_schedule_set"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/edittext_new_med_name"
+        android:layout_below="@+id/edittext_dose_description"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:orientation="vertical"
         android:weightSum="1" >
+
 
         <android.widget.CalendarView
             android:id="@+id/calendar_med_schedule"
@@ -47,6 +73,5 @@
             android:onClick="addTimeComplete"
             android:text="@string/done" />
     </LinearLayout>
-
 
 </RelativeLayout>
