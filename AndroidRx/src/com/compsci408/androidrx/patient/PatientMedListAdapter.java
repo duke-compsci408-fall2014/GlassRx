@@ -1,5 +1,7 @@
 package com.compsci408.androidrx.patient;
 
+import java.util.List;
+
 import com.compsci408.androidrx.R;
 
 import android.app.Activity;
@@ -18,10 +20,10 @@ public class PatientMedListAdapter extends ArrayAdapter<Medication> {
 
 	Context mContext;
 	int mLayoutId;
-	Medication[] mData = null;
+	List<Medication> mData = null;
 	
 	
-	public PatientMedListAdapter(Context context, int layoutResource, Medication[] data) {
+	public PatientMedListAdapter(Context context, int layoutResource, List<Medication> data) {
 		super(context, layoutResource, data);
 		mContext = context;
 		mLayoutId = layoutResource;
@@ -39,9 +41,7 @@ public class PatientMedListAdapter extends ArrayAdapter<Medication> {
 			row = inflater.inflate(mLayoutId, parent, false);
 			
 			holder = new MedicationHolder();
-			holder.icon = (ImageView) row.findViewById(R.id.imageview_med_icon);
 			holder.name = (TextView) row.findViewById(R.id.textview_med_name);
-			holder.nickname = (TextView) row.findViewById(R.id.textview_med_nickname);
 			
 			row.setTag(holder);
 			
@@ -51,16 +51,12 @@ public class PatientMedListAdapter extends ArrayAdapter<Medication> {
 			holder = (MedicationHolder) row.getTag();
 		}
 		
-		Medication medication = mData[position];
-		holder.name.setText(medication.getName());
-		holder.nickname.setText("(" + medication.getNickname() + ")");
-		
+		Medication medication = mData.get(position);
+		holder.name.setText(medication.getName());		
 		return row;
 	}
 	
 	static class MedicationHolder {
-		ImageView icon;
 		TextView name;
-		TextView nickname;
 	}
 }

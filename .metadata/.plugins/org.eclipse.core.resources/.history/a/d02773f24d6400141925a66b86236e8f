@@ -1,0 +1,6 @@
+package com.compsci408.rxcore.listeners;
+
+public abstract class OnMedInfoLoadedListener {
+
+	public abstract void onMedInfoLoaded(JSONObject info);
+}

@@ -3,3 +3,4 @@
 1415036637740	Encapsulate field 'mName'
 1415037105641	Encapsulate field 'mUsername'
 1415037115516	Encapsulate field 'mId'
+1415146013586	Rename method 'buildLogInURL'

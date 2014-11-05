@@ -6,9 +6,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
+import org.json.JSONObject;
 
-import org.apache.http.NameValuePair;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -18,24 +17,26 @@ import com.compsci408.rxcore.Constants;
  * {@link AsyncTask} for performing a POST request.
  * @author Evan
  */
-public class PostTask extends AsyncTask<String, Void, String> {
+public class PostTask extends AsyncTask<String, Void, JSONObject> {
 
 	private static final String TAG = "PostTask";
 	
 	private InputStream is = null;
 	private ResponseCallback mCallback;
-	private List<NameValuePair> mParams;
+	private String mBody;
 	
-	public PostTask(ResponseCallback callback, List<NameValuePair> params) {
+	public PostTask(ResponseCallback callback, String body) {
 		mCallback = callback;
-		mParams = params;
+		mBody = body;
 	}
 	
 	@Override
-	protected String doInBackground(String... address) {
+	protected JSONObject doInBackground(String... address) {
 		URL url;
 		HttpURLConnection urlConnection = null;
 		String result = null;
+		JSONObject json = null;
+		
 		try {
 	        url = new URL(address[0]);
 
@@ -45,6 +46,7 @@ public class PostTask extends AsyncTask<String, Void, String> {
 	        urlConnection.setReadTimeout(Constants.READ_TIMEOUT);
 	        urlConnection.setConnectTimeout(Constants.CONNECT_TIMEOUT);
 	        urlConnection.setRequestMethod(Constants.POST);
+	        urlConnection.setRequestProperty("Content-Type","application/json");  
 	        urlConnection.setChunkedStreamingMode(0);
 	        urlConnection.setDoInput(true);
 	        urlConnection.setDoOutput(true);
@@ -53,7 +55,7 @@ public class PostTask extends AsyncTask<String, Void, String> {
 	        OutputStream os = urlConnection.getOutputStream();
 	        BufferedWriter writer = new BufferedWriter(
 	                new OutputStreamWriter(os, "UTF-8"));
-	        writer.write(RequestUtils.getQuery(mParams));
+	        writer.write(mBody);
 	        writer.flush();
 	        writer.close();
 	        
@@ -67,6 +69,7 @@ public class PostTask extends AsyncTask<String, Void, String> {
 	        result = RequestUtils.readStream(is);
 	        Log.d(TAG, "Response:  " + result);
 	        is.close();
+	        json = new JSONObject(result);
 	        
 	    } catch (Exception e) {
 	    	// TODO:  Improve exception handling
@@ -74,11 +77,11 @@ public class PostTask extends AsyncTask<String, Void, String> {
 	    } finally {
 	    	urlConnection.disconnect();
 	    }
-		return result;
+		return json;
 	}
 	
 	@Override
-	public void onPostExecute(String result) {
+	public void onPostExecute(JSONObject result) {
 		mCallback.onResponseReceived(result);
 		super.onPostExecute(result);
 	}

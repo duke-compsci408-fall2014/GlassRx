@@ -9,51 +9,48 @@ package com.compsci408.rxcore.datatypes;
  */
 public class Medication {
 
-	private int mId;
-	private String mName;
-	private int mColor;
-	private int mShape;
+	private String name;
+	private String purpose;
+	private String side_effects;
+	private int id;
 	
-	private String mNickname;	//  Unique name each patient can apply
 	
-	public Medication(int id, String name, int color, int shape) {
-		super();
-		setId(id);
-		setName(name);
-		setColor(color);
-		setShape(shape);
-	}
+	private transient String mNickname = "The blue one";	//  Unique name each patient can apply
+	
+	public Medication() {
 
-	public int getId() {
-		return mId;
-	}
-
-	public void setId(int mId) {
-		this.mId = mId;
 	}
 
 	public String getName() {
-		return mName;
+		return name;
 	}
 
-	public void setName(String mName) {
-		this.mName = mName;
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getPurpose() {
+		return purpose;
 	}
 
-	public int getColor() {
-		return mColor;
+	public void setPurpose(String purpose) {
+		this.purpose = purpose;
+	}
+	
+	public String getSide_effects() {
+		return side_effects;
 	}
 
-	public void setColor(int mColor) {
-		this.mColor = mColor;
+	public void setSide_effects(String side_effects) {
+		this.side_effects = side_effects;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
-	public int getShape() {
-		return mShape;
-	}
-
-	public void setShape(int mShape) {
-		this.mShape = mShape;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNickname() {

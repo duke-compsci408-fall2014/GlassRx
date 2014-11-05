@@ -31,15 +31,15 @@ public class ServerRequest {
 	 * @param callback
 	 * @param params
 	 */
-	public void doGet(String url, ResponseCallback callback, List<NameValuePair> params) {
+	public void doGet(String url, ResponseCallback callback) {
 		if (RequestUtils.checkConnection(mContext)) {
-			new GetTask(callback, params).execute(url);
+			new GetTask(callback).execute(url);
 		}
 	}
 	
-	public void doPost(String url, ResponseCallback callback, List<NameValuePair> params) {
+	public void doPost(String url, ResponseCallback callback, String body) {
 		if (RequestUtils.checkConnection(mContext)) {
-			new PostTask(callback, params).execute(url);
+			new PostTask(callback, body).execute(url);
 		}
 	}
 }

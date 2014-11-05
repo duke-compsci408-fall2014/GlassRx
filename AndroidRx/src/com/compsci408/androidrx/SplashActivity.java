@@ -19,7 +19,7 @@ import android.widget.TextView;
  */
 public class SplashActivity extends Activity {
 
-	private static int SPLASH_TIME_OUT = 4000;
+	private static int SPLASH_TIME_OUT = 5000;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class SplashActivity extends Activity {
             public void run() {
                 new SplashLogoTask().execute();
             }
-        }, SPLASH_TIME_OUT/2);
+        }, SPLASH_TIME_OUT/7);
 		
 		new Handler().postDelayed(new Runnable() { 
             @Override

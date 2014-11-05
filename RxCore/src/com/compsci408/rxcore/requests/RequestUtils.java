@@ -9,6 +9,10 @@ import java.net.URLEncoder;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.json.JSONObject;
+
+import com.compsci408.rxcore.Constants;
+import com.compsci408.rxcore.datatypes.AccountType;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -57,6 +61,9 @@ public class RequestUtils {
 	 * @throws UnsupportedEncodingException
 	 */
 	public static String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException {
+		if (params == null) {
+			return "";
+		}
 		StringBuilder result = new StringBuilder();
 	    boolean first = true;
 
@@ -68,13 +75,14 @@ public class RequestUtils {
 	            result.append("&");
 	        }
 
-	        result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
-	        result.append("=");
+	        if (!pair.getName().equals("")) {
+	        	result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
+		        result.append("=");
+	        }
 	        result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
 	    }
 
 	    return result.toString();
-	}
-	
+	}	
 
 }

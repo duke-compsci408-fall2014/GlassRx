@@ -1,0 +1,52 @@
+package com.compsci408.rxcore;
+
+/**
+ * Holds any static field names used across the application
+ * @author Evan
+ */
+public class Constants {
+	
+	
+	//  Alarm fields
+	public static final String ALARM_ID 				= "id";
+	public static final String ALARM_NAME 				= "name";
+	public static final String ALARM_TIME_HOUR 			= "timeHour";
+	public static final String ALARM_TIME_MINUTE 		= "timeMinute";
+	public static final String ALARM_TONE 				= "alarmTone";
+	
+	// Medication Fields
+	public static final String MED_ID					= "id";
+	public static final String MED_NAME					= "name";
+	public static final String MED_NICKNAME				= "nickname";
+	public static final String MED_DOSE_QUANT			= "dose";
+	public static final String MED_DOSE_DESCR			= "dose_description";
+	
+	//  Table Headers
+	public static final String USERNAME					= "username";
+	public static final String PASSWORD					= "password";
+	public static final String ACCOUNT_TYPE				= "account_type";
+	
+	//  Account Types
+	public static final String ACCOUNT_PATIENT			= "patient";
+	public static final String ACCOUNT_PROVIDER			= "provider";
+	
+	//  Network connection constants
+	public static final int READ_TIMEOUT				= 10000;
+	public static final int CONNECT_TIMEOUT				= 15000;
+	public static final int POLLING_INTERVAL			= 1000 * 60 * 10;  //  Ten minutes
+	
+	public static final String GET						= "GET";
+	public static final String POST						= "POST";
+	
+	public static final String RESPONSE_SUCCESS			= "success";
+	public static final String RESPONSE_TIMEOUT			= "timeout";
+	
+	//TODO:  add appropriate URLs
+	public static final String URL_LOG_IN				= "";
+	public static final String URL_LOG_OUT				= "";
+	public static final String URL_ADD_ALARM			= "";
+	public static final String ULR_GET_MED				= "";
+	
+	
+
+}

@@ -23,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageview_med"
-        android:layout_below="@+id/imageview_med" >
+        android:layout_alignStart="@+id/imageview_med"
+        android:layout_below="@+id/imageview_med">
     </ListView>
 
 </RelativeLayout>

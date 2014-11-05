@@ -24,11 +24,11 @@ public class AlarmManagerHelper extends BroadcastReceiver {
  
     private static PendingIntent createPendingIntent(Context context, Alarm model) {
 	    Intent intent = new Intent(context, AlarmService.class);
-	    intent.putExtra(Constants.ID, model.mId);
-	    intent.putExtra(Constants.NAME, model.mName);
-	    intent.putExtra(Constants.TIME_HOUR, model.mTimeHour);
-	    intent.putExtra(Constants.TIME_MINUTE, model.mTimeMinute);
-	    intent.putExtra(Constants.TONE, model.mAlarmTone);
+	    intent.putExtra(Constants.ALARM_ID, model.mId);
+	    intent.putExtra(Constants.ALARM_NAME, model.mName);
+	    intent.putExtra(Constants.ALARM_TIME_HOUR, model.mTimeHour);
+	    intent.putExtra(Constants.ALARM_TIME_MINUTE, model.mTimeMinute);
+	    intent.putExtra(Constants.ALARM_TONE, model.mAlarmTone);
 	 
 	    return PendingIntent.getService(context, (int) model.mId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }

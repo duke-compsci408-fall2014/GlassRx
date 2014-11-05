@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.json.JSONObject;
 
 import com.compsci408.rxcore.Constants;
 
@@ -16,28 +17,27 @@ import android.util.Log;
  * {@link AsyncTask} for performing a GET request.
  * @author Evan
  */
-public class GetTask extends AsyncTask<String, Void, String> {
+public class GetTask extends AsyncTask<String, Void, JSONObject> {
 	
 	private static final String TAG = "GetTask";
 	
 	private InputStream is = null;
 	private ResponseCallback mCallback;
-	private List<NameValuePair> mParams;
 	
-	public GetTask(ResponseCallback callback, List<NameValuePair> params) {
+	public GetTask(ResponseCallback callback) {
 		mCallback = callback;
-		mParams = params;
 	}
 	
 	@Override
-	protected String doInBackground(String... address) {
+	protected JSONObject doInBackground(String... address) {
 		
 		URL url;
 		HttpURLConnection urlConnection = null;
 		String result = null;
+		JSONObject json = null;
 		
 		try {
-	        url = new URL(address[0] + RequestUtils.getQuery(mParams));
+	        url = new URL(address[0]);
 	        
 	        urlConnection = (HttpURLConnection) url.openConnection();
 	        
@@ -53,6 +53,7 @@ public class GetTask extends AsyncTask<String, Void, String> {
 	        result = RequestUtils.readStream(is);
 	        Log.d(TAG, "Response:  " + result);
 	        is.close();
+	        json = new JSONObject(result);
 	        
 	    } catch (Exception e) {
 	    	// TODO:  Improve exception handling
@@ -60,11 +61,11 @@ public class GetTask extends AsyncTask<String, Void, String> {
 	    } finally {
 	    	urlConnection.disconnect();
 	    }
-		return result;
+		return json;
 	}
 	
 	@Override
-	public void onPostExecute(String result) {
+	public void onPostExecute(JSONObject result) {
 		mCallback.onResponseReceived(result);
 		super.onPostExecute(result);
 	}

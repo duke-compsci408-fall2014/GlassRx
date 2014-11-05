@@ -1,19 +1,70 @@
 package com.compsci408.androidrx;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.compsci408.rxcore.Constants;
+import com.compsci408.rxcore.Controller;
+import com.compsci408.rxcore.datatypes.Medication;
+import com.compsci408.rxcore.listeners.OnMedInfoLoadedListener;
+import com.compsci408.rxcore.requests.ResponseCallback;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MedicationActivity extends Activity {
 
+	private Medication mMedication;
+	
+	// UI references
+	private ImageView mMedImage;
+	private ListView mMedDetails;
+	
+	private Controller mController;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_medication);
-		Intent i = getIntent();
+		
+		mMedImage = (ImageView) findViewById(R.id.imageview_med);
+		mMedDetails = (ListView) findViewById(R.id.listview_med_details);
+		
+		mController = Controller.getInstance(this);
+		
+		
+		//  Load medication info onto screen
+		mController.getMedInfo(new OnMedInfoLoadedListener() {
+
+			@Override
+			public void onMedInfoLoaded(Medication med) {
+				mMedication = med;
+				List<String> details = new ArrayList<String>();
+				
+				details.add(MedicationActivity.this.getResources().getString(R.string.med_name)
+						+ mMedication.getName());
+				details.add(MedicationActivity.this.getResources().getString(R.string.med_nickname)
+						+ mMedication.getNickname());
+				
+				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+		                 MedicationActivity.this, 
+		                 android.R.layout.simple_list_item_1,
+		                 details );
+				mMedDetails.setAdapter(arrayAdapter);
+			}			
+		});
+		
+		
 
 	}
 

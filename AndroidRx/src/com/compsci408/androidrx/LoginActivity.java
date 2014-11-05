@@ -29,6 +29,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.compsci408.androidrx.patient.MainActivity;
 import com.compsci408.androidrx.provider.PatientListActivity;
 import com.compsci408.rxcore.Constants;
@@ -104,26 +108,36 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	    mCallback = new ResponseCallback() {
 
 			@Override
-			public void onResponseReceived(String response) {
+			public void onResponseReceived(JSONObject response) {
 				showProgress(false);
-				switch (response) {
-					case Constants.RESPONSE_SUCCESS:
+				JSONObject user = null;
+				try {
+					JSONArray array = response.getJSONArray("record");
+					String userString = array.getString(0);
+					user = new JSONObject(userString);
+				} catch (JSONException e1) {
+					// TODO Improve exception handling
+					e1.printStackTrace();
+				}
+				try {
+					if (user.getString(Constants.PASSWORD).equals(mPasswordView.getText().toString())) {
 						Intent intent;
 						String accountType = mAccountTypeView.getSelectedItem().toString();
 						
 						if (accountType.equals(AccountType.PATIENT.getName())) {
 							intent = new Intent(LoginActivity.this, MainActivity.class);
 						} else {
+							mController.setProviderId(user.getInt("physicianID"));
 							intent = new Intent(LoginActivity.this, PatientListActivity.class);
 						}
 						
 						startActivity(intent);
 						overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-						break;
-					
-					default:
+					} else {
 						mErrorView.setText("Error:  " + response);
-						break;
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
 			}
 	    	

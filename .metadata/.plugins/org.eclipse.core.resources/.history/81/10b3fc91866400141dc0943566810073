@@ -1,0 +1,16 @@
+package com.compsci408.rxcore.datatypes;
+
+public class Patient {
+	
+	private String name;
+	private String pharmacy;
+	private String drug_allergies;
+	private int patientID;
+	private int physicianID;
+	
+	public Patient() {
+		
+	}
+	
+	
+}

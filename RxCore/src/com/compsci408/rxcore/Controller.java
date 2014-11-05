@@ -5,10 +5,22 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.compsci408.rxcore.alarms.Alarm;
+import com.compsci408.rxcore.datatypes.AccountType;
+import com.compsci408.rxcore.datatypes.Medication;
+import com.compsci408.rxcore.datatypes.Patient;
+import com.compsci408.rxcore.listeners.OnAlarmAddedListener;
+import com.compsci408.rxcore.listeners.OnMedInfoLoadedListener;
+import com.compsci408.rxcore.listeners.OnMedicationsLoadedListener;
+import com.compsci408.rxcore.listeners.OnPatientsLoadedListener;
+import com.compsci408.rxcore.requests.RequestUtils;
 import com.compsci408.rxcore.requests.ResponseCallback;
 import com.compsci408.rxcore.requests.ServerRequest;
+import com.google.gson.Gson;
 
 import android.content.Context;
 
@@ -20,15 +32,80 @@ public class Controller {
 	private static ServerRequest mServerRequest;
 	
 	private String mUsername;
-	private String mId;
+	private int mPatientId;
+	private String mPatientName;
+	private int mProviderId;
+	private String mMedName;
+	private int mMedId = 1;
+	
+	//  Listeners for performing UI updates
+	OnMedInfoLoadedListener mOnMedInfoLoadedListener;
+	
+	
 	
 	public static Controller getInstance(Context ctxt) {
 		if (instance == null) {
 			instance = new Controller();
 		}
-		mServerRequest = ServerRequest.getInstance(getContext());
 		instance.setContext(ctxt);
+		mServerRequest = ServerRequest.getInstance(getContext());
 		return instance;
+	}
+	
+	public static Context getContext() {
+		return mContext;
+	}
+
+	public void setContext(Context mContext) {
+		Controller.mContext = mContext;
+	}	
+	
+	public String getUsername() {
+		return mUsername;
+	}
+
+	public void setUsername(String mUsername) {
+		this.mUsername = mUsername;
+	}
+
+	public int getPatientId() {
+		return mPatientId;
+	}
+
+	public void setPatientId(int mPatientId) {
+		this.mPatientId = mPatientId;
+	}
+	
+	public String getPatientName() {
+		return mPatientName;
+	}
+
+	public void setPatientName(String patientName) {
+		this.mPatientName = patientName;
+	}
+	
+	public int getProviderId() {
+		return mProviderId;
+	}
+
+	public void setProviderId(int mProviderId) {
+		this.mProviderId = mProviderId;
+	}
+
+	public String getMedName() {
+		return mMedName;
+	}
+	
+	public void setMedName(String mMedName) {
+		this.mMedName = mMedName;
+	}
+
+	public int getMedId() {
+		return mMedId;
+	}
+
+	public void setMedId(int mMedId) {
+		this.mMedId = mMedId;
 	}
 	
 	/**
@@ -41,14 +118,21 @@ public class Controller {
 	 */
 	public void logIn(String username, String password, String accountType, ResponseCallback callback) {
 		
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair(Constants.USERNAME, username));
-		params.add(new BasicNameValuePair(Constants.PASSWORD, password));
-		params.add(new BasicNameValuePair(Constants.ACCOUNT_TYPE, accountType));
-		
 		setUsername(username);
-		
-		mServerRequest.doGet(Constants.URL_LOG_IN, callback, params);
+		mServerRequest.doGet(getLogInURL(username, accountType), callback);
+	}
+	
+	/**
+	 * Construct the appropriate log in url
+	 * @param username Username entered by user
+	 * @param accountType  Account type selected by user
+	 * @return URL needed to log in given user
+	 */
+	private String getLogInURL(String username, String accountType) {
+		if (accountType.equals(AccountType.PATIENT.getName())) {
+			return Constants.URL_LOG_IN_PATIENT + username + "%27&app_name=glass-rx";
+		}
+			return Constants.URL_LOG_IN_PROVIDER + username + "%27&app_name=glass-rx";
 	}
 	
 	/**
@@ -88,13 +172,25 @@ public class Controller {
 	 * @param alarm Alarm to be added
 	 * @return Response string from server
 	 */
-	public void addAlarm(int hour, int min, String name, boolean enabled, String med, ResponseCallback callback) {
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
+	public void addAlarm(Alarm alarm, final OnAlarmAddedListener listener) {
 		
-		params.add(new BasicNameValuePair(Constants.TIME_HOUR, Integer.toString(hour)));
-		params.add(new BasicNameValuePair(Constants.TIME_MINUTE, Integer.toString(min)));
+		String json = new Gson().toJson(alarm, Alarm.class);
 		
-		mServerRequest.doPost(Constants.URL_ADD_ALARM, callback, params);
+		mServerRequest.doPost(Constants.URL_ADD_ALARM, new ResponseCallback() {
+
+			@Override
+			public void onResponseReceived(JSONObject response) {
+				try {
+					boolean result = response.getBoolean(Constants.RESPONSE_SUCCESS);
+					listener.onAlarmAdded(result);
+				} catch (JSONException e) {
+					// TODO Improve exception handling
+					e.printStackTrace();
+				}
+				
+			}
+			
+		}, json);
 	}
 	
 	/**
@@ -106,30 +202,80 @@ public class Controller {
 		//TODO:  Implement function
 		return "";
 	}
+	
+	public void getPatients(final OnPatientsLoadedListener listener) {
+		
+		final List<Patient> patients = new ArrayList<Patient>();
+		final Gson gson = new Gson();
+		
+		mServerRequest.doGet(getPatientsURL(), new ResponseCallback() {
 
-	public static Context getContext() {
-		return mContext;
-	}
-
-	public void setContext(Context mContext) {
-		Controller.mContext = mContext;
-	}
-
-	public String getUsername() {
-		return mUsername;
-	}
-
-	public void setUsername(String mUsername) {
-		this.mUsername = mUsername;
-	}
-
-	public String getId() {
-		return mId;
-	}
-
-	public void setId(String mId) {
-		this.mId = mId;
+			@Override
+			public void onResponseReceived(JSONObject response) {
+				try {
+					JSONArray array = response.getJSONArray("record");
+					for (int i = 0; i < array.length(); i++) {
+						Patient p = gson.fromJson(array.getString(i), Patient.class);
+						patients.add(p);
+					}
+					
+					listener.onPatientsLoaded(patients);
+					
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+		});
 	}
 	
+	public void getMedications(final OnMedicationsLoadedListener listener) {
+		
+		final List<Medication> medications = new ArrayList<Medication>();
+		final Gson gson = new Gson();
+		
+		mServerRequest.doGet(getPatientsURL(), new ResponseCallback() {
+
+			@Override
+			public void onResponseReceived(JSONObject response) {
+				try {
+					JSONArray array = response.getJSONArray("record");
+					for (int i = 0; i < array.length(); i++) {
+						Medication p = gson.fromJson(array.getString(i), Medication.class);
+						medications.add(p);
+					}
+					
+					listener.onMedicationsLoaded(medications);
+					
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+		});
+	}
+	
+	private String getPatientsURL() {
+		return Constants.URL_GET_PATIENTS + Integer.toString(mProviderId) + "&app_name=glass-rx";
+	}
+	
+	public void getMedInfo(final OnMedInfoLoadedListener listener) {
+		
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair(Constants.MED_ID, Integer.toString(mMedId)));
+		
+		mServerRequest.doGet(Constants.URL_GET_MED, new ResponseCallback() {
+
+			@Override
+			public void onResponseReceived(JSONObject response) {
+				Medication med = new Gson().fromJson(response.toString(), Medication.class);
+				listener.onMedInfoLoaded(med);
+			}
+			
+		});
+	}
+
 
 }

@@ -1,0 +1,9 @@
+package com.compsci408.rxcore.datatypes;
+
+public class Physician {
+	
+	private String name;
+	private int physicianID;
+	private String hospital;
+
+}

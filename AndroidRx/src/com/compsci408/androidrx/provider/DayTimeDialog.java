@@ -31,7 +31,6 @@ public class DayTimeDialog extends DialogFragment {
 	private String mDate;
 	
 	private Controller mController;
-	private ResponseCallback mCallback;
 	
 	List<Integer> mAlarms;
 	
@@ -50,15 +49,6 @@ public class DayTimeDialog extends DialogFragment {
 		View view = inflater.inflate(R.layout.dialog_day_time, null);
 		
 		mController = Controller.getInstance(getActivity());
-		
-		mCallback = new ResponseCallback() {
-
-			@Override
-			public void onResponseReceived(String response) {
-				
-			}
-			
-		};
 		
 		mTimePicker = (TimePicker) view.findViewById(R.id.timepicker_alarm_time);
 		mWeekNumberPicker = (NumberPicker) view.findViewById(R.id.numberpicker_weeks);
@@ -83,8 +73,7 @@ public class DayTimeDialog extends DialogFragment {
 		builder.setPositiveButton(R.string.set, new DialogInterface.OnClickListener() {
 		           public void onClick(DialogInterface dialog, int id) {
 		               //TODO:  Add alarms
-		        	   mController.addAlarm(mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute(),
-		        			   "", true, null, mCallback);
+		        	   
 		        	  
 		       }
 		   })

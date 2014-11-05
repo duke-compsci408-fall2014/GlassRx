@@ -8,11 +8,18 @@ public class Constants {
 	
 	
 	//  Alarm fields
-	public static final String ID 						= "id";
-	public static final String NAME 					= "name";
-	public static final String TIME_HOUR 				= "timeHour";
-	public static final String TIME_MINUTE 				= "timeMinute";
-	public static final String TONE 					= "alarmTone";
+	public static final String ALARM_ID 				= "id";
+	public static final String ALARM_NAME 				= "name";
+	public static final String ALARM_TIME_HOUR 			= "timeHour";
+	public static final String ALARM_TIME_MINUTE 		= "timeMinute";
+	public static final String ALARM_TONE 				= "alarmTone";
+	
+	// Medication Fields
+	public static final String MED_ID					= "id";
+	public static final String MED_NAME					= "name";
+	public static final String MED_NICKNAME				= "nickname";
+	public static final String MED_DOSE_QUANT			= "dose";
+	public static final String MED_DOSE_DESCR			= "dose_description";
 	
 	//  Table Headers
 	public static final String USERNAME					= "username";
@@ -35,9 +42,12 @@ public class Constants {
 	public static final String RESPONSE_TIMEOUT			= "timeout";
 	
 	//TODO:  add appropriate URLs
-	public static final String URL_LOG_IN				= "";
+	public static final String URL_LOG_IN_PATIENT		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Patient?filter=login%3D%27";
+	public static final String URL_LOG_IN_PROVIDER		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Physician?filter=login%3D%27";
+	public static final String URL_GET_PATIENTS			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Patient?filter=physicianID%3D";
 	public static final String URL_LOG_OUT				= "";
-	public static final String URL_ADD_ALARM			= "";
+	public static final String URL_ADD_ALARM			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com:443/rest/db/Schedule?app_name=glass-rx";
+	public static final String URL_GET_MED				= "";
 	
 	
 

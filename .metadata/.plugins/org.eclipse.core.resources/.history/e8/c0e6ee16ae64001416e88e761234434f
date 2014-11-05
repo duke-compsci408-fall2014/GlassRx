@@ -1,0 +1,7 @@
+package com.compsci408.rxcore.listeners;
+
+public abstract class OnMedicationsLoadedListener {
+	
+	public abstract void onMedicationsLoaded(List<Mediations> medications);
+
+}

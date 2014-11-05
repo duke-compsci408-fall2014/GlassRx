@@ -1,10 +1,15 @@
 package com.compsci408.androidrx.provider;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.compsci408.androidrx.LoginActivity;
 import com.compsci408.androidrx.MedicationActivity;
 import com.compsci408.androidrx.R;
+import com.compsci408.androidrx.patient.PatientMedListAdapter;
+import com.compsci408.rxcore.Controller;
+import com.compsci408.rxcore.datatypes.Medication;
+import com.compsci408.rxcore.listeners.OnMedicationsLoadedListener;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,54 +31,53 @@ public class PatientActivity extends Activity {
 	ListView medList;
 	Button addMed;
 	
-    ArrayList<String> listItems=new ArrayList<String>();
-    ArrayAdapter<String> adapter;
+    PatientMedListAdapter mAdapter;
+    
+    private Controller mController;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_patient);
 		
-		adapter=new ArrayAdapter<String>(this,
-	            android.R.layout.simple_list_item_1,
-	            listItems);
+		mController = Controller.getInstance(this);
 		
-		Intent intent = getIntent();	
+		mController.getMedications(new OnMedicationsLoadedListener() {
+
+			@Override
+			public void onMedicationsLoaded(List<Medication> medications) {
+				mAdapter = new PatientMedListAdapter(
+		                PatientActivity.this, 
+		                R.layout.med_list_item,
+		                medications);
+				medList.setAdapter(mAdapter);
+			}
+			
+		});
 		
 		patientName = (TextView) findViewById(R.id.textview_patient_name);
-		patientName.setText(intent.getStringExtra("PatientName"));
 		
-		adapter.addAll(getResources().getStringArray(R.array.med_list));
 		medList = (ListView) findViewById(R.id.listview_patient_meds);
-	    medList.setAdapter(adapter);
 	    medList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				
+				mController.setMedName(parent.getItemAtPosition(position).toString());
 				Intent intent = new Intent(PatientActivity.this, MedicationActivity.class);
-				intent.putExtra("MedName", parent.getItemAtPosition(position).toString());
-				intent.putExtra("Nickname", "The Round White One");
-				intent.putExtra("Dosage", "2 pills");
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 			}
 	    	
 	    });
 		
-	    if (intent.getStringExtra("NewMed") != null) {
-			listItems.add(intent.getStringExtra("NewMed"));
-	        adapter.notifyDataSetChanged();
-		}
-		
 		addMed = (Button) findViewById(R.id.button_add_med);
 		addMed.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+				mController.setPatientName(patientName.getText().toString());
 				Intent intent = new Intent(PatientActivity.this, NewMedActivity.class);
-				intent.putExtra("PatientName", patientName.getText().toString());
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				finish();

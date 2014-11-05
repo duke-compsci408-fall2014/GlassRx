@@ -49,6 +49,7 @@
         <activity
             android:name=".provider.PatientListActivity"
             android:label="@string/title_activity_patient_list"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity

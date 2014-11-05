@@ -1,7 +1,14 @@
 package com.compsci408.androidrx.provider;
 
+import java.util.List;
+
 import com.compsci408.androidrx.LoginActivity;
+import com.compsci408.androidrx.MedicationActivity;
 import com.compsci408.androidrx.R;
+import com.compsci408.rxcore.Controller;
+import com.compsci408.rxcore.datatypes.Patient;
+import com.compsci408.rxcore.listeners.OnPatientsLoadedListener;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -20,10 +28,29 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 	ListView patientList;
 	SearchView patientSearch;
 	
+	PatientListAdapter mAdapter;
+	
+	private Controller mController;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_patient_list);
+		
+		mController = Controller.getInstance(this);
+		
+		mController.getPatients(new OnPatientsLoadedListener() {
+
+			@Override
+			public void onPatientsLoaded(List<Patient> patients) {
+				mAdapter = new PatientListAdapter(
+		                PatientListActivity.this, 
+		                R.layout.patient_list_item,
+		                patients);
+				patientList.setAdapter(mAdapter);
+			}
+			
+		});
 		
 		patientSearch = (SearchView) findViewById(R.id.search_patient);
 		setUpSearch();
@@ -33,13 +60,14 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent intent = new Intent(PatientListActivity.this, PatientActivity.class);
-				// TODO:  Pass appropriate patient identifier to load right data
-				intent.putExtra("PatientId", position);
-				intent.putExtra("PatientName", ((TextView)view).getText());	
 				
+				Patient selected = (Patient) patientList.getAdapter().getItem(position);
+				mController.setPatientId(selected.getPatientID());
+				mController.setPatientName(selected.getName());
+				Intent intent = new Intent(PatientListActivity.this, PatientActivity.class);				
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+				finish();
 			}
 		});
 		patientList.setTextFilterEnabled(true);		
