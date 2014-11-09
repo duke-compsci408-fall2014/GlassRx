@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     
-    <service android:name="com.trigg.alarmclock.AlarmService" android:enabled="true"/>
+    <service android:name="com.compsci408.rxcore.alarms.AlarmService" android:enabled="true"/>
     
     <application
         android:allowBackup="true"
