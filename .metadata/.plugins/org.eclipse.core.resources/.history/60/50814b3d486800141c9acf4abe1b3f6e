@@ -349,9 +349,7 @@ public class Controller {
 		
 	}
 	
-	private static boolean uploadImage() {
-		return true;
-	}
+	private static boolean uploadImage()
 	
 	
 }

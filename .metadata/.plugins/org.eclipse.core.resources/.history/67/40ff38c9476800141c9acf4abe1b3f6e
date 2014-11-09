@@ -300,7 +300,7 @@ public class Controller {
 			public void onImageCaptured(byte[] data) {
 				
 				if (!upload) {
-					saveImage(data, mMedName, mContext);
+					saveImage(data, mMedName);
 				};
 			}
 			
@@ -311,13 +311,11 @@ public class Controller {
 	
 	/**
 	 * Save an image locally using the given file name
-	 * and create a thumbnail for it
 	 * @param data Byte array of image data
 	 * @param name Name of file to be created
-	 * @return Boolean indicating whether image was
-	 * successfully saved
+	 * @return
 	 */
-	private static boolean saveImage(byte[] data, String name, Context context) {
+	private boolean saveImage(byte[] data, String name) {
 		File filename;
 		Bitmap bitmap;
 		boolean success = false;
@@ -338,7 +336,7 @@ public class Controller {
 			out.flush();
 			out.close();
 			
-			MediaStore.Images.Media.insertImage(context.getContentResolver(), 
+			MediaStore.Images.Media.insertImage(mContext.getContentResolver(), 
 					filename.getAbsolutePath(), filename.getName(), filename.getName());
 			success = true;
 		} catch (Exception e) {
@@ -347,10 +345,6 @@ public class Controller {
 		}
 		return success;
 		
-	}
-	
-	private static boolean uploadImage() {
-		return true;
 	}
 	
 	

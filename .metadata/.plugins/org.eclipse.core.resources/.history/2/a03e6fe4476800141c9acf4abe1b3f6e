@@ -311,11 +311,9 @@ public class Controller {
 	
 	/**
 	 * Save an image locally using the given file name
-	 * and create a thumbnail for it
 	 * @param data Byte array of image data
 	 * @param name Name of file to be created
-	 * @return Boolean indicating whether image was
-	 * successfully saved
+	 * @return
 	 */
 	private static boolean saveImage(byte[] data, String name, Context context) {
 		File filename;
@@ -347,10 +345,6 @@ public class Controller {
 		}
 		return success;
 		
-	}
-	
-	private static boolean uploadImage() {
-		return true;
 	}
 	
 	
