@@ -332,12 +332,12 @@ public class Controller {
 			
 			MediaStore.Images.Media.insertImage(mContext.getContentResolver(), 
 					filename.getAbsolutePath(), filename.getName(), filename.getName());
-			success = true;
+			
 		} catch (Exception e) {
 			//TODO Improve exception handling
 			e.printStackTrace();
 		}
-		return success;
+		return false;
 		
 	}
 	

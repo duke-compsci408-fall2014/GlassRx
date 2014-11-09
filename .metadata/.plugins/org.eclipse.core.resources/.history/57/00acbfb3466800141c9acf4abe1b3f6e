@@ -300,7 +300,7 @@ public class Controller {
 			public void onImageCaptured(byte[] data) {
 				
 				if (!upload) {
-					saveImage(data);
+					
 				};
 			}
 			
@@ -312,7 +312,7 @@ public class Controller {
 	private boolean saveImage(byte[] data) {
 		File filename;
 		Bitmap bitmap;
-		boolean success = false;
+		
 		try {
 			String path = Environment.getExternalStorageDirectory().toString();
 			
@@ -332,12 +332,11 @@ public class Controller {
 			
 			MediaStore.Images.Media.insertImage(mContext.getContentResolver(), 
 					filename.getAbsolutePath(), filename.getName(), filename.getName());
-			success = true;
+			
 		} catch (Exception e) {
 			//TODO Improve exception handling
 			e.printStackTrace();
 		}
-		return success;
 		
 	}
 	

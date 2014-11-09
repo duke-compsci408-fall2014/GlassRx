@@ -16927,3 +16927,24 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY com.android.ide.eclipse.adt 2 0 2014-11-09 14:21:27.369
 !MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-11-09 14:28:29.411
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-11-09 14:29:07.575
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-11-09 14:29:21.188
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-11-09 14:29:33.770
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-11-09 14:29:39.950
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-11-09 14:29:43.397
+!MESSAGE Unexpected build target format: android-L
+
+!ENTRY org.eclipse.ui 2 2 2014-11-09 14:29:59.714
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.xml.ui, propertyPage: org.eclipse.wst.xml.ui.propertyPage.project.validation)

@@ -300,7 +300,34 @@ public class Controller {
 			public void onImageCaptured(byte[] data) {
 				
 				if (!upload) {
-					saveImage(data);
+					File filename;
+					Bitmap bitmap;
+					
+					try {
+						String path = Environment.getExternalStorageDirectory().toString();
+						
+						if (!new File(path + Constants.RX_DIRECTORY).isDirectory()) {
+							new File(path + Constants.RX_DIRECTORY).mkdirs();
+						}
+						
+						filename = new File (path + Constants.RX_DIRECTORY + mMedName.toLowerCase(Locale.US));
+						
+						FileOutputStream out = new FileOutputStream(filename);
+						
+						bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+						
+						out.flush();
+						out.close();
+						
+						MediaStore.Images.Media.insertImage(mContext.getContentResolver(), 
+								filename.getAbsolutePath(), filename.getName(), filename.getName());
+						
+					} catch (Exception e) {
+						//TODO Improve exception handling
+						e.printStackTrace();
+					}
+					
 				};
 			}
 			
@@ -309,37 +336,7 @@ public class Controller {
 		mCameraManager.captureImage(Camera.CameraInfo.CAMERA_FACING_BACK, listener);
 	}
 	
-	private boolean saveImage(byte[] data) {
-		File filename;
-		Bitmap bitmap;
-		boolean success = false;
-		try {
-			String path = Environment.getExternalStorageDirectory().toString();
-			
-			if (!new File(path + Constants.RX_DIRECTORY).isDirectory()) {
-				new File(path + Constants.RX_DIRECTORY).mkdirs();
-			}
-			
-			filename = new File (path + Constants.RX_DIRECTORY + mMedName.toLowerCase(Locale.US));
-			
-			FileOutputStream out = new FileOutputStream(filename);
-			
-			bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-			
-			out.flush();
-			out.close();
-			
-			MediaStore.Images.Media.insertImage(mContext.getContentResolver(), 
-					filename.getAbsolutePath(), filename.getName(), filename.getName());
-			success = true;
-		} catch (Exception e) {
-			//TODO Improve exception handling
-			e.printStackTrace();
-		}
-		return success;
-		
-	}
+	private 
 	
 	
 }
