@@ -358,7 +358,6 @@ public class Controller {
 
 			@Override
 			public void onResponseReceived(JSONObject response) {
-				// TODO Auto-generated method stub
 				
 			}
 			
