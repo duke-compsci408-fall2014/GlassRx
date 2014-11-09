@@ -3,7 +3,6 @@ package com.compsci408.androidrx.provider;
 import java.util.List;
 
 import com.compsci408.androidrx.LoginActivity;
-import com.compsci408.androidrx.MedicationActivity;
 import com.compsci408.androidrx.R;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.datatypes.Patient;
@@ -12,23 +11,29 @@ import com.compsci408.rxcore.listeners.OnPatientsLoadedListener;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 
+/**
+ * {@link Activity} which displays a list of the current
+ * provider's associated patients as well as a {@link SearchView}
+ * for filtering results in the event of a large number of
+ * patients for a single provider.
+ * @author Evan
+ */
 public class PatientListActivity extends Activity implements SearchView.OnQueryTextListener {
 
 	ListView patientList;
 	SearchView patientSearch;
 	
 	PatientListAdapter mAdapter;
+	Filter mFilter;
 	
 	private Controller mController;
 	
@@ -39,15 +44,17 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 		
 		mController = Controller.getInstance(this);
 		
+		
 		mController.getPatients(new OnPatientsLoadedListener() {
 
 			@Override
 			public void onPatientsLoaded(List<Patient> patients) {
 				mAdapter = new PatientListAdapter(
 		                PatientListActivity.this, 
-		                R.layout.patient_list_item,
+		                android.R.layout.simple_list_item_1,
 		                patients);
 				patientList.setAdapter(mAdapter);
+				mFilter = mAdapter.getFilter();
 			}
 			
 		});
@@ -64,15 +71,21 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 				Patient selected = (Patient) patientList.getAdapter().getItem(position);
 				mController.setPatientId(selected.getPatientID());
 				mController.setPatientName(selected.getName());
-				Intent intent = new Intent(PatientListActivity.this, PatientActivity.class);				
+				
+				
+				Intent intent = new Intent(PatientListActivity.this, PatientActivity.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				finish();
 			}
 		});
-		patientList.setTextFilterEnabled(true);		
+		patientList.setTextFilterEnabled(false);		
 	}
 	
+	/**
+	 * Configure the appearance of the {@link SearchView},
+	 * as well as its response to changes in query text.
+	 */
 	private void setUpSearch() {
 		patientSearch.setIconifiedByDefault(false);
         patientSearch.setOnQueryTextListener(this);
@@ -102,15 +115,11 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 	}
 
 	 public boolean onQueryTextChange(String newText) {
-	        if (TextUtils.isEmpty(newText)) {
-	            patientList.clearTextFilter();
-	        } else {
-	            patientList.setFilterText(newText.toString());
-	        }
-	        return true;
-	    }
+    	mFilter.filter(newText); 
+        return true;
+    }
 
-	    public boolean onQueryTextSubmit(String query) {
-	        return false;
-	    }
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 }

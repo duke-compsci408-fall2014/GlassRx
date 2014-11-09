@@ -1,9 +1,5 @@
 package com.compsci408.rxcore.requests;
 
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-
 import android.content.Context;
 
 /**

@@ -1,8 +1,9 @@
 package com.compsci408.androidrx.provider;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-import com.compsci408.androidrx.R;
 import com.compsci408.rxcore.datatypes.Patient;
 
 import android.app.Activity;
@@ -11,20 +12,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.TextView;
 
+/**
+ * Custom adapter for maintaining and displaying
+ * a list of patients.  Contains a custom filter
+ * for updating displayed results based on a user-
+ * provided search query.
+ * @author Evan
+ *
+ */
 public class PatientListAdapter extends ArrayAdapter<Patient> {
 	
 	Context mContext;
 	int mLayoutId;
-	List<Patient> mData = null;
 	
+	List<Patient> mOriginalData;	
+	List<Patient> mFilteredData;
 	
 	public PatientListAdapter(Context context, int layoutResource, List<Patient> data) {
 		super(context, layoutResource, data);
 		mContext = context;
 		mLayoutId = layoutResource;
-		mData = data;		
+		mFilteredData = data;
+		mOriginalData = new ArrayList<Patient>(mFilteredData);	
+	}
+	
+	
+	static class PatientHolder {
+		TextView name;
 	}
 
 	
@@ -38,7 +55,7 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
 			row = inflater.inflate(mLayoutId, parent, false);
 			
 			holder = new PatientHolder();
-			holder.name = (TextView) row.findViewById(R.id.textview_patient_name);
+			holder.name = (TextView) row.findViewById(android.R.id.text1);
 			
 			row.setTag(holder);
 			
@@ -48,13 +65,58 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
 			holder = (PatientHolder) row.getTag();
 		}
 		
-		Patient patient = mData.get(position);
+		Patient patient = mFilteredData.get(position);
 		holder.name.setText(patient.getName());
 		
 		return row;
 	}
 	
-	static class PatientHolder {
-		TextView name;
+	
+	/**
+	 * Custom filter which allows for results to be
+	 * narrowed by a search query.
+	 */
+	@Override
+	public Filter getFilter(){
+	   return new Filter(){
+
+	        @Override
+	        protected FilterResults performFiltering(CharSequence constraint) {
+	             constraint = constraint.toString().toLowerCase(Locale.US);
+	             FilterResults result = new FilterResults();
+
+	                if (constraint != null) {
+	                	List<Patient> matches = new ArrayList<Patient>();
+                        for(Patient item : mOriginalData){
+                            if(item.getName().toLowerCase(Locale.US).contains(constraint)
+                            		|| constraint.length() == 0){
+                                matches.add(item);
+                            }
+	                    }
+
+                        result.values = matches;
+                        result.count = matches.size();
+	                } 
+	                
+	                else {
+	                    result.values = mOriginalData;
+	                    result.count = mOriginalData.size();
+                    }
+	            
+	            return result;
+	        }
+	   
+		    @SuppressWarnings("unchecked")
+			@Override
+		    protected void publishResults(CharSequence constraint, FilterResults results) {
+		    	clear();
+		    	List<Patient> values = (List<Patient>) results.values;
+				for (Patient item : values) {
+			             add(item);
+			    }
+				notifyDataSetChanged();
+	
+		    }
+		};
 	}
 }

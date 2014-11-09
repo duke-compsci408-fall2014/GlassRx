@@ -63,8 +63,8 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".provider.NewMedActivity"
-            android:label="@string/title_activity_new_med"
+            android:name=".provider.NewAlarmActivity"
+            android:label="@string/title_activity_new_alarm"
             android:screenOrientation="portrait" >
         </activity>
         <activity

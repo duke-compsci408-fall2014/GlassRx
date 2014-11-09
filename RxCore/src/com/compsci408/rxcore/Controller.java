@@ -1,7 +1,10 @@
 package com.compsci408.rxcore;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -14,33 +17,35 @@ import com.compsci408.rxcore.datatypes.AccountType;
 import com.compsci408.rxcore.datatypes.Medication;
 import com.compsci408.rxcore.datatypes.Patient;
 import com.compsci408.rxcore.listeners.OnAlarmAddedListener;
+import com.compsci408.rxcore.listeners.OnImageCapturedListener;
 import com.compsci408.rxcore.listeners.OnMedInfoLoadedListener;
 import com.compsci408.rxcore.listeners.OnMedicationsLoadedListener;
 import com.compsci408.rxcore.listeners.OnPatientsLoadedListener;
-import com.compsci408.rxcore.requests.RequestUtils;
 import com.compsci408.rxcore.requests.ResponseCallback;
 import com.compsci408.rxcore.requests.ServerRequest;
 import com.google.gson.Gson;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.hardware.Camera;
+import android.os.Environment;
+import android.provider.MediaStore;
 
 public class Controller {
 	
 	public static Controller instance;
 	
-	private static Context mContext;
+	private Context mContext;
 	private static ServerRequest mServerRequest;
+	private static CameraManager mCameraManager;
 	
 	private String mUsername;
 	private int mPatientId;
 	private String mPatientName;
 	private int mProviderId;
 	private String mMedName;
-	private int mMedId = 1;
-	
-	//  Listeners for performing UI updates
-	OnMedInfoLoadedListener mOnMedInfoLoadedListener;
-	
+	private int mMedId = 1;	
 	
 	
 	public static Controller getInstance(Context ctxt) {
@@ -48,16 +53,17 @@ public class Controller {
 			instance = new Controller();
 		}
 		instance.setContext(ctxt);
-		mServerRequest = ServerRequest.getInstance(getContext());
+		mServerRequest = ServerRequest.getInstance(ctxt);
+		mCameraManager = CameraManager.getInstance();
 		return instance;
 	}
 	
-	public static Context getContext() {
+	public Context getContext() {
 		return mContext;
 	}
 
 	public void setContext(Context mContext) {
-		Controller.mContext = mContext;
+		this.mContext = mContext;
 	}	
 	
 	public String getUsername() {
@@ -180,14 +186,8 @@ public class Controller {
 
 			@Override
 			public void onResponseReceived(JSONObject response) {
-				try {
-					boolean result = response.getBoolean(Constants.RESPONSE_SUCCESS);
-					listener.onAlarmAdded(result);
-				} catch (JSONException e) {
-					// TODO Improve exception handling
-					e.printStackTrace();
-				}
-				
+				//TODO distinguish between successes and failures
+				listener.onAlarmAdded(true);
 			}
 			
 		}, json);
@@ -230,6 +230,10 @@ public class Controller {
 		});
 	}
 	
+	private String getPatientsURL() {
+		return Constants.URL_GET_PATIENTS + Integer.toString(mProviderId) + "&app_name=glass-rx";
+	}
+	
 	public void getMedications(final OnMedicationsLoadedListener listener) {
 		
 		final List<Medication> medications = new ArrayList<Medication>();
@@ -257,10 +261,12 @@ public class Controller {
 		});
 	}
 	
-	private String getPatientsURL() {
-		return Constants.URL_GET_PATIENTS + Integer.toString(mProviderId) + "&app_name=glass-rx";
-	}
-	
+	/**
+	 * Get general information for the selected medication
+	 * and update the UI as indicated by the provided listener.
+	 * @param listener Listener which describes UI updates upon
+	 * successful web request.
+	 */
 	public void getMedInfo(final OnMedInfoLoadedListener listener) {
 		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -276,6 +282,59 @@ public class Controller {
 			
 		});
 	}
+	
+	
+	// -------------------------Camera functionality below-------------------------------
 
+	
+	/**
+	 * Take a picture using the device's camera
+	 * @param upload Boolean indicating whether
+	 * the image should be uploaded.  If false,
+	 * save image locally.
+	 */
+	public void takePicture(final boolean upload) {
+		OnImageCapturedListener listener = new OnImageCapturedListener() {
 
+			@Override
+			public void onImageCaptured(byte[] data) {
+				
+				if (!upload) {
+					File filename;
+					Bitmap bitmap;
+					
+					try {
+						String path = Environment.getExternalStorageDirectory().toString();
+						
+						if (!new File(path + Constants.RX_DIRECTORY).isDirectory()) {
+							new File(path + Constants.RX_DIRECTORY).mkdirs();
+						}
+						
+						filename = new File (path + Constants.RX_DIRECTORY + mMedName.toLowerCase(Locale.US));
+						
+						FileOutputStream out = new FileOutputStream(filename);
+						
+						bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+						
+						out.flush();
+						out.close();
+						
+						MediaStore.Images.Media.insertImage(mContext.getContentResolver(), 
+								filename.getAbsolutePath(), filename.getName(), filename.getName());
+						
+					} catch (Exception e) {
+						//TODO Improve exception handling
+						e.printStackTrace();
+					}
+					
+				};
+			}
+			
+		};
+		
+		mCameraManager.captureImage(Camera.CameraInfo.CAMERA_FACING_BACK, listener);
+	}
+	
+	
 }

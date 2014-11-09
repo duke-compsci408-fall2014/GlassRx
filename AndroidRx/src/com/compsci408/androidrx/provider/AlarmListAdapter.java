@@ -12,6 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+/**
+ * Custom adapter for maintaining and displaying
+ * a list of alarm events. 
+ * @author Evan
+ */
 public class AlarmListAdapter extends ArrayAdapter<Alarm> {
 
 	Context mContext;

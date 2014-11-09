@@ -1,0 +1,73 @@
+package com.compsci408.rxcore;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.hardware.Camera;
+import android.hardware.Camera.PictureCallback;
+
+import com.compsci408.rxcore.listeners.OnBitmapCreatedListener;
+import com.compsci408.rxcore.requests.ServerRequest;
+
+/**
+ * Class for handling image capture
+ * @author Evan
+ */
+public class CameraManager {
+	
+	private static CameraManager instance;
+	private Context mContext;
+	
+	private int mCamId;
+	private boolean mCanCapture;
+	
+	public static CameraManager getInstance(Context context) {
+		if (instance == null) {
+			instance = new CameraManager();
+		}
+		instance.setContext(context);
+		return instance;
+	}
+
+	public Context getContext() {
+		return mContext;
+	}
+
+	public void setContext(Context mContext) {
+		this.mContext = mContext;
+	}
+
+	public int getCamId() {
+		return mCamId;
+	}
+
+	public void setCamId(int mCamId) {
+		this.mCamId = mCamId;
+	}
+
+	public boolean isCanCapture() {
+		return mCanCapture && Camera.getNumberOfCameras() > 0;
+	}
+
+	public void setCanCapture(boolean mCanCapture) {
+		this.mCanCapture = mCanCapture;
+	}	
+	
+	public void captureImage(int id, OnBitmapCreatedListener listener) {
+		setCamId(id);
+		if (isCanCapture()) {
+			Camera cam = Camera.open(mCamId);
+			cam.takePicture(null, null, new PictureCallback() {
+
+				@Override
+				public void onPictureTaken(byte[] data, Camera camera) {
+					Bitmap image = BitmapFactory.decodeByteArray(data, 0, data.length);	
+					listener.OnBitmapCreated(image);
+				}
+				
+			});
+		}
+	}
+	
+
+}

@@ -51,7 +51,7 @@ public class EditMedActivity extends Activity {
 		addTime.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(EditMedActivity.this, NewMedActivity.class);
+				Intent intent = new Intent(EditMedActivity.this, NewAlarmActivity.class);
 				intent.putExtra("NewMed", newMedName.getText().toString());
 				intent.putExtra("PatientName", EditMedActivity.this.getIntent().getStringExtra("PatientName"));
 				startActivity(intent);

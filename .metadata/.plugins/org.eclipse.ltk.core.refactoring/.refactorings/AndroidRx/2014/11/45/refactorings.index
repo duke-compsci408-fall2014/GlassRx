@@ -1,2 +1,8 @@
 1415050838179	Rename local variable 'mEmailSignInButton'
 1415059103555	Rename field 'numberPicker1'
+1415306772989	Delete element
+1415469977704	Rename field 'mData'
+1415470217279	Extract local variable 'values'
+1415470946147	Rename local variable 'founded'
+1415478764919	Rename type 'NewMedActivity'
+1415478825974	Rename type 'NewAlertActivity'

@@ -17,6 +17,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -38,6 +40,18 @@ public class MedicationActivity extends Activity {
 		setContentView(R.layout.activity_medication);
 		
 		mMedImage = (ImageView) findViewById(R.id.imageview_med);
+		
+		mMedImage.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Implement picture-taking functionality
+				
+			}
+			
+		});
+		
+		
 		mMedDetails = (ListView) findViewById(R.id.listview_med_details);
 		
 		mController = Controller.getInstance(this);
@@ -53,8 +67,10 @@ public class MedicationActivity extends Activity {
 				
 				details.add(MedicationActivity.this.getResources().getString(R.string.med_name)
 						+ mMedication.getName());
-				details.add(MedicationActivity.this.getResources().getString(R.string.med_nickname)
-						+ mMedication.getNickname());
+				details.add(MedicationActivity.this.getResources().getString(R.string.med_purpose)
+						+ mMedication.getPurpose());
+				details.add(MedicationActivity.this.getResources().getString(R.string.med_side_effects)
+						+ mMedication.getSide_effects());
 				
 				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
 		                 MedicationActivity.this, 
@@ -81,7 +97,10 @@ public class MedicationActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.action_logout) {
+			Intent i = new Intent(MedicationActivity.this, LoginActivity.class);
+			startActivity(i);
+			overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

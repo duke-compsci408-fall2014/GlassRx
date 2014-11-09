@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.compsci408.androidrx"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="20" />
+
+    <uses-feature android:glEsVersion="0x00020000" >
+    </uses-feature>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".patient.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name=".provider.PatientListActivity"
+            android:label="@string/title_activity_patient_list"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".provider.PatientActivity"
+            android:label="@string/title_activity_patient"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".provider.EditMedActivity"
+            android:label="@string/title_activity_edit_med"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".provider.NewAlarmActivity"
+            android:label="@string/title_activity_new_med"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".MedicationActivity"
+            android:label="@string/title_activity_medication" >
+        </activity>
+        <activity
+            android:name=".MedInfoActivity"
+            android:label="@string/title_activity_med_info" >
+        </activity>
+    </application>
+
+</manifest>

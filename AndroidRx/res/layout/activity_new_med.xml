@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.compsci408.androidrx.provider.NewMedActivity" >
+    tools:context="com.compsci408.androidrx.provider.NewAlarmActivity" >
 
     <EditText
         android:id="@+id/edittext_new_med_name"
@@ -36,14 +36,13 @@
     
     <EditText
         android:id="@+id/edittext_dose_description"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
 		android:layout_toRightOf="@+id/edittext_dose_quantity"
 		android:layout_toEndOf="@+id/edittext_dose_quantity"
         android:layout_below="@+id/edittext_new_med_name"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
-        android:ems="10"
         android:hint="@string/enter_dose_description"
         android:inputType="text" />
 

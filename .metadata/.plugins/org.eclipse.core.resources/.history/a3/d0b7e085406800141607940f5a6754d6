@@ -1,0 +1,9 @@
+package com.compsci408.rxcore.listeners;
+
+import android.graphics.Bitmap;
+
+public abstract class OnBitmapCreatedListener {
+	
+	public abstract void OnBitmapCreated(Bitmap bitmap);
+
+}

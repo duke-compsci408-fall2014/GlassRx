@@ -1,0 +1,12 @@
+package com.compsci408.rxcore;
+
+/**
+ * Class for handling image capture
+ * @author Evan
+ */
+public class CameraManager {
+	
+	private int mCamId;
+	private int mCanCapture;
+
+}

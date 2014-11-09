@@ -1,0 +1,5 @@
+1415557646106	Rename local variable 'arg0'
+1415557653189	Rename local variable 'arg1'
+1415558706218	Rename type 'OnBitmapCreatedListener'
+1415558725212	Rename method 'OnBitmapCreated'
+1415558730750	Rename method 'OnImageCaptured'

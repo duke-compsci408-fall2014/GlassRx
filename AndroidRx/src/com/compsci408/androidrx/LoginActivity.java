@@ -109,7 +109,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 			@Override
 			public void onResponseReceived(JSONObject response) {
-				showProgress(false);
 				JSONObject user = null;
 				try {
 					JSONArray array = response.getJSONArray("record");
@@ -130,9 +129,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 							mController.setProviderId(user.getInt("physicianID"));
 							intent = new Intent(LoginActivity.this, PatientListActivity.class);
 						}
-						
 						startActivity(intent);
 						overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+						finish();
 					} else {
 						mErrorView.setText("Error:  " + response);
 					}

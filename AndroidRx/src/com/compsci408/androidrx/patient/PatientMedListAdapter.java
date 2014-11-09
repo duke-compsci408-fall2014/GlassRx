@@ -41,7 +41,7 @@ public class PatientMedListAdapter extends ArrayAdapter<Medication> {
 			row = inflater.inflate(mLayoutId, parent, false);
 			
 			holder = new MedicationHolder();
-			holder.name = (TextView) row.findViewById(R.id.textview_med_name);
+			holder.name = (TextView) row.findViewById(android.R.id.text1);
 			
 			row.setTag(holder);
 			

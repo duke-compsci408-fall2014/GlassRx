@@ -16,15 +16,36 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:contentDescription="@string/medication_icon"
-        android:src="@drawable/acetaminophen" />
+        android:src="@drawable/flintstones" />
 
-    <ListView
-        android:id="@+id/listview_med_details"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageview_med"
-        android:layout_alignStart="@+id/imageview_med"
-        android:layout_below="@+id/imageview_med">
-    </ListView>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/imageview_med"
+        android:orientation="vertical"
+        android:weightSum="1" >
+
+        <ListView
+            android:id="@+id/listview_med_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/med_details_array" >
+        </ListView>
+
+        <!--
+        <ListView
+	        android:id="@+id/listview_med_schedule"
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+		    android:layout_weight=".5"
+	        android:layout_marginTop="10dp"
+	        android:entries="@array/alarm_array" >
+	    </ListView>
+        -->
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

@@ -1,6 +1,5 @@
 package com.compsci408.androidrx.provider;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.compsci408.androidrx.LoginActivity;
@@ -20,11 +19,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * {@link Activity} which displays a given
+ * patient's information, including his/her
+ * name and all scheduled medication alerts.
+ * Also provides the opportunity to add a new
+ * alert (or series of alerts).
+ * @author Evan
+ */
 public class PatientActivity extends Activity {
 
 	TextView patientName;
@@ -48,22 +54,26 @@ public class PatientActivity extends Activity {
 			public void onMedicationsLoaded(List<Medication> medications) {
 				mAdapter = new PatientMedListAdapter(
 		                PatientActivity.this, 
-		                R.layout.med_list_item,
+		                android.R.layout.simple_list_item_1,
 		                medications);
 				medList.setAdapter(mAdapter);
 			}
 			
 		});
 		
+		
 		patientName = (TextView) findViewById(R.id.textview_patient_name);
+		patientName.setText(mController.getPatientName());
 		
 		medList = (ListView) findViewById(R.id.listview_patient_meds);
+		
 	    medList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				mController.setMedName(parent.getItemAtPosition(position).toString());
+				
 				Intent intent = new Intent(PatientActivity.this, MedicationActivity.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -77,7 +87,8 @@ public class PatientActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				mController.setPatientName(patientName.getText().toString());
-				Intent intent = new Intent(PatientActivity.this, NewMedActivity.class);
+				
+				Intent intent = new Intent(PatientActivity.this, NewAlarmActivity.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				finish();

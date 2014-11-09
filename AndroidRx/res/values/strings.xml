@@ -21,15 +21,7 @@
     <!-- For testing purposes only; remove when real data is available -->
     <string-array name="patient_list">
         <item>Eli Manning</item>
-        <item>Rashad Jennings</item>
-        <item>Jason Pierre-Paul</item>
-        <item>Victor Cruz</item>
-        <item>Larry Donnell</item>
-        <item>Cullen Jenkins</item>
-        <item>Prince Amukamara</item>
-        <item>Antrel Rolle</item>
-        <item>Steve Weatherford</item>
-        <item>Henry Hynoski</item>
+        <item>Vincent Wang</item>
     </string-array>
     <string-array name="med_list">
         <item>Sertraline Hydrochloride</item>
@@ -37,9 +29,15 @@
         <item>Monopril</item>
     </string-array>
     <string-array name="alarm_array">
-        <item>Today, 6PM</item>
-        <item>Friday, 6PM</item>
-        <item>Monday, 6PM</item>
+        <item>Thursday, 11&#8211;6&#8211;2014, 9:00AM</item>
+        <item>Thursday, 11&#8211;13&#8211;2014, 9:00AM</item>
+        <item>Thursday, 11&#8211;20&#8211;2014, 9:00AM</item>
+    </string-array>
+    <string-array name="med_details_array">
+        <item>Purpose:  Multivitamin</item>
+        <item>Side Effects:  Yabba Dabba Diarrhea</item>
+        <item>Dose:  1 Tablet</item>
+        <item>Schedule:  Thursdays, 9:00AM</item>
     </string-array>
 
     <string name="title_activity_main">MainActivity</string>
@@ -47,11 +45,11 @@
     <string name="title_activity_patient_list">Patient List</string>
     <string name="title_activity_patient">Patient Profile</string>
     <string name="title_activity_edit_med">Edit Medication</string>
-    <string name="title_activity_new_med">New Medication</string>
+    <string name="title_activity_new_alarm">New Medication</string>
     <string name="title_activity_medication">Medication Details</string>
     <string name="med_name">Name:  </string>
-    <string name="med_nickname">Nickname:  </string>
-    <string name="med_dosage">Dosage:  </string>
+    <string name="med_purpose">Purpose:  </string>
+    <string name="med_side_effects">Side Effects:  </string>
     <string name="done">Done</string>
     <string name="add_time">+ Add Time</string>
     <string name="title_activity_med_info">Med Info Activity</string>

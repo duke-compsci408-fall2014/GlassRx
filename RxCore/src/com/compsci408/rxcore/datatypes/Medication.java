@@ -14,9 +14,6 @@ public class Medication {
 	private String side_effects;
 	private int id;
 	
-	
-	private transient String mNickname = "The blue one";	//  Unique name each patient can apply
-	
 	public Medication() {
 
 	}
@@ -51,14 +48,6 @@ public class Medication {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getNickname() {
-		return mNickname;
-	}
-
-	public void setNickname(String mNickname) {
-		this.mNickname = mNickname;
 	}
 	
 }

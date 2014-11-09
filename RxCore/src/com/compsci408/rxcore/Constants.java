@@ -30,6 +30,9 @@ public class Constants {
 	public static final String ACCOUNT_PATIENT			= "patient";
 	public static final String ACCOUNT_PROVIDER			= "provider";
 	
+	//  Local directory
+	public static final String RX_DIRECTORY				= "";
+	
 	//  Network connection constants
 	public static final int READ_TIMEOUT				= 10000;
 	public static final int CONNECT_TIMEOUT				= 15000;
