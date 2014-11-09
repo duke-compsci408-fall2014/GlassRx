@@ -362,7 +362,7 @@ public class Controller {
 				
 			}
 			
-		}, dataString);
+		}, data);
 	}
 	
 	

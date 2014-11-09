@@ -31,7 +31,6 @@ import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Base64;
 
 public class Controller {
 	
@@ -351,9 +350,6 @@ public class Controller {
 	}
 	
 	private static void uploadImage(byte[] data) {
-		
-		String dataString = Base64.encodeToString(data, Base64.DEFAULT);
-		
 		mServerRequest.doPost(Constants.URL_UPLOAD_IMAGE, new ResponseCallback() {
 
 			@Override
@@ -362,7 +358,7 @@ public class Controller {
 				
 			}
 			
-		}, dataString);
+		}, data);
 	}
 	
 	
