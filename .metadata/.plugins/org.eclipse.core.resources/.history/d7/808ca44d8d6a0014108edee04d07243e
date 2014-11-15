@@ -1,7 +1,0 @@
-package com.compsci408.androidrx.provider;
-
-import android.app.Fragment;
-
-public class NewAlarmTimesFragment extends Fragment {
-
-}

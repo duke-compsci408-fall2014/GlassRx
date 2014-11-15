@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    
-    <item android:id="@+id/updated_pill_info" android:title="@string/more_info"></item>
-    <item android:id="@+id/time_to_take_pill" android:title="@string/med_list"></item>
-
-
-</menu>
