@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.patientpretotype.MainActivity" >
+
+
+    <item android:id="@+id/patient_item" android:title="@string/select_patient_activity"></item>
+    <item android:id="@+id/provider_item" android:title="@string/select_provider_activity"></item>
+
+
+</menu>
