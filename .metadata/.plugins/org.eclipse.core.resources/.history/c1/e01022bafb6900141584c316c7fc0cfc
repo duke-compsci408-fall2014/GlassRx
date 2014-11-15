@@ -1,0 +1,17 @@
+package com.compsci408.rxcore.datatypes;
+
+public class Schedule {
+	
+	private String day_to_take;
+	private int patientID;
+	private String medicine;
+	private String other_info;
+	private String time_to_take;
+	public String getDay_to_take() {
+		return day_to_take;
+	}
+	public void setDay_to_take(String day_to_take) {
+		this.day_to_take = day_to_take;
+	}
+
+}

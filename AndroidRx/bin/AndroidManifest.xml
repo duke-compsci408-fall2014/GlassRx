@@ -49,8 +49,8 @@
         <activity
             android:name=".provider.PatientListActivity"
             android:label="@string/title_activity_patient_list"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".provider.PatientActivity"
@@ -74,6 +74,10 @@
         <activity
             android:name=".MedInfoActivity"
             android:label="@string/title_activity_med_info" >
+        </activity>
+        <activity
+            android:name=".PictureActivity"
+            android:label="@string/title_activity_picture" >
         </activity>
     </application>
 

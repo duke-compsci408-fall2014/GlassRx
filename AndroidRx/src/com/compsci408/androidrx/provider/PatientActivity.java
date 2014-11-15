@@ -5,10 +5,9 @@ import java.util.List;
 import com.compsci408.androidrx.LoginActivity;
 import com.compsci408.androidrx.MedicationActivity;
 import com.compsci408.androidrx.R;
-import com.compsci408.androidrx.patient.PatientMedListAdapter;
 import com.compsci408.rxcore.Controller;
-import com.compsci408.rxcore.datatypes.Medication;
-import com.compsci408.rxcore.listeners.OnMedicationsLoadedListener;
+import com.compsci408.rxcore.datatypes.Schedule;
+import com.compsci408.rxcore.listeners.OnScheduleLoadedListener;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -37,7 +36,7 @@ public class PatientActivity extends Activity {
 	ListView medList;
 	Button addMed;
 	
-    PatientMedListAdapter mAdapter;
+    PatientScheduleAdapter mAdapter;
     
     private Controller mController;
 	
@@ -48,14 +47,14 @@ public class PatientActivity extends Activity {
 		
 		mController = Controller.getInstance(this);
 		
-		mController.getMedications(new OnMedicationsLoadedListener() {
+		mController.getPatientSchedule(new OnScheduleLoadedListener() {
 
 			@Override
-			public void onMedicationsLoaded(List<Medication> medications) {
-				mAdapter = new PatientMedListAdapter(
+			public void onScheduleLoaded(List<Schedule> schedule) {
+				mAdapter = new PatientScheduleAdapter(
 		                PatientActivity.this, 
 		                android.R.layout.simple_list_item_1,
-		                medications);
+		                schedule);
 				medList.setAdapter(mAdapter);
 			}
 			
@@ -72,7 +71,7 @@ public class PatientActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				mController.setMedName(parent.getItemAtPosition(position).toString());
+				mController.setMedName(((Schedule) parent.getItemAtPosition(position)).getMedicine());
 				
 				Intent intent = new Intent(PatientActivity.this, MedicationActivity.class);
 				startActivity(intent);

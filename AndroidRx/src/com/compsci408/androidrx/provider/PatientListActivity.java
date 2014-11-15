@@ -76,7 +76,6 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 				Intent intent = new Intent(PatientListActivity.this, PatientActivity.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-				finish();
 			}
 		});
 		patientList.setTextFilterEnabled(false);		

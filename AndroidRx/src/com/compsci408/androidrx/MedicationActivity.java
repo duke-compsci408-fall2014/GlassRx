@@ -31,6 +31,7 @@ public class MedicationActivity extends Activity {
 	// UI references
 	private ImageView mMedImage;
 	private ListView mMedDetails;
+	private TextView mMedName;
 	
 	private Controller mController;
 	
@@ -39,14 +40,18 @@ public class MedicationActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_medication);
 		
+		mMedName = (TextView) findViewById(R.id.textview_med_name);
+		
 		mMedImage = (ImageView) findViewById(R.id.imageview_med);
 		
 		mMedImage.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Implement picture-taking functionality
-				
+				Intent intent = new Intent(MedicationActivity.this, PictureActivity.class);
+				startActivity(intent);
+				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+				finish();
 			}
 			
 		});

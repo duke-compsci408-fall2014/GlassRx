@@ -1,8 +1,0 @@
-package com.compsci408.rxcore.listeners;
-
-import org.json.JSONObject;
-
-public abstract class OnMedInfoLoadedListener {
-
-	public abstract void onMedInfoLoaded(JSONObject info);
-}

@@ -50,7 +50,8 @@ public class Constants {
 	public static final String URL_GET_PATIENTS			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Patient?filter=physicianID%3D";
 	public static final String URL_LOG_OUT				= "";
 	public static final String URL_ADD_ALARM			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com:443/rest/db/Schedule?app_name=glass-rx";
-	public static final String URL_GET_MED				= "";
+	public static final String URL_GET_MED_INFO			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Medication?filter=name%3D";
+	public static final String URL_GET_PATIENT_SCHEDULE	= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Schedule?filter=patientID%3D%27";
 	public static final String URL_UPLOAD_IMAGE			= "";
 	
 	

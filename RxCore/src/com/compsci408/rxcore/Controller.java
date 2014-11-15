@@ -16,11 +16,14 @@ import com.compsci408.rxcore.alarms.Alarm;
 import com.compsci408.rxcore.datatypes.AccountType;
 import com.compsci408.rxcore.datatypes.Medication;
 import com.compsci408.rxcore.datatypes.Patient;
-import com.compsci408.rxcore.listeners.OnAlarmAddedListener;
+import com.compsci408.rxcore.datatypes.Schedule;
+import com.compsci408.rxcore.listeners.OnSchduleAddedListener;
 import com.compsci408.rxcore.listeners.OnImageCapturedListener;
 import com.compsci408.rxcore.listeners.OnMedInfoLoadedListener;
 import com.compsci408.rxcore.listeners.OnMedicationsLoadedListener;
 import com.compsci408.rxcore.listeners.OnPatientsLoadedListener;
+import com.compsci408.rxcore.listeners.OnPictureTakenListener;
+import com.compsci408.rxcore.listeners.OnScheduleLoadedListener;
 import com.compsci408.rxcore.requests.ResponseCallback;
 import com.compsci408.rxcore.requests.ServerRequest;
 import com.google.gson.Gson;
@@ -28,10 +31,10 @@ import com.google.gson.Gson;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.hardware.Camera;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.view.SurfaceHolder;
 
 public class Controller {
 	
@@ -179,16 +182,16 @@ public class Controller {
 	 * @param alarm Alarm to be added
 	 * @return Response string from server
 	 */
-	public void addAlarm(Alarm alarm, final OnAlarmAddedListener listener) {
+	public void addSchedule(Schedule schedule, final OnSchduleAddedListener listener) {
 		
-		String json = new Gson().toJson(alarm, Alarm.class);
+		String json = new Gson().toJson(schedule, Schedule.class);
 		
 		mServerRequest.doPost(Constants.URL_ADD_ALARM, new ResponseCallback() {
 
 			@Override
 			public void onResponseReceived(JSONObject response) {
 				//TODO distinguish between successes and failures
-				listener.onAlarmAdded(true);
+				listener.onScheduleAdded(true);
 			}
 			
 		}, json);
@@ -235,23 +238,23 @@ public class Controller {
 		return Constants.URL_GET_PATIENTS + Integer.toString(mProviderId) + "&app_name=glass-rx";
 	}
 	
-	public void getMedications(final OnMedicationsLoadedListener listener) {
+	public void getPatientSchedule(final OnScheduleLoadedListener listener) {
 		
-		final List<Medication> medications = new ArrayList<Medication>();
+		final List<Schedule> schedule = new ArrayList<Schedule>();
 		final Gson gson = new Gson();
 		
-		mServerRequest.doGet(getPatientsURL(), new ResponseCallback() {
+		mServerRequest.doGet(getPatientScheduleURL(), new ResponseCallback() {
 
 			@Override
 			public void onResponseReceived(JSONObject response) {
 				try {
 					JSONArray array = response.getJSONArray("record");
 					for (int i = 0; i < array.length(); i++) {
-						Medication p = gson.fromJson(array.getString(i), Medication.class);
-						medications.add(p);
+						Schedule s = gson.fromJson(array.getString(i), Schedule.class);
+						schedule.add(s);
 					}
 					
-					listener.onMedicationsLoaded(medications);
+					listener.onScheduleLoaded(schedule);
 					
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -262,6 +265,11 @@ public class Controller {
 		});
 	}
 	
+	private String getPatientScheduleURL() {
+		return Constants.URL_GET_PATIENT_SCHEDULE + Integer.toString(mPatientId) 
+				+ "%27&app_name=glass-rx";
+	}
+	
 	/**
 	 * Get general information for the selected medication
 	 * and update the UI as indicated by the provided listener.
@@ -270,10 +278,7 @@ public class Controller {
 	 */
 	public void getMedInfo(final OnMedInfoLoadedListener listener) {
 		
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair(Constants.MED_ID, Integer.toString(mMedId)));
-		
-		mServerRequest.doGet(Constants.URL_GET_MED, new ResponseCallback() {
+		mServerRequest.doGet(getMedInfoURL(), new ResponseCallback() {
 
 			@Override
 			public void onResponseReceived(JSONObject response) {
@@ -282,6 +287,11 @@ public class Controller {
 			}
 			
 		});
+	}
+	
+	private String getMedInfoURL() {
+		return Constants.URL_GET_PATIENT_SCHEDULE + mMedName 
+				+ "%27&app_name=glass-rx";
 	}
 	
 	
@@ -294,20 +304,26 @@ public class Controller {
 	 * the image should be uploaded.  If false,
 	 * save image locally.
 	 */
-	public void takePicture(final boolean upload) {
+	public void takePicture(SurfaceHolder preview, final boolean upload, final OnPictureTakenListener callback) {
+		
+		
 		OnImageCapturedListener listener = new OnImageCapturedListener() {
 
 			@Override
 			public void onImageCaptured(byte[] data) {
-				
+				boolean success = false;
 				if (!upload) {
-					saveImage(data, mMedName, mContext);
+					success = saveImage(data, mMedName, mContext);
 				};
+				
+				//TODO  Implement image upload
+				
+				callback.onPictureTaken(success);
 			}
 			
 		};
 		
-		mCameraManager.captureImage(Camera.CameraInfo.CAMERA_FACING_BACK, listener);
+		mCameraManager.captureImage(preview, listener);
 	}
 	
 	/**

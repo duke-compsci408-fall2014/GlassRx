@@ -1,0 +1,7 @@
+package com.compsci408.rxcore.listeners;
+
+public abstract class OnScheduleLoadedListener {
+	
+	public abstract void onScheduleLoaded(List<Schedule> schedule);
+
+}

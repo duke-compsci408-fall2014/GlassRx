@@ -1,7 +1,12 @@
 package com.compsci408.rxcore;
 
+import java.io.IOException;
+
 import android.hardware.Camera;
+import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.PictureCallback;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 
 import com.compsci408.rxcore.listeners.OnImageCapturedListener;
 
@@ -31,7 +36,7 @@ public class CameraManager {
 		this.mCamId = mCamId;
 	}
 
-	public boolean isCanCapture() {
+	public boolean canCapture() {
 		return mCanCapture && Camera.getNumberOfCameras() > 0;
 	}
 
@@ -46,20 +51,27 @@ public class CameraManager {
 	 * @param listener Callback describing what should be
 	 * done with the image data
 	 */
-	public void captureImage(int id, final OnImageCapturedListener listener) {
-		setCamId(id);
-		if (isCanCapture()) {
-			setCanCapture(false);
-			Camera cam = Camera.open(mCamId);
-			cam.takePicture(null, null, new PictureCallback() {
-
-				@Override
-				public void onPictureTaken(byte[] data, Camera camera) {	
-					listener.onImageCaptured(data);
-					camera.release();
-					setCanCapture(true);
-				}
-			});
+	public void captureImage(SurfaceHolder preview, final OnImageCapturedListener listener) {
+		setCamId(CameraInfo.CAMERA_FACING_BACK);
+		if (canCapture()) {
+			try {
+				setCanCapture(false);
+				Camera cam = Camera.open(mCamId);
+				
+				cam.setPreviewDisplay(preview);
+				cam.takePicture(null, null, new PictureCallback() {
+	
+					@Override
+					public void onPictureTaken(byte[] data, Camera camera) {	
+						listener.onImageCaptured(data);
+						camera.release();
+						setCanCapture(true);
+					}
+				});
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	

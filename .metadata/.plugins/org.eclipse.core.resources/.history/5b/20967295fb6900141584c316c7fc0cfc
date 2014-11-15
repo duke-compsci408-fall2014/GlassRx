@@ -1,0 +1,10 @@
+package com.compsci408.rxcore.datatypes;
+
+public class Schedule {
+	
+	private String day_to_take;
+	private int patientID;
+	private String medicine;
+	private String other_info;
+
+}
