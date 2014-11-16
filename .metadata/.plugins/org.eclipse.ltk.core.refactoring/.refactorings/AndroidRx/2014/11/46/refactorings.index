@@ -1,0 +1,9 @@
+1415746441266	Rename resource 'dialog_day_time.xml'
+1415746456917	Rename type 'DayTimeDialog'
+1415749580159	Rename type 'PatientHolder'
+1415749664297	Rename field 'name'
+1415812524428	Rename resource 'activity_new_med.xml'
+1415812645553	Delete element
+1416094554117	Infer generic type arguments
+1416094560207	Infer generic type arguments
+1416094573962	Infer generic type arguments

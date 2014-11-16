@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
@@ -18,6 +19,7 @@ import android.widget.TimePicker;
 
 import com.compsci408.androidrx.LoginActivity;
 import com.compsci408.androidrx.R;
+import com.compsci408.androidrx.adapters.MedSearchResultsAdapter;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.alarms.Alarm;
 import com.compsci408.rxcore.datatypes.Schedule;
@@ -34,7 +36,7 @@ public class NewAlarmActivity extends Activity implements OnDateChangeListener, 
 
 	Button addTimeComplete;
 	CalendarView calendar;
-	EditText medName;
+	AutoCompleteTextView medName;
 	EditText medDose;
 	EditText doseDescription;
 	
@@ -61,7 +63,9 @@ public class NewAlarmActivity extends Activity implements OnDateChangeListener, 
 		
 		mAlarms = new ArrayList<Alarm>();
 		
-		medName = (EditText) findViewById(R.id.edittext_new_med_name);
+		medName = (AutoCompleteTextView) findViewById(R.id.textview_new_med_name);
+		
+		medName.setAdapter(new MedSearchResultsAdapter(this, android.R.layout.simple_list_item_1));
 		medDose =  (EditText) findViewById(R.id.edittext_dose_quantity);
 		doseDescription = (EditText) findViewById(R.id.edittext_dose_description);
 		
@@ -132,7 +136,7 @@ public class NewAlarmActivity extends Activity implements OnDateChangeListener, 
 			schedule.setTime_to_take(Integer.toString(timePicker.getCurrentHour()) + ":"
 					+ Integer.toString(timePicker.getCurrentMinute()));
 			schedule.setPatientID(mController.getPatientId());
-			schedule.setMedicine(medName.getText().toString());
+			schedule.setMedication(medName.getText().toString());
 			
 			mController.addSchedule(schedule, new OnSchduleAddedListener() {
 	

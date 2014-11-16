@@ -38,6 +38,7 @@ import com.compsci408.androidrx.provider.PatientListActivity;
 import com.compsci408.rxcore.Constants;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.datatypes.AccountType;
+import com.compsci408.rxcore.listeners.OnLoginAttemptedListener;
 import com.compsci408.rxcore.requests.ResponseCallback;
 
 /**
@@ -57,8 +58,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	//  Controller reference
 	private Controller mController;
 	
-	//  Callback from server
-	private ResponseCallback mCallback;
+	//  Callback from server result
+	private OnLoginAttemptedListener mListener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,42 +106,27 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	    
 	    mController = Controller.getInstance(this);
 	    
-	    mCallback = new ResponseCallback() {
+	    mListener = new OnLoginAttemptedListener() {
 
 			@Override
-			public void onResponseReceived(JSONObject response) {
-				JSONObject user = null;
-				try {
-					JSONArray array = response.getJSONArray("record");
-					String userString = array.getString(0);
-					user = new JSONObject(userString);
-				} catch (JSONException e1) {
-					// TODO Improve exception handling
-					e1.printStackTrace();
+			public void onLoginSuccess(int accountType) {
+				Intent intent;
+				if (accountType == AccountType.PATIENT.getId()) {
+					intent = new Intent(LoginActivity.this, MainActivity.class);
+				} else {
+					intent = new Intent(LoginActivity.this, PatientListActivity.class);
 				}
-				try {
-					if (user.getString(Constants.PASSWORD).equals(mPasswordView.getText().toString())) {
-						Intent intent;
-						String accountType = mAccountTypeView.getSelectedItem().toString();
-						
-						if (accountType.equals(AccountType.PATIENT.getName())) {
-							intent = new Intent(LoginActivity.this, MainActivity.class);
-						} else {
-							mController.setProviderId(user.getInt("physicianID"));
-							intent = new Intent(LoginActivity.this, PatientListActivity.class);
-						}
-						startActivity(intent);
-						overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-						finish();
-					} else {
-						mErrorView.setText("Error:  " + response);
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
+				startActivity(intent);
+				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+				finish();
 			}
-	    	
-	    };
+			
+			@Override
+			public void onLoginFailed(String response) {
+		    	mErrorView.setText(response);
+			}
+		};
+
 	}
 
 	private void populateAutoComplete() {
@@ -192,7 +178,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
 			showProgress(true);
-			mController.logIn(username, password, accountType, mCallback);
+			mController.logIn(username, password, accountType, mListener);
 		}
 	}
 

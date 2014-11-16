@@ -46,7 +46,6 @@ int id checkbox_repeat_weekly 0x7f0b0003
 int id edittext_dose_description 0x7f0b001b
 int id edittext_dose_quantity 0x7f0b001a
 int id edittext_med_name 0x7f0b0006
-int id edittext_new_med_name 0x7f0b0019
 int id edittext_week_count 0x7f0b0004
 int id fragment_calendar 0x7f0b001d
 int id imagebutton_take_picture 0x7f0b0024
@@ -75,6 +74,7 @@ int id textview_duke_logo 0x7f0b0013
 int id textview_login_error 0x7f0b0014
 int id textview_med_name 0x7f0b0018
 int id textview_med_nickname 0x7f0b002b
+int id textview_new_med_name 0x7f0b0019
 int id textview_patient_name 0x7f0b001e
 int id textview_splash_title 0x7f0b0026
 int id timepicker_alarm_time 0x7f0b0002

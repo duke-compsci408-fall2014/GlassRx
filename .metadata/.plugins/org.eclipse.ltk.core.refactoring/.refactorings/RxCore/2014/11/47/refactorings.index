@@ -1,0 +1,7 @@
+1416100085617	Rename method 'getMedInfo'
+1416100194417	Rename method 'getMedications'
+1416102620995	Rename field 'medicine'
+1416102638436	Rename method 'getMedicine'
+1416102646862	Rename method 'setMedicine'
+1416102654612	Rename local variable 'medicine'
+1416109398772	Extract constant 'URL_SUFFIX'

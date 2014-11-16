@@ -1,10 +1,13 @@
 package com.compsci408.androidrx.provider;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.compsci408.androidrx.LoginActivity;
 import com.compsci408.androidrx.MedicationActivity;
 import com.compsci408.androidrx.R;
+import com.compsci408.androidrx.adapters.PatientScheduleAdapter;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.datatypes.Schedule;
 import com.compsci408.rxcore.listeners.OnScheduleLoadedListener;
@@ -51,6 +54,9 @@ public class PatientActivity extends Activity {
 
 			@Override
 			public void onScheduleLoaded(List<Schedule> schedule) {
+				Set<String> currentMeds = new HashSet<String>();
+				
+				
 				mAdapter = new PatientScheduleAdapter(
 		                PatientActivity.this, 
 		                android.R.layout.simple_list_item_1,
@@ -71,7 +77,7 @@ public class PatientActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				mController.setMedName(((Schedule) parent.getItemAtPosition(position)).getMedicine());
+				mController.setMedName(((Schedule) parent.getItemAtPosition(position)).getMedication());
 				
 				Intent intent = new Intent(PatientActivity.this, MedicationActivity.class);
 				startActivity(intent);

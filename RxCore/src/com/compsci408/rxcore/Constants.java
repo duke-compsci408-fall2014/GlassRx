@@ -1,11 +1,23 @@
 package com.compsci408.rxcore;
 
 /**
- * Holds any static field names used across the application
+ * Holds any static field names and values used across the application
  * @author Evan
  */
 public class Constants {
 	
+	
+	
+	//  Login Info
+	public static final String KEY_LOGIN				= "Login";
+	public static final String KEY_ACCOUNT_TYPE			= "AccountType";
+	public static final String KEY_LAST_LOGIN			= "LastLogin";
+	public static final String KEY_LAST_USER			= "LastUser";
+	
+	public static final int DEFAULT_VALUE				= -1;
+	public static final int LOGGED_IN					= 1;
+	
+	public static final int LOGIN_TIMEOUT				= 3600000;  //  Logout after 1 hour
 	
 	//  Alarm fields
 	public static final String ALARM_ID 				= "id";
@@ -45,14 +57,17 @@ public class Constants {
 	public static final String RESPONSE_TIMEOUT			= "timeout";
 	
 	//TODO:  add appropriate URLs
+	public static final String URL_SUFFIX 				= "&app_name=glass-rx";
 	public static final String URL_LOG_IN_PATIENT		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Patient?filter=login%3D%27";
 	public static final String URL_LOG_IN_PROVIDER		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Physician?filter=login%3D%27";
 	public static final String URL_GET_PATIENTS			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Patient?filter=physicianID%3D";
 	public static final String URL_LOG_OUT				= "";
+	public static final String URL_GET_MEDS_BY_NAME		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Medication?filter=name%20%3D%20%27";
 	public static final String URL_ADD_ALARM			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com:443/rest/db/Schedule?app_name=glass-rx";
 	public static final String URL_GET_MED_INFO			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Medication?filter=name%3D";
 	public static final String URL_GET_PATIENT_SCHEDULE	= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Schedule?filter=patientID%3D%27";
 	public static final String URL_UPLOAD_IMAGE			= "";
+	
 	
 	
 

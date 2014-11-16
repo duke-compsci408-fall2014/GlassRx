@@ -1,0 +1,64 @@
+package com.compsci408.androidrx.provider;
+
+import com.compsci408.androidrx.R;
+import com.compsci408.rxcore.Controller;
+import com.compsci408.rxcore.datatypes.Schedule;
+
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TimePicker;
+
+public class NewAlarmTimesFragment extends Fragment {
+	
+	Button buttonDone;
+	TimePicker timePicker;
+	
+	private String mDate;
+	
+	private Controller mController;
+	
+	
+	public NewAlarmTimesFragment(String date) {
+		super();
+		mDate = date;
+	}
+	
+	@Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_alarm_times, container, false);
+        
+        mController = Controller.getInstance(getActivity());
+        
+        timePicker = (TimePicker) view.findViewById(R.id.timepicker_alarm_time);
+        
+        buttonDone = (Button) view.findViewById(R.id.button_add_day_time);
+        buttonDone.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Schedule schedule = new Schedule();
+				schedule.setDay_to_take(mDate);
+				schedule.setTime_to_take(Integer.toString(timePicker.getCurrentHour()) + ":"
+						+ Integer.toString(timePicker.getCurrentMinute()));
+				
+//				mController.addSchedule(schedule, new OnScheduleAddedListener() {
+					
+				});
+				
+			}
+        	
+        });
+        
+        
+        
+        return view;
+    }
+
+}

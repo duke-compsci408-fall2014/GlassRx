@@ -1,0 +1,87 @@
+package com.compsci408.androidrx.adapters;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.compsci408.rxcore.Controller;
+import com.compsci408.rxcore.datatypes.Medication;
+import com.compsci408.rxcore.listeners.OnMedicationsLoadedListener;
+
+import android.content.Context;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
+
+public class MedSearchResultsAdapter extends ArrayAdapter<Medication> implements Filterable{
+
+	private ArrayList<Medication> mData;
+	
+	private Controller mController;
+	
+	public MedSearchResultsAdapter(Context context, int resource) {
+		super(context, resource);
+        mData = new ArrayList<Medication>();
+        mController = Controller.getInstance(context);
+	}
+	
+	@Override
+    public int getCount() {
+        return mData.size();
+    }
+
+    @Override
+    public Medication getItem(int index) {
+        return mData.get(index);
+    }
+    
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+		return parent;
+    	
+    }
+
+    @Override
+    public Filter getFilter() {
+        Filter myFilter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults filterResults = new FilterResults();
+                if(constraint != null) {
+                    try {
+                        mController.filterMedications(constraint.toString(), 
+                        		new OnMedicationsLoadedListener() {
+
+									@Override
+									public void onMedicationsLoaded(
+											ArrayList<Medication> medications) {
+										mData = medications;
+									}
+                        	
+                        });
+                    }
+                    catch(Exception e) {
+                        Log.e(MedSearchResultsAdapter.class.getName(), e.getMessage());
+                    }
+                    filterResults.values = mData;
+                    filterResults.count = mData.size();
+                }
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence contraint, FilterResults results) {
+                if(results != null && results.count > 0) {
+                notifyDataSetChanged();
+                }
+                else {
+                    notifyDataSetInvalidated();
+                }
+            }
+        };
+        return myFilter;
+    }
+
+}

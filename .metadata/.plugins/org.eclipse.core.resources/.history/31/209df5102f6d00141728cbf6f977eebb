@@ -1,0 +1,5 @@
+package com.compsci408.androidrx.adapters;
+
+public class MedSearchResultsAdapter extends ArrayAdapter<Medication>{
+
+}

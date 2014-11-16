@@ -1,0 +1,16 @@
+package com.compsci408.androidrx.adapters;
+
+import com.compsci408.rxcore.datatypes.Medication;
+
+import android.content.Context;
+import android.widget.ArrayAdapter;
+import android.widget.Filterable;
+
+public class MedSearchResultsAdapter extends ArrayAdapter<Medication> implements Filterable{
+
+	public MedSearchResultsAdapter(Context context, int resource) {
+		super(context, resource);
+		// TODO Auto-generated constructor stub
+	}
+
+}

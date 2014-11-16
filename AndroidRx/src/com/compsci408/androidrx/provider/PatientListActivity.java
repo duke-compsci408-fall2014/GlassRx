@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.compsci408.androidrx.LoginActivity;
 import com.compsci408.androidrx.R;
+import com.compsci408.androidrx.adapters.PatientListAdapter;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.datatypes.Patient;
 import com.compsci408.rxcore.listeners.OnPatientsLoadedListener;

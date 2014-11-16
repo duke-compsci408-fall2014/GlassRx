@@ -3,11 +3,10 @@ package com.compsci408.rxcore;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,10 +16,11 @@ import com.compsci408.rxcore.datatypes.AccountType;
 import com.compsci408.rxcore.datatypes.Medication;
 import com.compsci408.rxcore.datatypes.Patient;
 import com.compsci408.rxcore.datatypes.Schedule;
+import com.compsci408.rxcore.listeners.OnLoginAttemptedListener;
+import com.compsci408.rxcore.listeners.OnMedicationsLoadedListener;
 import com.compsci408.rxcore.listeners.OnSchduleAddedListener;
 import com.compsci408.rxcore.listeners.OnImageCapturedListener;
 import com.compsci408.rxcore.listeners.OnMedInfoLoadedListener;
-import com.compsci408.rxcore.listeners.OnMedicationsLoadedListener;
 import com.compsci408.rxcore.listeners.OnPatientsLoadedListener;
 import com.compsci408.rxcore.listeners.OnPictureTakenListener;
 import com.compsci408.rxcore.listeners.OnScheduleLoadedListener;
@@ -29,22 +29,25 @@ import com.compsci408.rxcore.requests.ServerRequest;
 import com.google.gson.Gson;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.SurfaceHolder;
 
 public class Controller {
-	
+
 	public static Controller instance;
 	
 	private Context mContext;
 	private static ServerRequest mServerRequest;
 	private static CameraManager mCameraManager;
 	
-	private String mUsername;
 	private int mPatientId;
 	private String mPatientName;
 	private int mProviderId;
@@ -69,14 +72,6 @@ public class Controller {
 	public void setContext(Context mContext) {
 		this.mContext = mContext;
 	}	
-	
-	public String getUsername() {
-		return mUsername;
-	}
-
-	public void setUsername(String mUsername) {
-		this.mUsername = mUsername;
-	}
 
 	public int getPatientId() {
 		return mPatientId;
@@ -118,6 +113,42 @@ public class Controller {
 		this.mMedId = mMedId;
 	}
 	
+	
+	/**
+	 * Check to see if device is already logged in
+	 * @return Integer value corresponding to AccountType
+	 * from last login, or -1 if not logged in
+	 */
+	public int checkLogin() {
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
+		int login = pref.getInt(Constants.KEY_LOGIN, Constants.DEFAULT_VALUE);
+		
+		Calendar c = Calendar.getInstance(); 
+		long seconds = c.getTimeInMillis();
+		
+		//  We are not logged in or have been inactive for over an hour
+		if (login == Constants.DEFAULT_VALUE ||
+				(seconds - pref.getLong(Constants.KEY_LAST_LOGIN, seconds))
+				> Constants.LOGIN_TIMEOUT) {
+			return Constants.DEFAULT_VALUE;
+		}
+		
+		//  If we were logged in, set appropriate user information
+		if (login == Constants.LOGGED_IN) {
+			if (pref.getInt(Constants.KEY_ACCOUNT_TYPE, Constants.DEFAULT_VALUE)
+					== AccountType.PATIENT.getId()) {
+				setPatientId(pref.getInt(Constants.KEY_LAST_USER, -1));
+			}
+			else if (pref.getInt(Constants.KEY_ACCOUNT_TYPE, Constants.DEFAULT_VALUE)
+					== AccountType.PROVIDER.getId()) {
+				setProviderId(pref.getInt(Constants.KEY_LAST_USER, -1));
+			}
+		}
+		
+		return pref.getInt(Constants.ACCOUNT_TYPE, 
+				pref.getInt(Constants.KEY_ACCOUNT_TYPE, Constants.DEFAULT_VALUE));
+	}
+	
 	/**
 	 * Log user with given username and password into the system.
 	 * @param username Username entered by user
@@ -126,23 +157,67 @@ public class Controller {
 	 * @param callback ResponseCallback from server
 	 * @return Response string from server
 	 */
-	public void logIn(String username, String password, String accountType, ResponseCallback callback) {
+	public void logIn(String username, final String password, final String accountType, 
+			final OnLoginAttemptedListener listener) {
 		
-		setUsername(username);
-		mServerRequest.doGet(getLogInURL(username, accountType), callback);
-	}
-	
-	/**
-	 * Construct the appropriate log in url
-	 * @param username Username entered by user
-	 * @param accountType  Account type selected by user
-	 * @return URL needed to log in given user
-	 */
-	private String getLogInURL(String username, String accountType) {
+		String url;
+		
 		if (accountType.equals(AccountType.PATIENT.getName())) {
-			return Constants.URL_LOG_IN_PATIENT + username + "%27&app_name=glass-rx";
+			url = Constants.URL_LOG_IN_PATIENT + username + "%27" + Constants.URL_SUFFIX;
 		}
-			return Constants.URL_LOG_IN_PROVIDER + username + "%27&app_name=glass-rx";
+		else {
+			url = Constants.URL_LOG_IN_PROVIDER + username + "%27" + Constants.URL_SUFFIX;
+		}
+		
+		
+		mServerRequest.doGet(url, new ResponseCallback() {
+
+			@Override
+			public void onResponseReceived(JSONObject response) {
+				JSONObject user = null;
+				try {
+					JSONArray array = response.getJSONArray("record");
+					String userString = array.getString(0);
+					user = new JSONObject(userString);
+				} catch (JSONException e1) {
+					// TODO Improve exception handling
+					e1.printStackTrace();
+				}
+				try {
+					if (user.getString(Constants.PASSWORD).equals(password)) {
+						SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
+						Editor editor = pref.edit();
+						
+						Calendar c = Calendar.getInstance(); 
+						long seconds = c.getTimeInMillis();
+						
+						editor.putInt(Constants.KEY_LOGIN, Constants.LOGGED_IN);
+						editor.putLong(Constants.KEY_LAST_LOGIN, seconds);
+						
+						if (accountType.contains(AccountType.PATIENT.getName())) {
+							setPatientId(user.getInt("patientID"));
+							editor.putInt(Constants.KEY_ACCOUNT_TYPE, AccountType.PATIENT.getId());
+							editor.putInt(Constants.KEY_LAST_USER, getPatientId());
+							listener.onLoginSuccess(AccountType.PATIENT.getId());
+						} else {
+							setProviderId(user.getInt("physicianID"));
+							editor.putInt(Constants.KEY_ACCOUNT_TYPE, AccountType.PROVIDER.getId());
+							editor.putInt(Constants.KEY_LAST_USER, getProviderId());
+							listener.onLoginSuccess(AccountType.PROVIDER.getId());
+						}
+						editor.commit();
+					} else {
+						//TODO:  add more robust error checking
+						listener.onLoginFailed("An error occurred.\nPlease try again.");
+					}
+					
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+	    	
+	    });
+				
 	}
 	
 	/**
@@ -150,9 +225,19 @@ public class Controller {
 	 * @param username Username entered by user
 	 * @return Response string from server
 	 */
-	public String logOut(String username) {
+	public void logOut(String username) {
 		//TODO:  Implement log out
-		return "";
+		
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
+		Editor editor = pref.edit();
+		
+		Calendar c = Calendar.getInstance(); 
+		long seconds = c.getTimeInMillis();
+		
+		editor.putInt(Constants.KEY_LOGIN, Constants.DEFAULT_VALUE);
+		editor.putLong(Constants.KEY_LAST_LOGIN, seconds);
+		
+		editor.commit();
 	}
 	
 	/**
@@ -212,7 +297,10 @@ public class Controller {
 		final List<Patient> patients = new ArrayList<Patient>();
 		final Gson gson = new Gson();
 		
-		mServerRequest.doGet(getPatientsURL(), new ResponseCallback() {
+		String url = Constants.URL_GET_PATIENTS + Integer.toString(mProviderId) 
+				+ Constants.URL_SUFFIX;
+		
+		mServerRequest.doGet(url, new ResponseCallback() {
 
 			@Override
 			public void onResponseReceived(JSONObject response) {
@@ -234,16 +322,15 @@ public class Controller {
 		});
 	}
 	
-	private String getPatientsURL() {
-		return Constants.URL_GET_PATIENTS + Integer.toString(mProviderId) + "&app_name=glass-rx";
-	}
-	
 	public void getPatientSchedule(final OnScheduleLoadedListener listener) {
 		
 		final List<Schedule> schedule = new ArrayList<Schedule>();
 		final Gson gson = new Gson();
 		
-		mServerRequest.doGet(getPatientScheduleURL(), new ResponseCallback() {
+		String url = Constants.URL_GET_PATIENT_SCHEDULE + Integer.toString(mPatientId) 
+				+ "%27&app_name=glass-rx";
+		
+		mServerRequest.doGet(url, new ResponseCallback() {
 
 			@Override
 			public void onResponseReceived(JSONObject response) {
@@ -264,10 +351,32 @@ public class Controller {
 			
 		});
 	}
+
 	
-	private String getPatientScheduleURL() {
-		return Constants.URL_GET_PATIENT_SCHEDULE + Integer.toString(mPatientId) 
-				+ "%27&app_name=glass-rx";
+	
+	public void filterMedications(String input, final OnMedicationsLoadedListener listener) {
+		String url = Constants.URL_GET_MEDS_BY_NAME + input + "%27" + Constants.URL_SUFFIX;
+		
+		mServerRequest.doGet(url, new ResponseCallback() {
+
+			@Override
+			public void onResponseReceived(JSONObject response) {
+				JSONArray array = null;
+				try {
+					array = response.getJSONArray("record");
+					ArrayList<Medication> meds = new ArrayList<Medication>();
+					for (int i = 0; i < array.length(); i++) {
+						meds.add(new Gson().fromJson(array.getString(i), Medication.class));
+					}
+					listener.onMedicationsLoaded(meds);
+				} catch (JSONException e) {
+					// TODO Improve exception handling
+					e.printStackTrace();
+				}
+				
+			}
+			
+		});
 	}
 	
 	/**
@@ -276,9 +385,12 @@ public class Controller {
 	 * @param listener Listener which describes UI updates upon
 	 * successful web request.
 	 */
-	public void getMedInfo(final OnMedInfoLoadedListener listener) {
+	public void getMedication(final OnMedInfoLoadedListener listener) {
 		
-		mServerRequest.doGet(getMedInfoURL(), new ResponseCallback() {
+		 String url = Constants.URL_GET_PATIENT_SCHEDULE + mMedName 
+			+ "%27" + Constants.URL_SUFFIX;
+		
+		mServerRequest.doGet(url, new ResponseCallback() {
 
 			@Override
 			public void onResponseReceived(JSONObject response) {
@@ -287,11 +399,6 @@ public class Controller {
 			}
 			
 		});
-	}
-	
-	private String getMedInfoURL() {
-		return Constants.URL_GET_PATIENT_SCHEDULE + mMedName 
-				+ "%27&app_name=glass-rx";
 	}
 	
 	
