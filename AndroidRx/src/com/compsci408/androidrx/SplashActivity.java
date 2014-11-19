@@ -51,15 +51,21 @@ public class SplashActivity extends Activity {
 			@Override
             public void run() {
             	Intent i;
-     
+            	
+            	//  Check login history
             	int login = mController.checkLogin();
             	
-        		if (login == AccountType.PATIENT.getId()) {
+        		//  If already logged in as patient
+            	if (login == AccountType.PATIENT.getId()) {
         			i = new Intent(SplashActivity.this, MainActivity.class);
         		}
+            	
+            	//  If already logged in as provider
         		else if (login == AccountType.PROVIDER.getId()) {
         			i = new Intent(SplashActivity.this, PatientListActivity.class);
         		} 
+            	
+            	//  If not logged in
         		else {
         			i = new Intent(SplashActivity.this, LoginActivity.class);
         		}

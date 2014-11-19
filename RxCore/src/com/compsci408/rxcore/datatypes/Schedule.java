@@ -2,6 +2,7 @@ package com.compsci408.rxcore.datatypes;
 
 public class Schedule {
 	
+	private int id;
 	private String day_to_take;
 	private int patientID;
 	private String medication;

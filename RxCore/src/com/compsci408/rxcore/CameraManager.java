@@ -6,8 +6,6 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.PictureCallback;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-
 import com.compsci408.rxcore.listeners.OnImageCapturedListener;
 
 /**
@@ -19,7 +17,7 @@ public class CameraManager {
 	private static CameraManager instance;
 	
 	private int mCamId;
-	private boolean mCanCapture;
+	private boolean mCanCapture = false;
 	
 	public static CameraManager getInstance() {
 		if (instance == null) {
@@ -45,6 +43,23 @@ public class CameraManager {
 	}	
 	
 	
+	public Camera startCamera(SurfaceHolder preview) {
+		if (!canCapture()) {
+			try {
+				setCamId(CameraInfo.CAMERA_FACING_BACK);
+				setCanCapture(true);
+				Camera cam = Camera.open(mCamId);
+				cam.setPreviewDisplay(preview);
+				cam.startPreview();
+				return cam;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+		
+	}
+	
 	/**
 	 * Capture an image using the device's camera
 	 * @param id Id of camera to be used
@@ -52,27 +67,16 @@ public class CameraManager {
 	 * done with the image data
 	 */
 	public void captureImage(SurfaceHolder preview, final OnImageCapturedListener listener) {
-		setCamId(CameraInfo.CAMERA_FACING_BACK);
-		if (canCapture()) {
-			try {
-				setCanCapture(false);
-				Camera cam = Camera.open(mCamId);
-				
-				cam.setPreviewDisplay(preview);
-				cam.takePicture(null, null, new PictureCallback() {
-	
-					@Override
-					public void onPictureTaken(byte[] data, Camera camera) {	
-						listener.onImageCaptured(data);
-						camera.release();
-						setCanCapture(true);
-					}
-				});
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		Camera cam = startCamera(preview);
+		setCanCapture(false);
+		cam.takePicture(null, null, new PictureCallback() {
+
+			@Override
+			public void onPictureTaken(byte[] data, Camera camera) {	
+				listener.onImageCaptured(data);
+				camera.release();
 			}
-		}
+		});
 	}
 	
 

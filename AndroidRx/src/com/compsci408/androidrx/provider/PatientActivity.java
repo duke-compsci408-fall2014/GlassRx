@@ -1,13 +1,13 @@
 package com.compsci408.androidrx.provider;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.compsci408.androidrx.LoginActivity;
-import com.compsci408.androidrx.MedicationActivity;
+import com.compsci408.androidrx.ProviderMedicationActivity;
 import com.compsci408.androidrx.R;
-import com.compsci408.androidrx.adapters.PatientScheduleAdapter;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.datatypes.Schedule;
 import com.compsci408.rxcore.listeners.OnScheduleLoadedListener;
@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,7 +40,7 @@ public class PatientActivity extends Activity {
 	ListView medList;
 	Button addMed;
 	
-    PatientScheduleAdapter mAdapter;
+    ArrayAdapter<String> mAdapter;
     
     private Controller mController;
 	
@@ -49,19 +50,22 @@ public class PatientActivity extends Activity {
 		setContentView(R.layout.activity_patient);
 		
 		mController = Controller.getInstance(this);
-		
+		mController.showProgress("Loading Patient Details", true);
 		mController.getPatientSchedule(new OnScheduleLoadedListener() {
 
 			@Override
 			public void onScheduleLoaded(List<Schedule> schedule) {
 				Set<String> currentMeds = new HashSet<String>();
+				for (int i = 0; i < schedule.size(); i++) {
+					currentMeds.add(schedule.get(i).getMedication());
+				}
 				
-				
-				mAdapter = new PatientScheduleAdapter(
+				mAdapter = new ArrayAdapter<String>(
 		                PatientActivity.this, 
 		                android.R.layout.simple_list_item_1,
-		                schedule);
+						new ArrayList<String>(currentMeds));
 				medList.setAdapter(mAdapter);
+				mController.showProgress(false);
 			}
 			
 		});
@@ -77,9 +81,9 @@ public class PatientActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				mController.setMedName(((Schedule) parent.getItemAtPosition(position)).getMedication());
+				mController.setMedName((String) parent.getItemAtPosition(position));
 				
-				Intent intent = new Intent(PatientActivity.this, MedicationActivity.class);
+				Intent intent = new Intent(PatientActivity.this, ProviderMedicationActivity.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 			}
@@ -93,10 +97,9 @@ public class PatientActivity extends Activity {
 			public void onClick(View v) {
 				mController.setPatientName(patientName.getText().toString());
 				
-				Intent intent = new Intent(PatientActivity.this, NewAlarmActivity.class);
+				Intent intent = new Intent(PatientActivity.this, NewPrescriptionActivity.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-				finish();
 			}
 			
 		});
@@ -116,8 +119,12 @@ public class PatientActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_logout) {
-			startActivity(new Intent(PatientActivity.this, LoginActivity.class));
+			mController.logOut(mController.getUsername());
+			Intent i = new Intent(this, LoginActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(i);
 			overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+			finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

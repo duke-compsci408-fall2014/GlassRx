@@ -45,6 +45,7 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 		
 		mController = Controller.getInstance(this);
 		
+		mController.showProgress("Loading Patients", true);
 		
 		mController.getPatients(new OnPatientsLoadedListener() {
 
@@ -56,6 +57,7 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 		                patients);
 				patientList.setAdapter(mAdapter);
 				mFilter = mAdapter.getFilter();
+				mController.showProgress(false);
 			}
 			
 		});
@@ -107,15 +109,21 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_logout) {
-			startActivity(new Intent(PatientListActivity.this, LoginActivity.class));
+			mController.logOut(mController.getUsername());
+			Intent i = new Intent(this, LoginActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(i);
 			overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+			finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
 	 public boolean onQueryTextChange(String newText) {
-    	mFilter.filter(newText); 
+    	if (mFilter != null && newText != null) {
+    		mFilter.filter(newText); 
+    	}
         return true;
     }
 

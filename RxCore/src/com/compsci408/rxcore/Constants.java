@@ -11,7 +11,7 @@ public class Constants {
 	//  Login Info
 	public static final String KEY_LOGIN				= "Login";
 	public static final String KEY_ACCOUNT_TYPE			= "AccountType";
-	public static final String KEY_LAST_LOGIN			= "LastLogin";
+	public static final String KEY_LAST_ACTIVITY		= "LastActivity";
 	public static final String KEY_LAST_USER			= "LastUser";
 	
 	public static final int DEFAULT_VALUE				= -1;
@@ -56,16 +56,35 @@ public class Constants {
 	public static final String RESPONSE_SUCCESS			= "success";
 	public static final String RESPONSE_TIMEOUT			= "timeout";
 	
+	public static final String DATE_FORMAT_DATABASE		= "yyyy-MM-dd";
+	public static final String DATE_FORMAT_READABLE		= "EEE, MMM dd, yyyy";
+	
+	
+	
 	//TODO:  add appropriate URLs
+	// --------------------------------------URLs---------------------------------------------------
+	//  Suffix of all URLs
 	public static final String URL_SUFFIX 				= "&app_name=glass-rx";
+	
+	//  Log in
 	public static final String URL_LOG_IN_PATIENT		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Patient?filter=login%3D%27";
 	public static final String URL_LOG_IN_PROVIDER		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Physician?filter=login%3D%27";
+
+	//  Patients
 	public static final String URL_GET_PATIENTS			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Patient?filter=physicianID%3D";
-	public static final String URL_LOG_OUT				= "";
-	public static final String URL_GET_MEDS_BY_NAME		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Medication?filter=name%20%3D%20%27";
-	public static final String URL_ADD_ALARM			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com:443/rest/db/Schedule?app_name=glass-rx";
+	
+	//  Medications
 	public static final String URL_GET_MED_INFO			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Medication?filter=name%3D";
+	public static final String URL_FILTER_MEDS_BY_NAME	= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Medication?filter=name%20like%20%27";
+	public static final String URL_GET_MED_BY_NAME		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Medication?filter=name%20%3D%20%27";
+	
+	// Prescription/Schedule
+	public static final String URL_ADD_PRESCRIPTION		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com:443/rest/db/Prescription";
+	public static final String URL_ADD_SCHEDULE			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com:443/rest/db/Schedule";
 	public static final String URL_GET_PATIENT_SCHEDULE	= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Schedule?filter=patientID%3D%27";
+	public static final String URL_GET_PATIENT_PRESCRIP	= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Prescription?filter=patientID%3D%27";
+	
+	// Images
 	public static final String URL_UPLOAD_IMAGE			= "";
 	
 	

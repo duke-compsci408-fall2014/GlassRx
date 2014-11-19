@@ -1,12 +1,7 @@
 package com.compsci408.androidrx.adapters;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.compsci408.androidrx.R;
-import com.compsci408.androidrx.adapters.AlarmListAdapter.MedicationHolder;
 import com.compsci408.rxcore.Controller;
-import com.compsci408.rxcore.alarms.Alarm;
 import com.compsci408.rxcore.datatypes.Medication;
 import com.compsci408.rxcore.listeners.OnMedicationsLoadedListener;
 
@@ -79,8 +74,8 @@ public class MedSearchResultsAdapter extends ArrayAdapter<Medication> implements
     public Filter getFilter() {
         Filter myFilter = new Filter() {
             @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                FilterResults filterResults = new FilterResults();
+            protected FilterResults performFiltering(final CharSequence constraint) {
+                final FilterResults filterResults = new FilterResults();
                 if(constraint != null) {
                     try {
                         mController.filterMedications(constraint.toString(), 
@@ -90,6 +85,10 @@ public class MedSearchResultsAdapter extends ArrayAdapter<Medication> implements
 									public void onMedicationsLoaded(
 											ArrayList<Medication> medications) {
 										mData = medications;
+										filterResults.values = mData;
+					                    filterResults.count = mData.size();
+					                    publishResults(constraint, filterResults);
+					                    
 									}
                         	
                         });
@@ -104,7 +103,7 @@ public class MedSearchResultsAdapter extends ArrayAdapter<Medication> implements
             }
 
             @Override
-            protected void publishResults(CharSequence contraint, FilterResults results) {
+            protected void publishResults(CharSequence constraint, FilterResults results) {
                 if(results != null && results.count > 0) {
                 notifyDataSetChanged();
                 }

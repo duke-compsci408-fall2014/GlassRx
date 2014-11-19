@@ -29,17 +29,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.compsci408.androidrx.patient.MainActivity;
 import com.compsci408.androidrx.provider.PatientListActivity;
-import com.compsci408.rxcore.Constants;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.datatypes.AccountType;
+import com.compsci408.rxcore.datatypes.Prescription;
 import com.compsci408.rxcore.listeners.OnLoginAttemptedListener;
-import com.compsci408.rxcore.requests.ResponseCallback;
+import com.compsci408.rxcore.listeners.OnPrescriptionLoadedListener;
 
 /**
  * A login screen that offers login via username/password.
@@ -110,20 +106,35 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 			@Override
 			public void onLoginSuccess(int accountType) {
-				Intent intent;
 				if (accountType == AccountType.PATIENT.getId()) {
-					intent = new Intent(LoginActivity.this, MainActivity.class);
+					mController.getPendingPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
+
+						@Override
+						public void onPrescriptionLoaded(
+								List<Prescription> prescription) {
+							if(!prescription.isEmpty()) {
+								startActivity(new Intent(LoginActivity.this, 
+										PatientNewPrescriptionsActivity.class));
+							}
+							else {
+								startActivity(new Intent(LoginActivity.this, 
+										PatientProfileActivity.class));
+							}
+						}
+						
+					});
+					
 				} else {
-					intent = new Intent(LoginActivity.this, PatientListActivity.class);
+					startActivity(new Intent(LoginActivity.this, 
+							PatientListActivity.class));
 				}
-				startActivity(intent);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-				finish();
 			}
 			
 			@Override
 			public void onLoginFailed(String response) {
-		    	mErrorView.setText(response);
+		    	showProgress(false);
+				mErrorView.setText(response);
 			}
 		};
 

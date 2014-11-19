@@ -5,3 +5,16 @@
 1416100915182	Move compilation unit
 1416100920549	Move compilation unit
 1416101798288	Rename local variable 'alarm'
+1416194088002	Rename type 'PatientScheduleAdapter'
+1416194096950	Rename type 'PatientMedListAdapter'
+1416194632042	Rename type 'NewAlarmTimesFragment'
+1416194717795	Rename resource 'fragment_alarm_times.xml'
+1416195338612	Rename type 'TimesFragment'
+1416195348259	Rename type 'NewAlarmActivity'
+1416195360548	Rename resource 'activity_new_alarm.xml'
+1416195372556	Rename resource 'fragment_times.xml'
+1416195516914	Rename field 'timesFrag'
+1416284513613	Infer generic type arguments
+1416341269031	Rename type 'MedicationActivity'
+1416341273449	Move compilation unit
+1416341351843	Rename resource 'activity_medication.xml'

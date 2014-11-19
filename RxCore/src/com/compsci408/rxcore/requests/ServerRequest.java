@@ -1,6 +1,13 @@
 package com.compsci408.rxcore.requests;
 
+import java.util.Calendar;
+
+import com.compsci408.rxcore.Constants;
+
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 
 /**
  * Class for handling requests
@@ -23,19 +30,37 @@ public class ServerRequest {
 	
 	/**
 	 * Perform a GET request
-	 * @param url  URL of 
-	 * @param callback
-	 * @param params
 	 */
 	public void doGet(String url, ResponseCallback callback) {
 		if (RequestUtils.checkConnection(mContext)) {
+			logLastRequestTime();
 			new GetTask(callback).execute(url);
 		}
 	}
 	
+	/**
+	 * Perform a POST request
+	 */
 	public void doPost(String url, ResponseCallback callback, String body) {
 		if (RequestUtils.checkConnection(mContext)) {
+			logLastRequestTime();
 			new PostTask(callback, body).execute(url);
 		}
+	}
+	
+	/**
+	 * Store the current time in {@link SharedPreferences}.  Used
+	 * before each web request is made.
+	 */
+	private void logLastRequestTime() {
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
+		Editor editor = pref.edit();
+		
+		Calendar c = Calendar.getInstance(); 
+		long seconds = c.getTimeInMillis();
+		
+		editor.putLong(Constants.KEY_LAST_ACTIVITY, seconds);
+		
+		editor.commit();
 	}
 }

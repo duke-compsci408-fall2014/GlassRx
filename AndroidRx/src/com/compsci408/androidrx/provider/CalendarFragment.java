@@ -1,5 +1,7 @@
 package com.compsci408.androidrx.provider;
 
+import java.util.GregorianCalendar;
+
 import com.compsci408.androidrx.R;
 
 import android.app.Fragment;
@@ -21,8 +23,22 @@ public class CalendarFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
         
         calendar = (CalendarView) view.findViewById(R.id.calendar_med_schedule);
+        setListeners();
 		
 		return view;
     }
+
+	private void setListeners() {
+		calendar.setOnDateChangeListener(new OnDateChangeListener() {
+
+					@Override
+					public void onSelectedDayChange(CalendarView view,
+							int year, int month, int dayOfMonth) {
+						((NewPrescriptionActivity) getActivity())
+								.makeNewPrescription(new GregorianCalendar(year, month, dayOfMonth));						
+					}
+					
+				});
+	}
 
 }
