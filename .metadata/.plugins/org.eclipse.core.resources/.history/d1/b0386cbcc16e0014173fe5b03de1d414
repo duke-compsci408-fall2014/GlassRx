@@ -1,0 +1,254 @@
+package com.compsci408.androidrx.provider;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.CalendarView.OnDateChangeListener;
+import android.widget.EditText;
+import android.widget.TimePicker;
+
+import com.compsci408.androidrx.LoginActivity;
+import com.compsci408.androidrx.R;
+import com.compsci408.androidrx.adapters.MedSearchResultsAdapter;
+import com.compsci408.rxcore.Controller;
+import com.compsci408.rxcore.alarms.Alarm;
+import com.compsci408.rxcore.datatypes.Medication;
+import com.compsci408.rxcore.datatypes.Prescription;
+import com.compsci408.rxcore.datatypes.Schedule;
+import com.compsci408.rxcore.listeners.OnPrescriptionAddedListener;
+import com.compsci408.rxcore.listeners.OnSchduleAddedListener;
+
+/**
+ * {@link Activity} for adding new {@link Prescription}s for
+ * for a given medication and patient.  Allows
+ * provider to set a medication name, dosage, and
+ * dosage description.
+ * @author Evan
+ */
+public class NewPrescriptionActivity extends Activity implements OnDateChangeListener, OnClickListener{
+
+	Button addTimeComplete;
+	CalendarView calendar;
+	AutoCompleteTextView medName;
+	EditText medDose;
+	EditText doseDescription;
+	
+	private CalendarFragment calendarFrag;
+	private PrescriptionsToAddFragment prescriptionsToAddFrag;
+	private NewPrescriptionFragment newPrescriptionFrag;
+	
+	private GregorianCalendar mDate;
+	private int mDayOfWeek;
+	private Medication mMedication;
+	private List<Prescription> mPrescriptions;
+	
+	private Controller mController;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_new_prescription);
+		
+		mController = Controller.getInstance(this);
+		mPrescriptions = new ArrayList<Prescription>();
+		
+		prescriptionsToAddFrag = (PrescriptionsToAddFragment) getFragmentManager()
+				.findFragmentById(R.id.fragment_prescriptions_to_add);
+		
+		calendarFrag = new CalendarFragment();
+		newPrescriptionFrag = new NewPrescriptionFragment();
+				
+
+		
+		medName = (AutoCompleteTextView) findViewById(R.id.textview_new_med_name);
+		
+		medName.setAdapter(new MedSearchResultsAdapter(this, android.R.layout.simple_list_item_1));
+		medName.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				mMedication = (Medication) parent.getItemAtPosition(position);
+				medName.setText(mMedication.getName());
+			} 
+			
+		});
+		
+		medDose =  (EditText) findViewById(R.id.edittext_dose_quantity);
+		doseDescription = (EditText) findViewById(R.id.edittext_dose_description);
+		
+		
+	}
+
+	public void makeNewCalendar(boolean fromRight) {
+		android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+		
+		ft.add(R.id.layout_schedule_set, 
+				calendarFrag, 
+				NewPrescriptionFragment.class.toString())
+		
+		if (fromRight) {
+			ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+				.remove(newPrescriptionFrag).commit();
+		}
+		else {
+			ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+			.remove(prescriptionsToAddFrag).commit();
+		}
+
+		getFragmentManager().executePendingTransactions();
+	}
+	
+	public void makeNewPrescription(GregorianCalendar date){
+		prescriptionsToAddFrag = new PrescriptionsToAddFragment();
+		
+		getFragmentManager().beginTransaction()
+			.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+			.add(newPrescriptionFrag, NewPrescriptionFragment.class.getName())
+			.remove(calendarFrag).commit();
+		
+		getFragmentManager().executePendingTransactions();
+	}
+	
+	public void addAllPrescriptions() {
+		while (!mPrescriptions.isEmpty() && checkInput()) {
+			int dose = Integer.parseInt(medDose.getText().toString());
+			String description = doseDescription.getText().toString();
+			String medication = medName.getText().toString();
+			
+	
+			Prescription p = mPrescriptions.remove(0);
+			p.setDose(dose);
+			p.setDose_description(description);
+			p.setMedication(medication);
+			mController.addPrescription(p, new OnPrescriptionAddedListener() {
+
+				@Override
+				public void onPrescriptionAdded(boolean success) {
+					if (mPrescriptions.isEmpty()) {
+						finish();
+					}
+				}
+				
+			});
+		}
+	}
+	
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.new_time, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_logout) {
+			mController.logOut(mController.getUsername());
+			startActivity(new Intent(NewPrescriptionActivity.this, LoginActivity.class));
+			overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public void onSelectedDayChange(CalendarView view, int year, int month,
+			int dayOfMonth) {
+
+		
+		
+		((Button) newPrescriptionFrag.getView().findViewById(R.id.button_add_prescriptions))
+		.setOnClickListener(this);
+	}
+
+
+	@Override
+	public void onClick(View v) {
+		
+		if (checkInput()) {
+		
+			
+			Prescription prescription = new Prescription();
+			prescription.setDay_to_take(new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(mDate));
+			prescription.setPatientID(mController.getPatientId());
+			prescription.setPhysicianID(mController.getProviderId());
+			prescription.setDose(Integer.parseInt(medDose.getText().toString()));
+			prescription.setDose_description(doseDescription.getText().toString());
+			prescription.setMedication(medName.getText().toString());
+//			prescription.setGeneral_time(general_time);
+			
+//			mController.addSchedule(schedule, new OnSchduleAddedListener() {
+//	
+//				@Override
+//				public void onScheduleAdded(boolean success) {
+//					
+//					Intent intent = new Intent(NewAlarmActivity.this, PatientActivity.class);
+//					startActivity(intent);
+//					NewAlarmActivity.this.finish();
+//				}
+//				
+//			});
+		}
+		
+	}
+	
+	private boolean checkInput() {
+		
+		
+		
+		medName.setError(null);
+		medDose.setError(null);
+		doseDescription.setError(null);
+		
+		boolean valid = true;
+		
+		if (medName.getText().length() == 0) {
+			medName.setError("Enter a valid name");
+			valid = false;
+		}
+		if (medDose.getText().length() == 0) {
+			medDose.setError("Enter a dose");
+			valid = false;
+		}
+		if (doseDescription.getText().length() == 0) {
+			doseDescription.setError("Enter a description");
+			valid = false;
+		}
+		return valid;
+		
+		
+	}
+
+}

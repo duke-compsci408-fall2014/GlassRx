@@ -1,0 +1,7 @@
+package com.compsci408.androidrx.adapters;
+
+import android.widget.ArrayAdapter;
+
+public class PrescriptionAdapter extends ArrayAdapter<T> {
+
+}

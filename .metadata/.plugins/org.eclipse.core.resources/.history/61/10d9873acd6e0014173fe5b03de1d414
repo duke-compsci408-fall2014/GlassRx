@@ -1,0 +1,23 @@
+package com.compsci408.androidrx.adapters;
+
+import java.util.List;
+
+import com.compsci408.rxcore.datatypes.Prescription;
+
+import android.content.Context;
+import android.widget.ArrayAdapter;
+
+public class PrescriptionAdapter extends ArrayAdapter<Prescription> {
+
+	private List<Prescription> mData;
+	
+	Context mContext;
+	int mLayoutId;
+	
+	
+	public PrescriptionAdapter(Context context, int resource, List<Prescription> objects) {
+		super(context, resource);
+		mData = objects;
+	}
+
+}
