@@ -2,8 +2,11 @@ package com.compsci408.rxcore;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -54,10 +57,14 @@ public class Controller {
 	private String mUsername;
 	
 	private int mPatientId;
-	private String mPatientName;
 	private int mProviderId;
-	private String mMedName;
 	private int mMedId = 1;	
+	
+	private String mPatientName;
+	private String mMedName;
+	
+	private int mDayOfWeek;
+	private int mTimeRange;
 	
 	private ProgressDialog progressDialog;
 	
@@ -128,6 +135,22 @@ public class Controller {
 	}
 	
 	
+	public int getDayOfWeek() {
+		return mDayOfWeek;
+	}
+
+	public void setDayOfWeek(int dayOfWeek) {
+		this.mDayOfWeek = dayOfWeek;
+	}
+
+	public int getTimeRange() {
+		return mTimeRange;
+	}
+
+	public void setTimeRange(int timeRange) {
+		this.mTimeRange = timeRange;
+	}
+
 	public void showProgress(boolean show) {
 		if (show) {
 			progressDialog = new ProgressDialog(mContext);
@@ -139,8 +162,21 @@ public class Controller {
 		}
 	}
 	
+	public int getDayFromDate(String dateString) {
+		try {
+			Date date = new SimpleDateFormat(Constants.DATE_FORMAT_DATABASE, Locale.US)
+								.parse(dateString);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			return cal.get(Calendar.DAY_OF_WEEK);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
 	public void showProgress(String message, boolean show) {
-		if (show) {
+		if (show && progressDialog == null) {
 			progressDialog = new ProgressDialog(mContext);
 			progressDialog.setMessage(message);
 			progressDialog.show();
@@ -260,7 +296,7 @@ public class Controller {
 	 * Log user out of system
 	 * @param username Username entered by user
 	 */
-	public void logOut(String username) {
+	public void logOut() {
 		//TODO:  Implement log out
 		
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -308,11 +344,18 @@ public class Controller {
 		JSONObject json = new JSONObject();
 		JSONArray record = new JSONArray();
 		for (int i = 0; i < prescriptions.size(); i++) {
-			record.put(new Gson().toJson(prescriptions.get(i), Prescription.class));
+			try {
+				JSONObject prescriptionObject = new JSONObject(new Gson().toJson(prescriptions.get(i), Prescription.class));
+				record.put(prescriptionObject);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 		try {
 			json.put("record", record);
+			String jsonString = json.toString();
 			mServerRequest.doPost(Constants.URL_ADD_PRESCRIPTION, new ResponseCallback() {
 	
 				@Override
@@ -321,7 +364,7 @@ public class Controller {
 					listener.onPrescriptionAdded(true);
 				}
 				
-			}, json.toString());
+			}, jsonString);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -338,11 +381,18 @@ public class Controller {
 		JSONObject json = new JSONObject();
 		JSONArray record = new JSONArray();
 		for (int i = 0; i < schedules.size(); i++) {
-			record.put(new Gson().toJson(schedules.get(i)));
+			try {
+				JSONObject scheduleObject = new JSONObject(new Gson().toJson(schedules.get(i), Schedule.class));
+				record.put(scheduleObject);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 		try {
 			json.put("record", record);
+			String jsonString = json.toString();
 			mServerRequest.doPost(Constants.URL_ADD_SCHEDULE, new ResponseCallback() {
 
 				@Override
@@ -351,7 +401,7 @@ public class Controller {
 					listener.onScheduleAdded(true);
 				}
 				
-			}, json.toString());
+			}, jsonString);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -441,6 +491,9 @@ public class Controller {
 				JSONArray array = null;
 				try {
 					array = response.getJSONArray("record");
+					if (array.isNull(0)) {
+						return;
+					}
 					ArrayList<Medication> meds = new ArrayList<Medication>();
 					for (int i = 0; i < array.length(); i++) {
 						meds.add(new Gson().fromJson(array.getString(i), Medication.class));
@@ -485,7 +538,7 @@ public class Controller {
 		});
 	}
 	
-	public void getPrescription(final OnPrescriptionLoadedListener listener) {
+	public void getAllPrescriptions(final OnPrescriptionLoadedListener listener) {
 		String url = Constants.URL_GET_PATIENT_PRESCRIP + Integer.toString(mPatientId) 
 				+ "%27" + Constants.URL_SUFFIX ;
 		
@@ -498,9 +551,7 @@ public class Controller {
 					List<Prescription> prescription = new ArrayList<Prescription>();
 					for (int i = 0; i < array.length(); i++) {
 						Prescription p = new Gson().fromJson(array.getString(i), Prescription.class);
-						if (p.getMedication().endsWith(mMedName)) {
-							prescription.add(p);
-						}
+						prescription.add(p);
 					}
 					listener.onPrescriptionLoaded(prescription);
 				} catch (JSONException e) {

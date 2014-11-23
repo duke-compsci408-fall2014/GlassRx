@@ -2,7 +2,7 @@ package com.compsci408.rxcore.datatypes;
 
 public class Prescription {
 	
-	private int id;
+	private transient int id;
 	private int patientID;
 	private int dose;
 	private String dose_description;
@@ -16,6 +16,14 @@ public class Prescription {
 		
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public int getPatientID() {
 		return patientID;
 	}
@@ -64,5 +72,10 @@ public class Prescription {
 	public void setSet(boolean set) {
 		this.set = set;
 	}
+
+//	@Override
+//	public int compareTo(Object another) {
+//		return getDay_to_take().toCharArray() - ((Prescription) another).getDay_to_take().toCharArray();
+//	}
 
 }

@@ -35,6 +35,9 @@ public class PatientMedicationActivity extends Activity {
 	private ListView mMedEvents;
 	private TextView mMedName;
 	
+	private List<Prescription> mPrescriptions;
+	private PrescriptionAdapter mAdapter;
+	
 	private Controller mController;
 	
 	@Override
@@ -67,14 +70,19 @@ public class PatientMedicationActivity extends Activity {
 			}			
 		});
 		
-		mController.getPrescription(new OnPrescriptionLoadedListener() {
+		mController.getAllPrescriptions(new OnPrescriptionLoadedListener() {
 
 			@Override
 			public void onPrescriptionLoaded(List<Prescription> prescription) {
-				PrescriptionAdapter adapter = new PrescriptionAdapter(PatientMedicationActivity.this,
+				mPrescriptions = prescription;
+				mAdapter = new PrescriptionAdapter(PatientMedicationActivity.this,
 													R.layout.prescription_list_item,
-													prescription);
-				mMedEvents.setAdapter(adapter);
+													mPrescriptions, false);
+				
+				mAdapter.clear();
+				mAdapter.addAll(mPrescriptions);
+				mMedEvents.setAdapter(mAdapter);
+				mAdapter.notifyDataSetChanged();
 			}
 			
 		});
@@ -118,6 +126,7 @@ public class PatientMedicationActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_logout) {
+			mController.logOut();
 			Intent i = new Intent(PatientMedicationActivity.this, LoginActivity.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(i);

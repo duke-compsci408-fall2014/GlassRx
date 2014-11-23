@@ -28,21 +28,25 @@ public class PrescriptionAdapter extends ArrayAdapter<Prescription> {
 	Context mContext;
 	int mLayoutId;	
 	private OnClickListener deleteListener;
+	private boolean mShowName;
 	
 	public PrescriptionAdapter(Context context, int resource, List<Prescription> objects,
-			OnClickListener listener) {
+			OnClickListener listener, boolean showName) {
 		super(context, resource);
 		mData = objects;
 		mContext = context;
 		mLayoutId = resource;
 		deleteListener = listener;
+		mShowName = showName;
 	}
 	
-	public PrescriptionAdapter(Context context, int resource, List<Prescription> objects) {
+	public PrescriptionAdapter(Context context, int resource, List<Prescription> objects, 
+			boolean showName) {
 		super(context, resource);
 		mData = objects;
 		mContext = context;
 		mLayoutId = resource;
+		mShowName = showName;
 	}
 	
 	static class PrescriptionHolder {
@@ -80,7 +84,11 @@ public class PrescriptionAdapter extends ArrayAdapter<Prescription> {
 		
 		final Prescription prescription = mData.get(position);
 		holder.delete.setTag(position);
-		holder.name.setText(prescription.getMedication());
+		
+		if (mShowName) {
+			holder.name.setText(prescription.getMedication());	
+		}
+		
 		holder.date.setText(formatDate(prescription.getDay_to_take()) + " in the");
 		holder.time.setText(formatTime(prescription.getGeneral_time()));
 		

@@ -2,7 +2,7 @@ package com.compsci408.rxcore.datatypes;
 
 public class Schedule {
 	
-	private int id;
+	private transient int id;
 	private String day_to_take;
 	private int patientID;
 	private String medication;
@@ -14,6 +14,16 @@ public class Schedule {
 	}
 	
 	
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
 	public String getDay_to_take() {
 		return day_to_take;
 	}

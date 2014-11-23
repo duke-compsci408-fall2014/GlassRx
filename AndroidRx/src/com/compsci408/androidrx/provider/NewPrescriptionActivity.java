@@ -3,10 +3,10 @@ package com.compsci408.androidrx.provider;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +17,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+
 import com.compsci408.androidrx.LoginActivity;
 import com.compsci408.androidrx.R;
 import com.compsci408.androidrx.adapters.MedSearchResultsAdapter;
@@ -71,7 +72,7 @@ public class NewPrescriptionActivity extends Activity {
 						prescriptionsToAddFrag.setAdapter(mAdapter);
 					}
 			
-		});
+		}, true);
 		
 		prescriptionsToAddFrag = new PrescriptionsToAddFragment();
 		calendarFrag = new CalendarFragment();
@@ -199,7 +200,7 @@ public class NewPrescriptionActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_logout) {
-			mController.logOut(mController.getUsername());
+			mController.logOut();
 			Intent i = new Intent(this, LoginActivity.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(i);

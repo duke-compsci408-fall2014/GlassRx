@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.compsci408.androidrx.patient.MainActivity;
+import com.compsci408.androidrx.patient.PatientNewPrescriptionsActivity;
+import com.compsci408.androidrx.patient.PatientProfileActivity;
 import com.compsci408.androidrx.provider.PatientListActivity;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.datatypes.AccountType;
@@ -114,7 +116,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 								List<Prescription> prescription) {
 							if(!prescription.isEmpty()) {
 								startActivity(new Intent(LoginActivity.this, 
-										PatientNewPrescriptionsActivity.class));
+										PatientProfileActivity.class));
 							}
 							else {
 								startActivity(new Intent(LoginActivity.this, 

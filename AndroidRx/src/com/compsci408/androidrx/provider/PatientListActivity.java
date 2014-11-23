@@ -109,7 +109,7 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_logout) {
-			mController.logOut(mController.getUsername());
+			mController.logOut();
 			Intent i = new Intent(this, LoginActivity.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(i);

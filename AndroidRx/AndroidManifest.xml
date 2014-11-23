@@ -80,16 +80,20 @@
             android:label="@string/title_activity_picture" >
         </activity>
         <activity
-            android:name=".ProviderMedicationActivity"
+            android:name=".provider.ProviderMedicationActivity"
             android:label="@string/title_activity_provider_medication" >
         </activity>
         <activity
-            android:name=".PatientNewPrescriptionsActivity"
+            android:name=".patient.PatientNewPrescriptionsActivity"
             android:label="@string/title_activity_patient_new_prescriptions" >
         </activity>
         <activity
-            android:name=".PatientProfileActivity"
+            android:name=".patient.PatientProfileActivity"
             android:label="@string/title_activity_patient_profile" >
+        </activity>
+        <activity
+            android:name="com.compsci408.androidrx.patient.PatientSetScheduleActivity"
+            android:label="@string/title_activity_patient_set_schedule" >
         </activity>
     </application>
 

@@ -79,8 +79,8 @@ public class Constants {
 	public static final String URL_GET_MED_BY_NAME		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Medication?filter=name%20%3D%20%27";
 	
 	// Prescription/Schedule
-	public static final String URL_ADD_PRESCRIPTION		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com:443/rest/db/Prescription";
-	public static final String URL_ADD_SCHEDULE			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com:443/rest/db/Schedule";
+	public static final String URL_ADD_PRESCRIPTION		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com:443/rest/db/Prescription?app_name=glass-rx";
+	public static final String URL_ADD_SCHEDULE			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com:443/rest/db/Schedule?app_name=glass-rx";
 	public static final String URL_GET_PATIENT_SCHEDULE	= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Schedule?filter=patientID%3D%27";
 	public static final String URL_GET_PATIENT_PRESCRIP	= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Prescription?filter=patientID%3D%27";
 	

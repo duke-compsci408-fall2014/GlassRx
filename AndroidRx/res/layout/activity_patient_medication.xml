@@ -29,10 +29,11 @@
 	        android:id="@+id/textview_med_name"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
 	        android:layout_weight=".5"
-	        android:textColor="@color/white"
-	        android:gravity="center"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	        android:gravity="bottom"
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:textColor="@color/white" />
 	    
     </LinearLayout>
     
@@ -48,14 +49,14 @@
             android:id="@+id/listview_med_details"
             android:layout_width="match_parent"
             android:layout_height="0dp" 
-            android:layout_weight=".5">
+            android:layout_weight=".66">
         </ListView>
 
         <ListView
 	        android:id="@+id/listview_med_events"
 	        android:layout_width="match_parent"
 	        android:layout_height="0dp"
-		    android:layout_weight=".5"
+		    android:layout_weight=".34"
 	        android:layout_marginTop="10dp"
 	        android:entries="@array/alarm_array" >
 	    </ListView>

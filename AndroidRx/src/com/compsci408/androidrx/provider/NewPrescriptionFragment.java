@@ -26,6 +26,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+
+/**
+ * Fragment which contains a form for setting
+ * {@link Prescription} events.  Allows for setting
+ * of multiple time periods throughout the day and
+ * repeating events on a daily or weekly basis.
+ * @author Evan
+ */
 public class NewPrescriptionFragment extends Fragment {
 	
 	Button buttonDone;
@@ -80,6 +88,9 @@ public class NewPrescriptionFragment extends Fragment {
     }
 	
 
+	/**
+	 * Set appropriate listeners for this activity's widgets.
+	 */
 	private void setListeners() {
 		
 		cbRepeat.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -150,6 +161,10 @@ public class NewPrescriptionFragment extends Fragment {
 		});
 	}
 	
+	/**
+	 * Get all of the dates on which the user would like to have an alert.
+	 * @return List of string representations of selected dates
+	 */
 	private List<String> getDates() {
 		List<String> dates = new ArrayList<String>();
 		
@@ -173,6 +188,10 @@ public class NewPrescriptionFragment extends Fragment {
 		return dates;
 	}
 	
+	/**
+	 * Set the selected date
+	 * @param date Selected date
+	 */
 	public void setDate(GregorianCalendar date) {
 		mDate = date;
 	}

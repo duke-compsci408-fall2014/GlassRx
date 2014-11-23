@@ -11,3 +11,8 @@
 1416357364485	Rename method 'getPrescriptionsForPatient'
 1416360662945	Rename method 'addSchedule'
 1416360677104	Rename method 'addPrescription'
+1416369890441	Encapsulate field 'mDayOfWeek'
+1416370558958	Rename local variable 'calTemp'
+1416373507271	Rename local variable 'prescriptionString'
+1416375514983	Encapsulate field 'id'
+1416422781506	Rename method 'getPrescription'

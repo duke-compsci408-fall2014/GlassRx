@@ -6,12 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 import com.compsci408.androidrx.LoginActivity;
-import com.compsci408.androidrx.ProviderMedicationActivity;
 import com.compsci408.androidrx.R;
 import com.compsci408.rxcore.Controller;
-import com.compsci408.rxcore.datatypes.Schedule;
-import com.compsci408.rxcore.listeners.OnScheduleLoadedListener;
-
+import com.compsci408.rxcore.datatypes.Prescription;
+import com.compsci408.rxcore.listeners.OnPrescriptionLoadedListener;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,13 +49,13 @@ public class PatientActivity extends Activity {
 		
 		mController = Controller.getInstance(this);
 		mController.showProgress("Loading Patient Details", true);
-		mController.getPatientSchedule(new OnScheduleLoadedListener() {
+		mController.getAllPrescriptions(new OnPrescriptionLoadedListener() {
 
 			@Override
-			public void onScheduleLoaded(List<Schedule> schedule) {
+			public void onPrescriptionLoaded(List<Prescription> prescription) {
 				Set<String> currentMeds = new HashSet<String>();
-				for (int i = 0; i < schedule.size(); i++) {
-					currentMeds.add(schedule.get(i).getMedication());
+				for (int i = 0; i < prescription.size(); i++) {
+					currentMeds.add(prescription.get(i).getMedication());
 				}
 				
 				mAdapter = new ArrayAdapter<String>(
@@ -74,9 +72,26 @@ public class PatientActivity extends Activity {
 		patientName = (TextView) findViewById(R.id.textview_patient_name);
 		patientName.setText(mController.getPatientName());
 		
-		medList = (ListView) findViewById(R.id.listview_patient_meds);
+		medList = (ListView) findViewById(R.id.listview_patient_meds);		
+		addMed = (Button) findViewById(R.id.button_add_med);
+		setListeners();
+	}
+	
+	private void setListeners() {
+		addMed.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				mController.setPatientName(patientName.getText().toString());
+				
+				Intent intent = new Intent(PatientActivity.this, NewPrescriptionActivity.class);
+				startActivity(intent);
+				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+			}
+			
+		});
 		
-	    medList.setOnItemClickListener(new OnItemClickListener() {
+		medList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -89,17 +104,27 @@ public class PatientActivity extends Activity {
 			}
 	    	
 	    });
-		
-		addMed = (Button) findViewById(R.id.button_add_med);
-		addMed.setOnClickListener(new OnClickListener() {
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		mController.showProgress("Loading Patient Details", true);
+		mController.getAllPrescriptions(new OnPrescriptionLoadedListener() {
 
 			@Override
-			public void onClick(View v) {
-				mController.setPatientName(patientName.getText().toString());
+			public void onPrescriptionLoaded(List<Prescription> prescription) {
+				Set<String> currentMeds = new HashSet<String>();
+				for (int i = 0; i < prescription.size(); i++) {
+					currentMeds.add(prescription.get(i).getMedication());
+				}
 				
-				Intent intent = new Intent(PatientActivity.this, NewPrescriptionActivity.class);
-				startActivity(intent);
-				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+				mAdapter = new ArrayAdapter<String>(
+		                PatientActivity.this, 
+		                android.R.layout.simple_list_item_1,
+						new ArrayList<String>(currentMeds));
+				medList.setAdapter(mAdapter);
+				mController.showProgress(false);
 			}
 			
 		});
@@ -119,7 +144,7 @@ public class PatientActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_logout) {
-			mController.logOut(mController.getUsername());
+			mController.logOut();
 			Intent i = new Intent(this, LoginActivity.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(i);
