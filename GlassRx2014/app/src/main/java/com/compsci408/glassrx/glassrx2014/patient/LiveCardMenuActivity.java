@@ -22,6 +22,7 @@ public class LiveCardMenuActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.next_med_live_card, menu);
         return true;
     }
@@ -30,11 +31,13 @@ public class LiveCardMenuActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.more_info_menu_item:
+                Intent intent = new Intent(this, PatientMoreInfoActivity.class);
+                intent.putExtra("text", "Name: Flintstones\n" +
+                        "Use: Daily Vitamin\n" +
+                        "Side Effects: Heartburn, Headache");
+                intent.putExtra("pic", R.drawable.ic_flintstones);
+                startActivity(intent);
 
-                startActivity(new Intent(this, PatientMoreInfoActivity.class));
-//                SoundPool mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-//                int mTimerFinishedSoundId = mSoundPool.load(this, R.raw.timer_finished, 1000);
-//                mSoundPool.stop(mTimerFinishedSoundId);
 
                 return true;
             case R.id.med_list_menu_item:

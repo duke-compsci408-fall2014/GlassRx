@@ -36,6 +36,7 @@
                 android:name="com.google.android.glass.VoiceTrigger"
                 android:resource="@xml/voice_trigger" />
         </activity>
+
         <service
             android:name=".patient.NextMedLiveCard"
             android:icon="@drawable/ic_glass_logo"
@@ -55,6 +56,13 @@
             android:launchMode="singleTask"
             android:theme="@style/MenuTheme" >
         </activity>
+
+        <activity
+            android:name=".provider.ProviderPatientInfoActivity"
+            android:icon="@drawable/ic_glass_logo"
+            android:label="@string/title_activity_provider_patient_info" >
+        </activity>
+
         <activity
             android:name=".nextMed.SetTimerActivity"
             android:enabled="true"
@@ -79,7 +87,6 @@
         <activity
             android:name=".patient.LiveCardMenuActivity"
             android:theme="@style/MenuTheme" />
-
 
     </application>
 

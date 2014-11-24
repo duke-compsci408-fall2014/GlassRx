@@ -18,13 +18,16 @@ public class PatientMoreInfoActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        String myText = getIntent().getStringExtra("text");
+        int myImage = getIntent().getIntExtra("pic", 0);
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(WindowUtils.FEATURE_VOICE_COMMANDS);
         card = new CardBuilder(this, CardBuilder.Layout.COLUMNS)
-                .setText("Med.:  Aricept\nTreats:  Alzheimer's\nSide Effects:  Nausea, Abdominal Pain")
+                .setText(myText)
                 .setTimestamp("just now")
+                .addImage(myImage)
                 .getView();
-
         // Display the card we just created
         setContentView(card);
     }
@@ -50,7 +53,7 @@ public class PatientMoreInfoActivity extends Activity {
         if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS) {
             switch (item.getItemId()) {
                 case R.id.main_menu_item:
-                    startActivity(new Intent(this, PatientMainActivity.class));
+                    startService(new Intent(this, NextMedLiveCard.class));
                     break;
                 case R.id.med_list_menu_item:
                     startActivity(new Intent(this, PatientMedListActivity.class));
@@ -67,7 +70,7 @@ public class PatientMoreInfoActivity extends Activity {
     @Override
     public boolean onKeyDown(int keycode, KeyEvent event) {
         if (keycode == KeyEvent.KEYCODE_DPAD_CENTER) {
-            startActivity(new Intent(this, PatientMainActivity.class));
+            openOptionsMenu();
             return true;
         }
         return super.onKeyDown(keycode, event);

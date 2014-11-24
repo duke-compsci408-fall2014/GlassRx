@@ -23,9 +23,10 @@
     <string name="swipe_to_set_timer">Swipe forward to set the timer</string>
     <string name="title_activity_next_med_live_card">Next Med LiveCard</string>
     <string name="action_stop">Stop</string>
-
-
     <string name="live_card_text">Next Medication: Aricept</string>
 
     <item name="live_card_text" type="id">Hello</item>
+
+    <string name="title_activity_provider_patient_info">Hello World Immersion</string>
+
 </resources>

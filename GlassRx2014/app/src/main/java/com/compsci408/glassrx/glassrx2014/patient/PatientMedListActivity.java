@@ -31,6 +31,10 @@ public class PatientMedListActivity extends Activity {
 
     @Override
     public boolean onCreatePanelMenu(int featureId, Menu menu) {
+        menu.add(Menu.NONE,10, Menu.NONE, "Aricept");
+        menu.add(Menu.NONE,11,Menu.NONE, "Vitamin E");
+        menu.add(Menu.NONE,12,Menu.NONE, "Flintstones");
+
         if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS) {
             getMenuInflater().inflate(R.menu.med_list, menu);
             return true;
@@ -41,33 +45,56 @@ public class PatientMedListActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+//        menu.add(Menu.NONE,10, Menu.NONE, "Aricept");
+//        menu.add(Menu.NONE,11,Menu.NONE, "Vitamin E");
+//        menu.add(Menu.NONE,12,Menu.NONE, "Flintstones");
+
+
         getMenuInflater().inflate(R.menu.med_list, menu);
         return true;
     }
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS) {
-            switch (item.getItemId()) {
-                case R.id.main_menu_item:
-                    startActivity(new Intent(this, PatientMainActivity.class));
+//        if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS) {
+        Intent intent;
+
+        switch (item.getItemId()) {
+                case 10:
+                    intent = new Intent(this, PatientMoreInfoActivity.class);
+                    intent.putExtra("text", "Name: Aricept\nUse: Alzheimer's\nSide Effects: Nausea, Abdominal Pain");
+                    intent.putExtra("pic", R.drawable.ic_aricept);
+                    startActivity(intent);
                     break;
-                case R.id.item_number_menu_item:
-                    startActivity(new Intent(this, PatientMoreInfoActivity.class));
+
+                case 11:
+                    intent = new Intent(this, PatientMoreInfoActivity.class);
+                    intent.putExtra("text", "Name: Vitamin E\nUse: Daily Vitamin\nSide Effects: Fatigue, Weakness");
+                    intent.putExtra("pic", R.drawable.ic_vitamin_e);
+                    startActivity(intent);
+                    break;
+                case 12:
+                    intent = new Intent(this, PatientMoreInfoActivity.class);
+                    intent.putExtra("text", "Name: Flintstones\nUse: Daily Vitamin\nSide Effects: Heartburn, Headache");
+                    intent.putExtra("pic", R.drawable.ic_flintstones);
+                    startActivity(intent);
+                    break;
+                case R.id.main_menu_item:
+                    startService(new Intent(this, NextMedLiveCard.class));
                     break;
                 default:
                     return true;
             }
             return true;
-        }
+//        }
         // Good practice to pass through to super if not handled
-        return super.onMenuItemSelected(featureId, item);
+//        return super.onMenuItemSelected(featureId, item);
     }
 
     @Override
     public boolean onKeyDown(int keycode, KeyEvent event) {
         if (keycode == KeyEvent.KEYCODE_DPAD_CENTER) {
-            startActivity(new Intent(this, PatientMoreInfoActivity.class));
+            openOptionsMenu();
             return true;
         }
         return super.onKeyDown(keycode, event);
