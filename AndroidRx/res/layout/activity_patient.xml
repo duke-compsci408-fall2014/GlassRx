@@ -16,16 +16,16 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/light_gray" />
 
     <Button
         android:id="@+id/button_add_med"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_patient_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
         android:text="@string/add_med" />
 
     <ListView

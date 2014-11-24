@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.compsci408.androidrx.provider.NewAlarmActivity" >
+
+    <AutoCompleteTextView
+        android:id="@+id/textview_new_med_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dp"
+        android:padding="5dp"
+        android:background="@drawable/custom_edittext"
+        android:ems="10"
+        android:hint="@string/enter_med_name"
+        android:inputType="text" >
+
+        <requestFocus />
+    </AutoCompleteTextView>
+    
+    
+    <EditText
+        android:id="@+id/edittext_dose_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textview_new_med_name"
+        android:hint="@string/dose_quantity"
+        android:inputType="number" />
+    
+    <EditText
+        android:id="@+id/edittext_dose_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:layout_toRightOf="@+id/edittext_dose_quantity"
+		android:layout_toEndOf="@+id/edittext_dose_quantity"
+        android:layout_below="@+id/textview_new_med_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:hint="@string/enter_dose_description"
+        android:inputType="text" />
+
+    <LinearLayout
+        android:id="@+id/layout_schedule_set"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/edittext_dose_description"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/new_alarm_background"
+        android:orientation="vertical" >
+
+
+        <fragment 
+            android:name="com.compsci408.androidrx.provider.CalendarFragment"
+            android:id="@+id/fragment_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

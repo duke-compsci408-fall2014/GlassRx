@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.compsci408.androidrx.patient.MainActivity;
+import com.compsci408.androidrx.patient.PatientNewPrescriptionsActivity;
 import com.compsci408.androidrx.provider.PatientListActivity;
 import com.compsci408.rxcore.Constants;
 import com.compsci408.rxcore.Controller;
@@ -51,15 +52,21 @@ public class SplashActivity extends Activity {
 			@Override
             public void run() {
             	Intent i;
-     
+            	
+            	//  Check login history
             	int login = mController.checkLogin();
             	
-        		if (login == AccountType.PATIENT.getId()) {
-        			i = new Intent(SplashActivity.this, MainActivity.class);
+        		//  If already logged in as patient
+            	if (login == AccountType.PATIENT.getId()) {
+        			i = new Intent(SplashActivity.this, PatientNewPrescriptionsActivity.class);
         		}
+            	
+            	//  If already logged in as provider
         		else if (login == AccountType.PROVIDER.getId()) {
         			i = new Intent(SplashActivity.this, PatientListActivity.class);
         		} 
+            	
+            	//  If not logged in
         		else {
         			i = new Intent(SplashActivity.this, LoginActivity.class);
         		}

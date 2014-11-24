@@ -6,7 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_logout">Log Out</string>
     <string name="androidrx">AndroidRx</string>
-    <string name="add_med">+ Add Alarm</string>
+    <string name="add_med">+ Add Events</string>
     <string name="new_med">New Medication</string>
     <string name="enter_med_name">Medication Name</string>
     <string name="medication_icon">Medication Icon</string>
@@ -14,10 +14,21 @@
     <string name="set_day_time">Set Day and Time</string>
     <string name="set">Set</string>
     <string name="cancel">Cancel</string>
-    <string name="repeat_weekly">Repeat Weekly</string>
+    <string name="new_prescription">New</string>
+    <string name="repeat">Repeat</string>
     <string name="weeks">Weeks</string>
+    <string name="select_date">Select a Date</string>
     <string name="dose_quantity">Dose</string>
     <string name="enter_dose_description">Description, e.g. \'Pill\', \'Drop\'</string>
+
+    <string-array name="repeat_interval_list">
+        <item>Daily</item>
+        <item>Weekly</item>
+    </string-array>
+    <string-array name="repeat_interval_labels_list">
+        <item>Days</item>
+        <item>Weeks</item>
+    </string-array>
 
     <!-- For testing purposes only; remove when real data is available -->
     <string-array name="patient_list">
@@ -46,14 +57,29 @@
     <string name="title_activity_patient_list">Patient List</string>
     <string name="title_activity_patient">Patient Profile</string>
     <string name="title_activity_edit_med">Edit Medication</string>
-    <string name="title_activity_new_alarm">New Medication</string>
+    <string name="title_activity_new_prescription">New Prescription</string>
     <string name="title_activity_medication">Medication Details</string>
-    <string name="med_name">Name:  </string>
-    <string name="med_purpose">Purpose:  </string>
-    <string name="med_side_effects">Side Effects:  </string>
+    <string name="med_name">Name:</string>
+    <string name="med_purpose">Purpose:</string>
+    <string name="med_side_effects">Side Effects:</string>
     <string name="done">Done</string>
     <string name="add_time">+ Add Time</string>
     <string name="title_activity_med_info">Med Info Activity</string>
     <string name="title_activity_picture">PictureActivity</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="morning">Morning</string>
+    <string name="afternoon">Afternoon</string>
+    <string name="evening">Evening</string>
+    <string name="time_of_day">Select time of day</string>
+    <string name="title_activity_provider_medication">Medication Info</string>
+    <string name="title_activity_patient_new_prescriptions">New Prescriptions</string>
+    <string name="title_activity_patient_profile">My Profile</string>
+    <string name="title_activity_patient_set_schedule">PatientSetScheduleActivity</string>
 
 </resources>

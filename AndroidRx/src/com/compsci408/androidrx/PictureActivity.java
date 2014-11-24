@@ -1,5 +1,6 @@
 package com.compsci408.androidrx;
 
+import com.compsci408.androidrx.patient.PatientMedicationActivity;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.listeners.OnPictureTakenListener;
 
@@ -39,7 +40,7 @@ public class PictureActivity extends Activity {
 					@Override
 					public void onPictureTaken(boolean success) {
 						if (success) {
-							Intent intent = new Intent(PictureActivity.this, MedicationActivity.class);
+							Intent intent = new Intent(PictureActivity.this, PatientMedicationActivity.class);
 							startActivity(intent);
 							overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 							finish();
@@ -50,6 +51,8 @@ public class PictureActivity extends Activity {
 			}
 			
 		});
+		
+		mController.startCamera(mSurface.getHolder());
 		
 		
 	}
@@ -67,7 +70,11 @@ public class PictureActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.action_logout) {
+			Intent i = new Intent(this, LoginActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(i);
+			overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

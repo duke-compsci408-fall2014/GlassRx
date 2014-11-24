@@ -1,0 +1,180 @@
+package com.compsci408.androidrx.patient;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.compsci408.androidrx.LoginActivity;
+import com.compsci408.androidrx.R;
+import com.compsci408.androidrx.adapters.PrescriptionAdapter;
+import com.compsci408.rxcore.Controller;
+import com.compsci408.rxcore.datatypes.Day;
+import com.compsci408.rxcore.datatypes.Prescription;
+import com.compsci408.rxcore.datatypes.Schedule;
+import com.compsci408.rxcore.datatypes.TimeFrame;
+import com.compsci408.rxcore.listeners.OnPrescriptionLoadedListener;
+import com.compsci408.rxcore.listeners.OnScheduleLoadedListener;
+
+import android.app.Activity;
+import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TimePicker;
+
+public class PatientProfileActivity extends Activity {
+
+	ListView lvCurrentMeds;
+	ListView lvNewPrescriptions;
+	
+	ConstrainedTimePicker timePicker;
+	
+	ArrayAdapter<String> mCurrentAdapter;
+	ArrayAdapter<String> mNewAdapter;
+	
+	private Map<String, List<Prescription>> mNewPrescriptions;
+	
+	private Controller mController;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_patient_profile);
+		
+		lvCurrentMeds = (ListView) findViewById(R.id.listview_current_medications);
+		lvNewPrescriptions = (ListView) findViewById(R.id.listview_new_prescriptions);
+		
+		mController = Controller.getInstance(this);
+		mController.showProgress("Loading patient details", true);
+		mController.getPatientSchedule(new OnScheduleLoadedListener() {
+
+			@Override
+			public void onScheduleLoaded(List<Schedule> schedule) {
+				Set<String> currentMeds = new HashSet<String>();
+				for (int i = 0; i < schedule.size(); i++) {
+					currentMeds.add(schedule.get(i).getMedication());
+				}
+				
+				mCurrentAdapter = new ArrayAdapter<String>(
+		                PatientProfileActivity.this, 
+		                android.R.layout.simple_list_item_1,
+						new ArrayList<String>(currentMeds));
+				lvCurrentMeds.setAdapter(mCurrentAdapter);
+				mController.showProgress(false);
+			}
+			
+		});
+		
+		mController.showProgress("Loading patient details", true);
+		mController.getPendingPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
+
+			@Override
+			public void onPrescriptionLoaded(List<Prescription> prescription) {
+				mNewPrescriptions = new HashMap<String, List<Prescription>>();
+				for (int i = 0; i < prescription.size(); i++) {	
+					Prescription p = prescription.get(i);
+					int day = mController.getDayFromDate(p.getDay_to_take());
+					String key = p.getMedication() + ", "; 
+					for (Day d : Day.values()) {
+						if (d.getId() == day) {
+							key += d.getName() + " ";
+						}
+					}
+					for (TimeFrame tf : TimeFrame.values()) {
+						if (tf.getId() == p.getGeneral_time()) {
+							key += tf.getName() + "s";
+						}
+					}
+					if (!mNewPrescriptions.containsKey(key)) {
+						mNewPrescriptions.put(key, new ArrayList<Prescription>());
+					}
+					mNewPrescriptions.get(key).add(p);
+					
+				}
+				mNewAdapter = new ArrayAdapter<String>(PatientProfileActivity.this, 
+						android.R.layout.simple_list_item_1, 
+						new ArrayList<String>(mNewPrescriptions.keySet()));
+				
+				mNewAdapter.clear();
+				mNewAdapter.addAll(mNewPrescriptions.keySet());
+				mNewAdapter.notifyDataSetChanged();
+				lvNewPrescriptions.setAdapter(mNewAdapter);
+				mController.showProgress(false);
+			}
+			
+		});
+	}
+	
+	private void setListeners() {
+		lvNewPrescriptions.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				
+				final List<Prescription> prescriptions = mNewPrescriptions
+						.get(((String) parent.getItemAtPosition(position)))
+				int tf = prescriptions.get(0).getGeneral_time();
+				
+				
+				
+				TimeFrame timeframe = null;
+				for (TimeFrame t : TimeFrame.values()) {
+					if (t.getId() == tf) {
+						timeframe = t;
+					}
+				}
+				
+				timePicker = new ConstrainedTimePicker(PatientProfileActivity.this, 
+						new OnTimeSetListener() {
+
+					@Override
+					public void onTimeSet(TimePicker view, int hourOfDay,
+							int minute) {
+						String time = Integer.toString(hourOfDay) + ":" + Integer.toString(minute);
+						
+						
+					}
+					
+				}, timeframe.getStartHour(), 0, false, mController.getDayOfWeek());
+				timePicker.setMax(timeframe.getEndHour(), 59);
+				timePicker.setMin(timeframe.getStartHour(), 0);
+				timePicker.show();
+			}
+			
+		});
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.patient_profile, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_logout) {
+			mController.logOut();
+			Intent i = new Intent(this, LoginActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(i);
+			overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+}

@@ -67,6 +67,7 @@ public class PostTask extends AsyncTask<String, Void, JSONObject> {
 	        Log.d(TAG, "Server response code:  " + response);
 	        is = urlConnection.getInputStream();
 	        result = RequestUtils.readStream(is);
+	        Log.d(TAG, "Body:  " + mBody);
 	        Log.d(TAG, "Response:  " + result);
 	        is.close();
 	        json = new JSONObject(result);

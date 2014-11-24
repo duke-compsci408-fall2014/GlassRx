@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight=".05"
+        android:text="@string/select_date"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <android.widget.CalendarView
+        android:id="@+id/calendar_med_schedule"
+        android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight=".95"
+        android:padding="5dp" />
+        
+        <!-- <Button
+            android:id="@+id/button_add_med_complete"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".15"
+            android:onClick="addTimeComplete"
+            android:text="@string/done" /> -->
+
+    
+
+</LinearLayout>

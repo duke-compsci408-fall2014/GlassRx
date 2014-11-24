@@ -2,8 +2,11 @@ package com.compsci408.rxcore;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,9 +18,12 @@ import com.compsci408.rxcore.alarms.Alarm;
 import com.compsci408.rxcore.datatypes.AccountType;
 import com.compsci408.rxcore.datatypes.Medication;
 import com.compsci408.rxcore.datatypes.Patient;
+import com.compsci408.rxcore.datatypes.Prescription;
 import com.compsci408.rxcore.datatypes.Schedule;
 import com.compsci408.rxcore.listeners.OnLoginAttemptedListener;
 import com.compsci408.rxcore.listeners.OnMedicationsLoadedListener;
+import com.compsci408.rxcore.listeners.OnPrescriptionAddedListener;
+import com.compsci408.rxcore.listeners.OnPrescriptionLoadedListener;
 import com.compsci408.rxcore.listeners.OnSchduleAddedListener;
 import com.compsci408.rxcore.listeners.OnImageCapturedListener;
 import com.compsci408.rxcore.listeners.OnMedInfoLoadedListener;
@@ -28,8 +34,8 @@ import com.compsci408.rxcore.requests.ResponseCallback;
 import com.compsci408.rxcore.requests.ServerRequest;
 import com.google.gson.Gson;
 
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
@@ -48,12 +54,19 @@ public class Controller {
 	private static ServerRequest mServerRequest;
 	private static CameraManager mCameraManager;
 	
+	private String mUsername;
+	
 	private int mPatientId;
-	private String mPatientName;
 	private int mProviderId;
-	private String mMedName;
 	private int mMedId = 1;	
 	
+	private String mPatientName;
+	private String mMedName;
+	
+	private int mDayOfWeek;
+	private int mTimeRange;
+	
+	private ProgressDialog progressDialog;
 	
 	public static Controller getInstance(Context ctxt) {
 		if (instance == null) {
@@ -72,6 +85,14 @@ public class Controller {
 	public void setContext(Context mContext) {
 		this.mContext = mContext;
 	}	
+	
+	public String getUsername() {
+		return mUsername;
+	}
+	
+	public void setUsername(String username) {
+		this.mUsername = username;
+	}
 
 	public int getPatientId() {
 		return mPatientId;
@@ -114,6 +135,59 @@ public class Controller {
 	}
 	
 	
+	public int getDayOfWeek() {
+		return mDayOfWeek;
+	}
+
+	public void setDayOfWeek(int dayOfWeek) {
+		this.mDayOfWeek = dayOfWeek;
+	}
+
+	public int getTimeRange() {
+		return mTimeRange;
+	}
+
+	public void setTimeRange(int timeRange) {
+		this.mTimeRange = timeRange;
+	}
+
+	public void showProgress(boolean show) {
+		if (show) {
+			progressDialog = new ProgressDialog(mContext);
+			progressDialog.show();
+		}
+		
+		else if (progressDialog != null) {
+			progressDialog.dismiss();
+		}
+	}
+	
+	public int getDayFromDate(String dateString) {
+		try {
+			Date date = new SimpleDateFormat(Constants.DATE_FORMAT_DATABASE, Locale.US)
+								.parse(dateString);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			return cal.get(Calendar.DAY_OF_WEEK);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	public void showProgress(String message, boolean show) {
+		if (show && progressDialog == null) {
+			progressDialog = new ProgressDialog(mContext);
+			progressDialog.setMessage(message);
+			progressDialog.show();
+		}
+		
+		else if (progressDialog != null) {
+			progressDialog.dismiss();
+		}
+	}
+	
+	
 	/**
 	 * Check to see if device is already logged in
 	 * @return Integer value corresponding to AccountType
@@ -123,13 +197,8 @@ public class Controller {
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
 		int login = pref.getInt(Constants.KEY_LOGIN, Constants.DEFAULT_VALUE);
 		
-		Calendar c = Calendar.getInstance(); 
-		long seconds = c.getTimeInMillis();
-		
-		//  We are not logged in or have been inactive for over an hour
-		if (login == Constants.DEFAULT_VALUE ||
-				(seconds - pref.getLong(Constants.KEY_LAST_LOGIN, seconds))
-				> Constants.LOGIN_TIMEOUT) {
+		//  We are not logged in
+		if (login == Constants.DEFAULT_VALUE) {
 			return Constants.DEFAULT_VALUE;
 		}
 		
@@ -137,11 +206,11 @@ public class Controller {
 		if (login == Constants.LOGGED_IN) {
 			if (pref.getInt(Constants.KEY_ACCOUNT_TYPE, Constants.DEFAULT_VALUE)
 					== AccountType.PATIENT.getId()) {
-				setPatientId(pref.getInt(Constants.KEY_LAST_USER, -1));
+				setPatientId(pref.getInt(Constants.KEY_LAST_USER, Constants.DEFAULT_VALUE));
 			}
 			else if (pref.getInt(Constants.KEY_ACCOUNT_TYPE, Constants.DEFAULT_VALUE)
 					== AccountType.PROVIDER.getId()) {
-				setProviderId(pref.getInt(Constants.KEY_LAST_USER, -1));
+				setProviderId(pref.getInt(Constants.KEY_LAST_USER, Constants.DEFAULT_VALUE));
 			}
 		}
 		
@@ -154,15 +223,16 @@ public class Controller {
 	 * @param username Username entered by user
 	 * @param password Password entered by user
 	 * @param accountType Account type selected (patient or provider)
-	 * @param callback ResponseCallback from server
-	 * @return Response string from server
+	 * @param listener Listener indicating appropriate UI updates after
+	 * web request completes
 	 */
 	public void logIn(String username, final String password, final String accountType, 
 			final OnLoginAttemptedListener listener) {
 		
 		String url;
 		
-		if (accountType.equals(AccountType.PATIENT.getName())) {
+		if (accountType.toLowerCase(Locale.US)
+				.contains(AccountType.PATIENT.getName().toLowerCase(Locale.US))) {
 			url = Constants.URL_LOG_IN_PATIENT + username + "%27" + Constants.URL_SUFFIX;
 		}
 		else {
@@ -177,13 +247,12 @@ public class Controller {
 				JSONObject user = null;
 				try {
 					JSONArray array = response.getJSONArray("record");
+					if (array.isNull(0)) {
+						listener.onLoginFailed("Error:  Invalid credentials");
+						return;
+					}
 					String userString = array.getString(0);
 					user = new JSONObject(userString);
-				} catch (JSONException e1) {
-					// TODO Improve exception handling
-					e1.printStackTrace();
-				}
-				try {
 					if (user.getString(Constants.PASSWORD).equals(password)) {
 						SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
 						Editor editor = pref.edit();
@@ -192,14 +261,17 @@ public class Controller {
 						long seconds = c.getTimeInMillis();
 						
 						editor.putInt(Constants.KEY_LOGIN, Constants.LOGGED_IN);
-						editor.putLong(Constants.KEY_LAST_LOGIN, seconds);
+						editor.putLong(Constants.KEY_LAST_ACTIVITY, seconds);
 						
-						if (accountType.contains(AccountType.PATIENT.getName())) {
+						//  Log in as patient and store appropriate login history
+						if (accountType.contains(AccountType.PATIENT.getName().toLowerCase(Locale.US))) {
 							setPatientId(user.getInt("patientID"));
 							editor.putInt(Constants.KEY_ACCOUNT_TYPE, AccountType.PATIENT.getId());
 							editor.putInt(Constants.KEY_LAST_USER, getPatientId());
 							listener.onLoginSuccess(AccountType.PATIENT.getId());
-						} else {
+						} 
+						//  Log in as provider and store appropriate login history
+						else {
 							setProviderId(user.getInt("physicianID"));
 							editor.putInt(Constants.KEY_ACCOUNT_TYPE, AccountType.PROVIDER.getId());
 							editor.putInt(Constants.KEY_LAST_USER, getProviderId());
@@ -210,9 +282,9 @@ public class Controller {
 						//TODO:  add more robust error checking
 						listener.onLoginFailed("An error occurred.\nPlease try again.");
 					}
-					
-				} catch (JSONException e) {
-					e.printStackTrace();
+				} catch (JSONException e1) {
+					// TODO Improve exception handling
+					e1.printStackTrace();
 				}
 			}
 	    	
@@ -223,9 +295,8 @@ public class Controller {
 	/**
 	 * Log user out of system
 	 * @param username Username entered by user
-	 * @return Response string from server
 	 */
-	public void logOut(String username) {
+	public void logOut() {
 		//TODO:  Implement log out
 		
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -235,7 +306,7 @@ public class Controller {
 		long seconds = c.getTimeInMillis();
 		
 		editor.putInt(Constants.KEY_LOGIN, Constants.DEFAULT_VALUE);
-		editor.putLong(Constants.KEY_LAST_LOGIN, seconds);
+		editor.putLong(Constants.KEY_LAST_ACTIVITY, seconds);
 		
 		editor.commit();
 	}
@@ -263,23 +334,79 @@ public class Controller {
 	
 	
 	/**
+	 * Add new {@link Prescription}s to the database
+	 * @param prescription Prescription to be added
+	 * @param listener  Listener describing UI updates after
+	 * request is executed
+	 */
+	public void addPrescriptions(List<Prescription> prescriptions, final OnPrescriptionAddedListener listener) {
+		
+		JSONObject json = new JSONObject();
+		JSONArray record = new JSONArray();
+		for (int i = 0; i < prescriptions.size(); i++) {
+			try {
+				JSONObject prescriptionObject = new JSONObject(new Gson().toJson(prescriptions.get(i), Prescription.class));
+				record.put(prescriptionObject);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		try {
+			json.put("record", record);
+			String jsonString = json.toString();
+			mServerRequest.doPost(Constants.URL_ADD_PRESCRIPTION, new ResponseCallback() {
+	
+				@Override
+				public void onResponseReceived(JSONObject response) {
+					//TODO distinguish between successes and failures
+					listener.onPrescriptionAdded(true);
+				}
+				
+			}, jsonString);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
 	 * Add an alarm to the database
 	 * @param alarm Alarm to be added
 	 * @return Response string from server
 	 */
-	public void addSchedule(Schedule schedule, final OnSchduleAddedListener listener) {
+	public void addSchedules(List<Schedule> schedules, final OnSchduleAddedListener listener) {
 		
-		String json = new Gson().toJson(schedule, Schedule.class);
-		
-		mServerRequest.doPost(Constants.URL_ADD_ALARM, new ResponseCallback() {
-
-			@Override
-			public void onResponseReceived(JSONObject response) {
-				//TODO distinguish between successes and failures
-				listener.onScheduleAdded(true);
+		JSONObject json = new JSONObject();
+		JSONArray record = new JSONArray();
+		for (int i = 0; i < schedules.size(); i++) {
+			try {
+				JSONObject scheduleObject = new JSONObject(new Gson().toJson(schedules.get(i), Schedule.class));
+				record.put(scheduleObject);
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
 			
-		}, json);
+		}
+		
+		try {
+			json.put("record", record);
+			String jsonString = json.toString();
+			mServerRequest.doPost(Constants.URL_ADD_SCHEDULE, new ResponseCallback() {
+
+				@Override
+				public void onResponseReceived(JSONObject response) {
+					//TODO distinguish between successes and failures
+					listener.onScheduleAdded(true);
+				}
+				
+			}, jsonString);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	/**
@@ -355,7 +482,7 @@ public class Controller {
 	
 	
 	public void filterMedications(String input, final OnMedicationsLoadedListener listener) {
-		String url = Constants.URL_GET_MEDS_BY_NAME + input + "%27" + Constants.URL_SUFFIX;
+		String url = Constants.URL_FILTER_MEDS_BY_NAME + input + "%25%27" + Constants.URL_SUFFIX;
 		
 		mServerRequest.doGet(url, new ResponseCallback() {
 
@@ -364,6 +491,9 @@ public class Controller {
 				JSONArray array = null;
 				try {
 					array = response.getJSONArray("record");
+					if (array.isNull(0)) {
+						return;
+					}
 					ArrayList<Medication> meds = new ArrayList<Medication>();
 					for (int i = 0; i < array.length(); i++) {
 						meds.add(new Gson().fromJson(array.getString(i), Medication.class));
@@ -387,15 +517,77 @@ public class Controller {
 	 */
 	public void getMedication(final OnMedInfoLoadedListener listener) {
 		
-		 String url = Constants.URL_GET_PATIENT_SCHEDULE + mMedName 
+		 String url = Constants.URL_GET_MED_BY_NAME + mMedName 
 			+ "%27" + Constants.URL_SUFFIX;
 		
 		mServerRequest.doGet(url, new ResponseCallback() {
 
 			@Override
 			public void onResponseReceived(JSONObject response) {
-				Medication med = new Gson().fromJson(response.toString(), Medication.class);
-				listener.onMedInfoLoaded(med);
+				JSONArray array;
+				try {
+					array = response.getJSONArray("record");
+					Medication med = new Gson().fromJson(array.getString(0), Medication.class);
+					listener.onMedInfoLoaded(med);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+		});
+	}
+	
+	public void getAllPrescriptions(final OnPrescriptionLoadedListener listener) {
+		String url = Constants.URL_GET_PATIENT_PRESCRIP + Integer.toString(mPatientId) 
+				+ "%27" + Constants.URL_SUFFIX ;
+		
+		mServerRequest.doGet(url, new ResponseCallback() {
+
+			@Override
+			public void onResponseReceived(JSONObject response) {
+				try {
+					JSONArray array = response.getJSONArray("record");
+					List<Prescription> prescription = new ArrayList<Prescription>();
+					for (int i = 0; i < array.length(); i++) {
+						Prescription p = new Gson().fromJson(array.getString(i), Prescription.class);
+						prescription.add(p);
+					}
+					listener.onPrescriptionLoaded(prescription);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				
+			}
+			
+		});
+	}
+	
+	public void getPendingPrescriptionsForPatient(final OnPrescriptionLoadedListener listener) {
+		
+		String url = Constants.URL_GET_PATIENT_PRESCRIP + Integer.toString(mPatientId) 
+				+ "%27" + Constants.URL_SUFFIX ;
+		
+		mServerRequest.doGet(url, new ResponseCallback() {
+
+			@Override
+			public void onResponseReceived(JSONObject response) {
+				try {
+					JSONArray array = response.getJSONArray("record");
+					List<Prescription> prescription = new ArrayList<Prescription>();
+					for (int i = 0; i < array.length(); i++) {
+						Prescription p = new Gson().fromJson(array.getString(i), Prescription.class);
+						if (!p.getSet()) {
+							prescription.add(p);
+						}
+					}
+					listener.onPrescriptionLoaded(prescription);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				
 			}
 			
 		});
@@ -405,6 +597,10 @@ public class Controller {
 	// -------------------------Camera functionality below-------------------------------
 
 	
+	
+	public void startCamera(SurfaceHolder preview) {
+		mCameraManager.startCamera(preview);
+	}
 	/**
 	 * Take a picture using the device's camera
 	 * @param upload Boolean indicating whether
@@ -471,6 +667,15 @@ public class Controller {
 		}
 		return success;
 		
+	}
+	
+	public static Bitmap loadImage(String name, Context context) {
+		String path = Environment.getExternalStorageDirectory().toString();
+		File file = new File (path + Constants.RX_DIRECTORY + name.toLowerCase(Locale.US));
+		if(file.exists()){
+		    return BitmapFactory.decodeFile(file.getAbsolutePath());
+		}
+		return BitmapFactory.decodeResource(context.getResources(), android.R.drawable.ic_menu_camera);
 	}
 	
 	private static void uploadImage(byte[] data) {

@@ -1,0 +1,9 @@
+package com.compsci408.rxcore.datatypes;
+
+public enum TimeFrame {
+	
+	MORNING(0, "Morning", 5, 10),
+	AFTERNOON(1, "Afternoon", 10, 4),
+	EVENING(2, "Evening", 4, 11);
+
+}
