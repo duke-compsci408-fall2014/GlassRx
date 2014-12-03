@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.compsci408.glassrx.glassrx2014.R;
 
+
 /**
  * A transparent {@link Activity} displaying a "Stop" options menu to remove the LiveCard.
  */
