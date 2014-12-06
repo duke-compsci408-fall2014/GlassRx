@@ -76,7 +76,7 @@
             android:label="@string/title_activity_med_info" >
         </activity>
         <activity
-            android:name=".PictureActivity"
+            android:name="com.compsci408.androidrx.patient.PictureActivity"
             android:label="@string/title_activity_picture" >
         </activity>
         <activity

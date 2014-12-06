@@ -49,7 +49,7 @@ public class PatientActivity extends Activity {
 		
 		mController = Controller.getInstance(this);
 		mController.showProgress("Loading Patient Details", true);
-		mController.getAllPrescriptions(new OnPrescriptionLoadedListener() {
+		mController.getPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
 
 			@Override
 			public void onPrescriptionLoaded(List<Prescription> prescription) {
@@ -110,7 +110,7 @@ public class PatientActivity extends Activity {
 	public void onResume() {
 		super.onResume();
 		mController.showProgress("Loading Patient Details", true);
-		mController.getAllPrescriptions(new OnPrescriptionLoadedListener() {
+		mController.getPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
 
 			@Override
 			public void onPrescriptionLoaded(List<Prescription> prescription) {

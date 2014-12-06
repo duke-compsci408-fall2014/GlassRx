@@ -9,9 +9,7 @@ import java.util.Set;
 
 import com.compsci408.androidrx.LoginActivity;
 import com.compsci408.androidrx.R;
-import com.compsci408.androidrx.adapters.PrescriptionAdapter;
-import com.compsci408.androidrx.provider.PatientActivity;
-import com.compsci408.androidrx.provider.ProviderMedicationActivity;
+import com.compsci408.androidrx.util.ConstrainedTimePicker;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.datatypes.Day;
 import com.compsci408.rxcore.datatypes.Prescription;
@@ -33,6 +31,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TimePicker;
 
+/**
+ * An activity which displays medication information
+ * for a given patient.  Contains two lists:  one which
+ * shows the medications which the patient is currently
+ * taking and one which shows those prescription events
+ * which have been added by the provider but have not yet
+ * been scheduled.
+ * @author Evan
+ */
 public class PatientProfileActivity extends Activity {
 
 	ListView lvCurrentMeds;
@@ -77,7 +84,7 @@ public class PatientProfileActivity extends Activity {
 		});
 		
 		mController.showProgress("Loading patient details", true);
-		mController.getPendingPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
+		mController.getPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
 
 			@Override
 			public void onPrescriptionLoaded(List<Prescription> prescription) {

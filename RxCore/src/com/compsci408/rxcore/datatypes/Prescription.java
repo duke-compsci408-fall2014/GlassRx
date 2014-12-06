@@ -1,6 +1,13 @@
 package com.compsci408.rxcore.datatypes;
 
-public class Prescription {
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import com.compsci408.rxcore.Constants;
+
+public class Prescription implements Comparable<Prescription>{
 	
 	private transient int id;
 	private int patientID;
@@ -72,10 +79,56 @@ public class Prescription {
 	public void setSet(boolean set) {
 		this.set = set;
 	}
+	
 
-//	@Override
-//	public int compareTo(Object another) {
-//		return getDay_to_take().toCharArray() - ((Prescription) another).getDay_to_take().toCharArray();
-//	}
+	/**
+	 * Display detail prescriptions as a readable string
+	 * @param showName Whether or not to display the medication name
+	 * @param readable  Whether or not to format the date as readable,
+	 * i.e. EEE, MMM dd, yyyy
+	 * @return
+	 */
+	public String toString(boolean showName, boolean readable) {
+		String time = null, date = getDay_to_take(), result = null;
+		for (TimeFrame tf : TimeFrame.values()) {
+			if (tf.getId() == getGeneral_time()) {
+				time = tf.getName();
+			}
+		}
+		
+		if (showName) {
+			result += getMedication() + ":  ";
+		}
+		
+		if (readable) {
+			date = formatDate(getDay_to_take());
+		}
+		result += date + " in the " + time;
+		return result;
+	}
+
+	
+	private String formatDate(String input) {
+	    String inputPattern = Constants.DATE_FORMAT_DATABASE;
+	    String outputPattern = Constants.DATE_FORMAT_READABLE;
+	    SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern, Locale.US);
+	    SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern, Locale.US);
+
+	    Date date = null;
+	    String str = null;
+
+	    try {
+	        date = inputFormat.parse(input);
+	        str = outputFormat.format(date);
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	    }
+	    return str;
+	}
+
+	@Override
+	public int compareTo(Prescription another) {
+		return this.toString(true, false).compareTo(another.toString(true, false));
+	}
 
 }

@@ -12,6 +12,13 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
 
+/**
+ * Fragment which contains a {@link CalendarView}
+ * which a provider can use to select a date on
+ * which to add a prescription event.
+ * @author Evan
+ *
+ */
 public class CalendarFragment extends Fragment{
 	
 	CalendarView calendar;

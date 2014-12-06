@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.compsci408.androidrx.LoginActivity;
-import com.compsci408.androidrx.PictureActivity;
 import com.compsci408.androidrx.R;
 import com.compsci408.androidrx.adapters.PrescriptionAdapter;
 import com.compsci408.rxcore.Controller;
@@ -25,6 +24,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * Activity for displaying general information
+ * and scheduled alert events for a given medication.
+ * @author Evan
+ */
 public class PatientMedicationActivity extends Activity {
 
 	private Medication mMedication;
@@ -48,7 +52,7 @@ public class PatientMedicationActivity extends Activity {
 		mController = Controller.getInstance(this);
 		
 		//  Load medication info onto screen
-		mController.getMedication(new OnMedInfoLoadedListener() {
+		mController.getMedicationByName(new OnMedInfoLoadedListener() {
 
 			@Override
 			public void onMedInfoLoaded(Medication med) {
@@ -70,7 +74,7 @@ public class PatientMedicationActivity extends Activity {
 			}			
 		});
 		
-		mController.getAllPrescriptions(new OnPrescriptionLoadedListener() {
+		mController.getPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
 
 			@Override
 			public void onPrescriptionLoaded(List<Prescription> prescription) {

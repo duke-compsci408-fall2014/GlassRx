@@ -46,6 +46,11 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.SurfaceHolder;
 
+/**
+ * AndroidRx application controller.  Contains all intermediary
+ * functionality between views and data models.
+ * @author Evan
+ */
 public class Controller {
 
 	public static Controller instance;
@@ -175,6 +180,11 @@ public class Controller {
 		return -1;
 	}
 	
+	/**
+	 * Show/hide a {@link ProgressDialog}
+	 * @param message  Message to be shown
+	 * @param show True if should be shown, false otherwise
+	 */
 	public void showProgress(String message, boolean show) {
 		if (show && progressDialog == null) {
 			progressDialog = new ProgressDialog(mContext);
@@ -284,6 +294,7 @@ public class Controller {
 					}
 				} catch (JSONException e1) {
 					// TODO Improve exception handling
+					listener.onLoginFailed("An error occurred.\nPlease try again.");
 					e1.printStackTrace();
 				}
 			}
@@ -311,26 +322,26 @@ public class Controller {
 		editor.commit();
 	}
 	
-	/**
-	 * Get all alarms associated with given patient
-	 * @param patientId Id of patient
-	 * @return List of {@link Alarm}s for given patient
-	 */
-	public List<Alarm> getAllAlarms(int patientId) {
-		//TODO:  Implement function
-		return null;
-	}
-	
-	
-	/**
-	 * Get alarm which will occur soonest from now
-	 * @param alarms List of {@link Alarm}s
-	 * @return Next alarm to occur
-	 */
-	public Alarm getNextAlarm(List<Alarm> alarms) {
-		//TODO:  Implement function
-		return null;
-	}
+//	/**
+//	 * Get all alarms associated with given patient
+//	 * @param patientId Id of patient
+//	 * @return List of {@link Alarm}s for given patient
+//	 */
+//	public List<Alarm> getAllAlarms(int patientId) {
+//		//TODO:  Implement function
+//		return null;
+//	}
+//	
+//	
+//	/**
+//	 * Get alarm which will occur soonest from now
+//	 * @param alarms List of {@link Alarm}s
+//	 * @return Next alarm to occur
+//	 */
+//	public Alarm getNextAlarm(List<Alarm> alarms) {
+//		//TODO:  Implement function
+//		return null;
+//	}
 	
 	
 	/**
@@ -372,9 +383,10 @@ public class Controller {
 	
 	
 	/**
-	 * Add an alarm to the database
-	 * @param alarm Alarm to be added
-	 * @return Response string from server
+	 * Add new {@link Schedule}s to the database
+	 * @param schedules Schedules to be added
+	 * @param listener  Listener describing UI updates after
+	 * request is executed
 	 */
 	public void addSchedules(List<Schedule> schedules, final OnSchduleAddedListener listener) {
 		
@@ -410,16 +422,10 @@ public class Controller {
 	}
 	
 	/**
-	 * Remove alarm with the given Id from the database
-	 * @param alarmId Id of {@link Alarm} to be removed
-	 * @return Response string from server
+	 * Get all of the patients associated with the currently logged in provider.
+	 * @param listener Listener describing UI updates after request is executed
 	 */
-	public String removeAlarm(int alarmId) {
-		//TODO:  Implement function
-		return "";
-	}
-	
-	public void getPatients(final OnPatientsLoadedListener listener) {
+	public void getPatientsForProvider(final OnPatientsLoadedListener listener) {
 		
 		final List<Patient> patients = new ArrayList<Patient>();
 		final Gson gson = new Gson();
@@ -449,6 +455,11 @@ public class Controller {
 		});
 	}
 	
+	/**
+	 * Get all the schedules associated with the current patient
+	 * @param listener Listener describing UI updates after
+	 * request is executed
+	 */
 	public void getPatientSchedule(final OnScheduleLoadedListener listener) {
 		
 		final List<Schedule> schedule = new ArrayList<Schedule>();
@@ -481,7 +492,14 @@ public class Controller {
 
 	
 	
-	public void filterMedications(String input, final OnMedicationsLoadedListener listener) {
+	/**
+	 * Filter all of the medications by an input string.  Used for
+	 * autocomplete functionality.
+	 * @param input  Text entered by user
+	 * @param listener Listener describing UI updates after
+	 * request is executed
+	 */
+	public void filterMedicationsByName(String input, final OnMedicationsLoadedListener listener) {
 		String url = Constants.URL_FILTER_MEDS_BY_NAME + input + "%25%27" + Constants.URL_SUFFIX;
 		
 		mServerRequest.doGet(url, new ResponseCallback() {
@@ -515,7 +533,7 @@ public class Controller {
 	 * @param listener Listener which describes UI updates upon
 	 * successful web request.
 	 */
-	public void getMedication(final OnMedInfoLoadedListener listener) {
+	public void getMedicationByName(final OnMedInfoLoadedListener listener) {
 		
 		 String url = Constants.URL_GET_MED_BY_NAME + mMedName 
 			+ "%27" + Constants.URL_SUFFIX;
@@ -538,33 +556,37 @@ public class Controller {
 		});
 	}
 	
-	public void getAllPrescriptions(final OnPrescriptionLoadedListener listener) {
-		String url = Constants.URL_GET_PATIENT_PRESCRIP + Integer.toString(mPatientId) 
-				+ "%27" + Constants.URL_SUFFIX ;
-		
-		mServerRequest.doGet(url, new ResponseCallback() {
-
-			@Override
-			public void onResponseReceived(JSONObject response) {
-				try {
-					JSONArray array = response.getJSONArray("record");
-					List<Prescription> prescription = new ArrayList<Prescription>();
-					for (int i = 0; i < array.length(); i++) {
-						Prescription p = new Gson().fromJson(array.getString(i), Prescription.class);
-						prescription.add(p);
-					}
-					listener.onPrescriptionLoaded(prescription);
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				
-				
-			}
-			
-		});
-	}
+//	public void getAllPrescriptions(final OnPrescriptionLoadedListener listener) {
+//		String url = Constants.URL_GET_PATIENT_PRESCRIP + Integer.toString(mPatientId) 
+//				+ "%27" + Constants.URL_SUFFIX ;
+//		
+//		mServerRequest.doGet(url, new ResponseCallback() {
+//
+//			@Override
+//			public void onResponseReceived(JSONObject response) {
+//				try {
+//					JSONArray array = response.getJSONArray("record");
+//					List<Prescription> prescription = new ArrayList<Prescription>();
+//					for (int i = 0; i < array.length(); i++) {
+//						Prescription p = new Gson().fromJson(array.getString(i), Prescription.class);
+//						prescription.add(p);
+//					}
+//					listener.onPrescriptionLoaded(prescription);
+//				} catch (JSONException e) {
+//					e.printStackTrace();
+//				}
+//				
+//				
+//			}
+//			
+//		});
+//	}
 	
-	public void getPendingPrescriptionsForPatient(final OnPrescriptionLoadedListener listener) {
+	/**
+	 * Get all of the prescriptions associated with the current patient.
+	 * @param listener Listener describing UI updates after request is executed
+	 */
+	public void getPrescriptionsForPatient(final OnPrescriptionLoadedListener listener) {
 		
 		String url = Constants.URL_GET_PATIENT_PRESCRIP + Integer.toString(mPatientId) 
 				+ "%27" + Constants.URL_SUFFIX ;
@@ -598,9 +620,15 @@ public class Controller {
 
 	
 	
+	/**
+	 * Start the device's camera, if it exists.
+	 * @param preview  {@link SurfaceHolder} on
+	 * which the camera's preview is to be rendered.
+	 */
 	public void startCamera(SurfaceHolder preview) {
 		mCameraManager.startCamera(preview);
 	}
+	
 	/**
 	 * Take a picture using the device's camera
 	 * @param upload Boolean indicating whether
@@ -669,6 +697,14 @@ public class Controller {
 		
 	}
 	
+	/**
+	 * Load an image from the device's memory
+	 * @param name Name of the file to be loaded
+	 * (in this case, it is the name of the associated medication)
+	 * @param context {@link Context} of the application
+	 * @return {@link Bitmap} representation of the
+	 * image to be loaded.
+	 */
 	public static Bitmap loadImage(String name, Context context) {
 		String path = Environment.getExternalStorageDirectory().toString();
 		File file = new File (path + Constants.RX_DIRECTORY + name.toLowerCase(Locale.US));

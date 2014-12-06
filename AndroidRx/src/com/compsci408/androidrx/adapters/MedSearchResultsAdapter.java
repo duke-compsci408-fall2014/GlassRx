@@ -16,6 +16,11 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+/**
+ * Custom adapter for maintaining and displaying
+ * a list of medication names based on filtered search results. 
+ * @author Evan
+ */
 public class MedSearchResultsAdapter extends ArrayAdapter<Medication> implements Filterable{
 
 	private ArrayList<Medication> mData;
@@ -78,7 +83,7 @@ public class MedSearchResultsAdapter extends ArrayAdapter<Medication> implements
                 final FilterResults filterResults = new FilterResults();
                 if(constraint != null) {
                     try {
-                        mController.filterMedications(constraint.toString(), 
+                        mController.filterMedicationsByName(constraint.toString(), 
                         		new OnMedicationsLoadedListener() {
 
 									@Override

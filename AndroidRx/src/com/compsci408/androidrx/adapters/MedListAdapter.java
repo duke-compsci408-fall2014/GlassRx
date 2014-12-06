@@ -12,7 +12,11 @@ import android.widget.TextView;
 
 import com.compsci408.rxcore.datatypes.Medication;
 
-
+/**
+ * Custom adapter for maintaining and displaying
+ * a list of medications. 
+ * @author Evan
+ */
 public class MedListAdapter extends ArrayAdapter<Medication> {
 
 	Context mContext;

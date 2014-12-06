@@ -1,16 +1,10 @@
 package com.compsci408.androidrx;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.compsci408.androidrx.patient.MainActivity;
-import com.compsci408.androidrx.patient.PatientNewPrescriptionsActivity;
+import com.compsci408.androidrx.patient.PatientProfileActivity;
 import com.compsci408.androidrx.provider.PatientListActivity;
-import com.compsci408.rxcore.Constants;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.datatypes.AccountType;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -58,7 +52,7 @@ public class SplashActivity extends Activity {
             	
         		//  If already logged in as patient
             	if (login == AccountType.PATIENT.getId()) {
-        			i = new Intent(SplashActivity.this, PatientNewPrescriptionsActivity.class);
+        			i = new Intent(SplashActivity.this, PatientProfileActivity.class);
         		}
             	
             	//  If already logged in as provider

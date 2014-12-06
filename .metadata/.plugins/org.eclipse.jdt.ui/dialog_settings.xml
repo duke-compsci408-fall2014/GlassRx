@@ -66,6 +66,44 @@
 	</section>
 	<section name="CallHierarchySearchScope">
 	</section>
+	<section name="javadoc">
+		<item value="public" key="access"/>
+		<item value="false" key="noindex"/>
+		<item value="C:\Users\Evan\compsci408s\GlassRx\AndroidRx\javadoc.xml" key="antpath"/>
+		<item value="false" key="nodeprecatedlist"/>
+		<item value="true" key="use"/>
+		<item value="true" key="author"/>
+		<item value="false" key="nodeprecated"/>
+		<item value="false" key="nonavbar"/>
+		<item value="" key="docletpath"/>
+		<item value="C:\Program Files\Java\jdk1.8.0_05\bin\javadoc.exe" key="javadoc_command_history"/>
+		<item value="1.7" key="source"/>
+		<item value="true" key="version"/>
+		<item value="Rx_JavaDocs" key="doctitle"/>
+		<item value="" key="docletname"/>
+		<item value="true" key="splitindex"/>
+		<item value="true" key="fromStandard"/>
+		<item value="false" key="notree"/>
+		<item value="C:\Users\Evan\compsci408s\GlassRx\RxCore\doc" key="destdir"/>
+		<item value="false" key="openinbrowser"/>
+		<section name="projects">
+			<section name="GlassRx">
+				<item value="C:\Users\Evan\compsci408s\GlassRx\GlassRx\javadoc.xml" key="antpath"/>
+				<item value="C:\Users\Evan\compsci408s\GlassRx\GlassRx\doc" key="destdir"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="AndroidRx">
+				<item value="C:\Users\Evan\compsci408s\GlassRx\AndroidRx\javadoc.xml" key="antpath"/>
+				<item value="C:\Users\Evan\compsci408s\GlassRx\AndroidRx\doc" key="destdir"/>
+				<item value="http://developer.android.com/reference/" key="href"/>
+			</section>
+			<section name="RxCore">
+				<item value="C:\Users\Evan\compsci408s\GlassRx\AndroidRx\javadoc.xml" key="antpath"/>
+				<item value="C:\Users\Evan\compsci408s\GlassRx\RxCore\doc" key="destdir"/>
+				<item value="http://developer.android.com/reference/" key="href"/>
+			</section>
+		</section>
+	</section>
 	<section name="SourceActionDialog.methods">
 		<item value="false" key="SynchronizedModifier"/>
 		<item value="false" key="Comments"/>
@@ -91,6 +129,13 @@
 	</section>
 	<section name="BuildPathsPropertyPage">
 		<item value="3" key="pageIndex"/>
+	</section>
+	<section name="JavadocWizardDialog">
+		<item value="616" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="615" key="DIALOG_HEIGHT"/>
+		<item value="383" key="DIALOG_X_ORIGIN"/>
+		<item value="8" key="DIALOG_Y_ORIGIN"/>
 	</section>
 	<section name="completion_proposal_size">
 	</section>

@@ -11,6 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+/**
+ * Fragment which contains a list of prescription
+ * events staged to be added to the database.
+ * @author Evan
+ */
 public class PrescriptionsToAddFragment extends Fragment {
 	
 	ListView prescriptionsToAdd;

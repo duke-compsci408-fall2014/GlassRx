@@ -9,11 +9,6 @@ import java.net.URLEncoder;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
-import org.json.JSONObject;
-
-import com.compsci408.rxcore.Constants;
-import com.compsci408.rxcore.datatypes.AccountType;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;

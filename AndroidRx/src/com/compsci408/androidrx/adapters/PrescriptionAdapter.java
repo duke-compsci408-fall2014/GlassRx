@@ -21,6 +21,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+/**
+ * Custom adapter for maintaining and displaying
+ * a list of prescription events. 
+ * @author Evan
+ */
 public class PrescriptionAdapter extends ArrayAdapter<Prescription> {
 
 	private List<Prescription> mData;

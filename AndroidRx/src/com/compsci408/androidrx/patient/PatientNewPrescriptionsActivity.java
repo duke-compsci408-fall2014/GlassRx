@@ -1,10 +1,12 @@
 package com.compsci408.androidrx.patient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.compsci408.androidrx.LoginActivity;
 import com.compsci408.androidrx.R;
 import com.compsci408.androidrx.adapters.PrescriptionAdapter;
+import com.compsci408.androidrx.util.ConstrainedTimePicker;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.datatypes.Prescription;
 import com.compsci408.rxcore.datatypes.TimeFrame;
@@ -41,11 +43,16 @@ public class PatientNewPrescriptionsActivity extends Activity {
 		
 		lvNewPrescriptions = (ListView) findViewById(R.id.listview_new_prescriptions);
 		
-		mController.getPendingPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
+		mController.getPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
 
 			@Override
 			public void onPrescriptionLoaded(List<Prescription> prescription) {
-				mPrescriptions = prescription;
+				mPrescriptions = new ArrayList<Prescription>();
+				for (Prescription p :prescription) {
+					if (!p.getSet()) {
+						mPrescriptions.add(p);
+					}
+				}
 				mAdapter = new PrescriptionAdapter(PatientNewPrescriptionsActivity.this, 
 						R.layout.prescription_list_item, mPrescriptions, true);
 				

@@ -47,7 +47,7 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 		
 		mController.showProgress("Loading Patients", true);
 		
-		mController.getPatients(new OnPatientsLoadedListener() {
+		mController.getPatientsForProvider(new OnPatientsLoadedListener() {
 
 			@Override
 			public void onPatientsLoaded(List<Patient> patients) {

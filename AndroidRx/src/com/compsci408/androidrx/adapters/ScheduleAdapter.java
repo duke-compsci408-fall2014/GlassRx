@@ -11,7 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-
+/**
+ * Custom adapter for maintaining and displaying
+ * a list of schedule events. 
+ * @author Evan
+ */
 public class ScheduleAdapter extends ArrayAdapter<Schedule> {
 	
 	Context mContext;

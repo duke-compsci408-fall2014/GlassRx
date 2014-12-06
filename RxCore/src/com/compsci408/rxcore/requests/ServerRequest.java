@@ -10,7 +10,7 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
 /**
- * Class for handling requests
+ * Singleton class for handling requests.
  * @author Evan
  */
 public class ServerRequest {

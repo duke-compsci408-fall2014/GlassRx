@@ -29,15 +29,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.compsci408.androidrx.patient.MainActivity;
-import com.compsci408.androidrx.patient.PatientNewPrescriptionsActivity;
 import com.compsci408.androidrx.patient.PatientProfileActivity;
 import com.compsci408.androidrx.provider.PatientListActivity;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.datatypes.AccountType;
-import com.compsci408.rxcore.datatypes.Prescription;
 import com.compsci408.rxcore.listeners.OnLoginAttemptedListener;
-import com.compsci408.rxcore.listeners.OnPrescriptionLoadedListener;
 
 /**
  * A login screen that offers login via username/password.
@@ -109,24 +105,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			@Override
 			public void onLoginSuccess(int accountType) {
 				if (accountType == AccountType.PATIENT.getId()) {
-					mController.getPendingPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
-
-						@Override
-						public void onPrescriptionLoaded(
-								List<Prescription> prescription) {
-							if(!prescription.isEmpty()) {
-								startActivity(new Intent(LoginActivity.this, 
-										PatientProfileActivity.class));
-							}
-							else {
-								startActivity(new Intent(LoginActivity.this, 
-										PatientProfileActivity.class));
-							}
-						}
-						
-					});
-					
-				} else {
+					startActivity(new Intent(LoginActivity.this, PatientProfileActivity.class));					
+				} 
+				else {
 					startActivity(new Intent(LoginActivity.this, 
 							PatientListActivity.class));
 				}
@@ -285,6 +266,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 				ContactsContract.CommonDataKinds.Email.IS_PRIMARY, };
 
 		int ADDRESS = 0;
+		@SuppressWarnings("unused")
 		int IS_PRIMARY = 1;
 	}
 
