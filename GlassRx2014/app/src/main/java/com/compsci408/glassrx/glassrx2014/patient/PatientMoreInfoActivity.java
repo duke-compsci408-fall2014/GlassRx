@@ -7,26 +7,86 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.compsci408.glassrx.glassrx2014.R;
+import com.compsci408.glassrx.glassrx2014.rxcore.Controller;
+import com.compsci408.glassrx.glassrx2014.rxcore.datatypes.Medication;
+import com.compsci408.glassrx.glassrx2014.rxcore.listeners.OnMedInfoLoadedListener;
 import com.google.android.glass.view.WindowUtils;
 import com.google.android.glass.widget.CardBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PatientMoreInfoActivity extends Activity {
 
     View card;
 
+    String myText = "";
+
+    private Controller mController;
+    private TextView mMedText;
+
+    private Medication mMedication;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(WindowUtils.FEATURE_VOICE_COMMANDS);
-        card = new CardBuilder(this, CardBuilder.Layout.COLUMNS)
-                .setText("Med.:  Aricept\nTreats:  Alzheimer's\nSide Effects:  Nausea, Abdominal Pain")
-                .setTimestamp("just now")
-                .getView();
+        setContentView(R.layout.activity_patient_more_info);
 
-        // Display the card we just created
-        setContentView(card);
+
+
+//        int myImage = getIntent().getIntExtra("pic", 0);
+        mController = Controller.getInstance(this);
+
+        mMedText = (TextView) findViewById(R.id.text12);
+
+//        card = new CardBuilder(this, CardBuilder.Layout.COLUMNS)
+//                .setText(myText)
+//                .setTimestamp("just now")
+//                .addImage(myImage)
+//                .getView();
+
+        mMedText.setText("Loading...");
+
+        mController.getMedication(new OnMedInfoLoadedListener() {
+
+            @Override
+            public void onMedInfoLoaded(Medication med) {
+                if(med==null){
+                    mMedText.setText("Med is null");
+                    return;
+                }
+                mMedication = med;
+                List<String> details = new ArrayList<String>();
+                myText += "Medication:"
+                        + "  " + mMedication.getName();
+                myText += "\nPurpose:"
+                        + "  " + mMedication.getPurpose();
+                myText += "\nSide Effects:"
+                        + "  " + mMedication.getSide_effects();
+
+                mMedText.setText(myText);
+//                details.add(PatientMoreInfoActivity.this.getResources().getString(R.string.med_name)
+//                        + "  " + mMedication.getName());
+//                details.add(PatientMoreInfoActivity.this.getResources().getString(R.string.med_purpose)
+//                        + "  " + mMedication.getPurpose());
+//                details.add(PatientMoreInfoActivity.this.getResources().getString(R.string.med_side_effects)
+//                        + "  " +mMedication.getSide_effects());
+
+
+
+//                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+//                        PatientMoreInfoActivity.this,
+//                        android.R.layout.simple_list_item_1,
+//                        details);
+//                mMedDetails.setAdapter(arrayAdapter);
+            }
+        });
+
     }
 
     @Override
@@ -50,7 +110,7 @@ public class PatientMoreInfoActivity extends Activity {
         if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS) {
             switch (item.getItemId()) {
                 case R.id.main_menu_item:
-                    startActivity(new Intent(this, PatientMainActivity.class));
+                    startService(new Intent(this, NextMedLiveCard.class));
                     break;
                 case R.id.med_list_menu_item:
                     startActivity(new Intent(this, PatientMedListActivity.class));
@@ -67,7 +127,7 @@ public class PatientMoreInfoActivity extends Activity {
     @Override
     public boolean onKeyDown(int keycode, KeyEvent event) {
         if (keycode == KeyEvent.KEYCODE_DPAD_CENTER) {
-            startActivity(new Intent(this, PatientMainActivity.class));
+            openOptionsMenu();
             return true;
         }
         return super.onKeyDown(keycode, event);
