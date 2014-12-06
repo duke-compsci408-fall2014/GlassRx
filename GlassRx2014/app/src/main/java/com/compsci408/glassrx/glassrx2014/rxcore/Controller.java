@@ -264,7 +264,7 @@ public class Controller {
 						editor.putLong(Constants.KEY_LAST_ACTIVITY, seconds);
 						
 						//  Log in as patient and store appropriate login history
-						if (accountType.contains(AccountType.PATIENT.getName().toLowerCase(Locale.US))) {
+						if (accountType.equals("Patient")) {
 							setPatientId(user.getInt("patientID"));
 							editor.putInt(Constants.KEY_ACCOUNT_TYPE, AccountType.PATIENT.getId());
 							editor.putInt(Constants.KEY_LAST_USER, getPatientId());
