@@ -60,30 +60,22 @@ public class PatientMoreInfoActivity extends Activity {
                     mMedText.setText("Med is null");
                     return;
                 }
+
                 mMedication = med;
                 List<String> details = new ArrayList<String>();
-                myText += "Medication:"
-                        + "  " + mMedication.getName();
+                myText += "More Information about"
+                        + " " + mMedication.getName() + ":";
                 myText += "\nPurpose:"
                         + "  " + mMedication.getPurpose();
                 myText += "\nSide Effects:"
                         + "  " + mMedication.getSide_effects();
 
+                if(myText.equals("More Information about "
+                        + " " + mMedication.getName())){
+                    myText= "Unable to get further information about"
+                        + " " + mMedication.getName();
+                }
                 mMedText.setText(myText);
-//                details.add(PatientMoreInfoActivity.this.getResources().getString(R.string.med_name)
-//                        + "  " + mMedication.getName());
-//                details.add(PatientMoreInfoActivity.this.getResources().getString(R.string.med_purpose)
-//                        + "  " + mMedication.getPurpose());
-//                details.add(PatientMoreInfoActivity.this.getResources().getString(R.string.med_side_effects)
-//                        + "  " +mMedication.getSide_effects());
-
-
-
-//                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-//                        PatientMoreInfoActivity.this,
-//                        android.R.layout.simple_list_item_1,
-//                        details);
-//                mMedDetails.setAdapter(arrayAdapter);
             }
         });
 

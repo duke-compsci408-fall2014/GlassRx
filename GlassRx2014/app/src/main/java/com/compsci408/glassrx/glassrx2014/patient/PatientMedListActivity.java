@@ -112,8 +112,8 @@ public class PatientMedListActivity extends Activity implements SensorEventListe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos,
                                     long id) {
-//                mController.setMedName((String) parent.getItemAtPosition(pos));
-                    mController.setMedName("Aspirin");
+                mController.setMedName((String) parent.getItemAtPosition(pos));
+//                    mController.setMedName("Aspirin");
 
 //                Log.d("", "item tapped: "+pos); //working !
 //                Intent i = new Intent(PatientMedListActivity.this, TestActivity.class);
@@ -236,10 +236,10 @@ public class PatientMedListActivity extends Activity implements SensorEventListe
 
         if(item.getItemId() == -1){
             finish();
-
         }
+
        int i = item.getItemId();
-        mController.setMedName("Aspirin");
+        mController.setMedName(medList.get(i));
         Intent intent = new Intent(PatientMedListActivity.this, PatientMoreInfoActivity.class);
         startActivity(intent);
             return true;

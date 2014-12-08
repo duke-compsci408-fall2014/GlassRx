@@ -57,9 +57,9 @@ public class MenuActivity extends Activity {
                         @Override
                         public void onPrescriptionLoaded(
                                 List<Prescription> prescription) {
-//                            startService(new Intent(MenuActivity.this, NextMedLiveCard.class));
-                            startActivity(new Intent(MenuActivity.this,
-                                   PatientMedListActivity.class));
+                            startService(new Intent(MenuActivity.this, NextMedLiveCard.class));
+//                            startActivity(new Intent(MenuActivity.this,
+//                                   PatientMedListActivity.class));
                         }
 
                     });

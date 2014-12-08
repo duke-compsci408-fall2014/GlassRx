@@ -527,8 +527,11 @@ public class Controller {
 				JSONArray array;
 				try {
 					array = response.getJSONArray("record");
-					Medication med = new Gson().fromJson(array.getString(0), Medication.class);
-					listener.onMedInfoLoaded(med);
+                    if(array == null) {listener.onMedInfoLoaded(null);}
+                    else {
+                        Medication med = new Gson().fromJson(array.getString(0), Medication.class);
+                        listener.onMedInfoLoaded(med);
+                    }
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
