@@ -33,11 +33,9 @@ import java.util.Set;
 
 public class PatientMedListActivity extends Activity implements SensorEventListener {
 
-    View card;
     private SensorManager mSensorManager;
     private Sensor mOrientation;
 
-    private Menu menu;
 
     ListView listView ;
 
@@ -77,6 +75,11 @@ public class PatientMedListActivity extends Activity implements SensorEventListe
                         medList.add(med);
                     }
                 }
+                currentMeds.add("Hello");
+                currentMeds.add("HUE");
+                currentMeds.add("Hel2lo");
+
+                currentMeds.add("H6ello");
 
 
                 mCurrentAdapter = new ArrayAdapter<String>(
@@ -153,15 +156,6 @@ public class PatientMedListActivity extends Activity implements SensorEventListe
     }
 
 
-//        super.onCreate(savedInstanceState);
-//        card = new CardBuilder(this, CardBuilder.Layout.TEXT)
-//                .setText("1.  Aricept\n2.  Vitamin E\n3.  Flintstones")
-//                .setTimestamp("just now")
-//                .getView();
-//
-//
-//        setContentView(card);
-
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu){
@@ -174,10 +168,6 @@ public class PatientMedListActivity extends Activity implements SensorEventListe
     public boolean onPreparePanel(int featureId,View view, Menu menu){
         getWindow().invalidatePanelMenu(WindowUtils.FEATURE_VOICE_COMMANDS);
 
-//        for(int key : medList.keySet()){
-//            menu.add(Menu.NONE, key, Menu.NONE, medList.get(key));
-////            medList.remove(key);
-//        }
 
         getWindow().invalidatePanelMenu(WindowUtils.FEATURE_VOICE_COMMANDS);
         invalidateOptionsMenu();
@@ -187,37 +177,22 @@ public class PatientMedListActivity extends Activity implements SensorEventListe
 
     @Override
     public boolean onCreatePanelMenu(int featureId, Menu menu) {
-        menu.add(Menu.NONE, -1, 1000, "Log Out");
         while(medList==null){}
         for(int i = 0; i < medList.size(); i++){
             menu.add(Menu.NONE, i, 1, medList.get(i));
-//            medList.remove(key);
         }
 
-//        menu.add(Menu.NONE,11,Menu.NONE, "Jahlil Okafor");
-//        menu.add(Menu.NONE,12,Menu.NONE, "Justise Winslow");
 
 
         if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS) {
             getMenuInflater().inflate(R.menu.med_list, menu);
             return true;
         }
+
         // Pass through to super to setup touch menu.
         getWindow().invalidatePanelMenu(WindowUtils.FEATURE_VOICE_COMMANDS);
 
         return super.onCreatePanelMenu(featureId, menu);
-//        menu.add(Menu.NONE, 3, Menu.NONE, "HELLO");
-//
-
-//
-//        if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS) {
-//
-//
-//            getMenuInflater().inflate(R.menu.med_list, menu);
-//            return true;
-//        }
-//        // Pass through to super to setup touch menu.
-//        return super.onCreatePanelMenu(featureId, menu);
     }
 
     @Override

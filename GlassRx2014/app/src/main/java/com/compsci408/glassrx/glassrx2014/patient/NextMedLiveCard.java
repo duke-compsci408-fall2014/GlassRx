@@ -23,6 +23,7 @@ import com.compsci408.glassrx.glassrx2014.rxcore.datatypes.Schedule;
 import com.compsci408.glassrx.glassrx2014.rxcore.listeners.OnScheduleLoadedListener;
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
+import com.google.android.glass.view.WindowUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -90,6 +91,8 @@ public class NextMedLiveCard extends Service {
     public boolean flag = true;
     public boolean flag2 = true;
 
+
+
     public void updateText(String cardText, boolean alarm){
         if(alarm) {
 //            mLiveCard.unpublish();
@@ -97,6 +100,7 @@ public class NextMedLiveCard extends Service {
         remoteViews = new RemoteViews(getPackageName(), R.layout.next_med_live_card);
         remoteViews.setCharSequence(R.id.text_view, "setText", cardText);
         mLiveCard.setViews(remoteViews);
+
 
         Intent menuIntent = new Intent(this, LiveCardMenuActivity.class);
         mLiveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
@@ -129,6 +133,8 @@ public class NextMedLiveCard extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+
+
         mController = Controller.getInstance(this);
 
         mController.getPatientSchedule(new OnScheduleLoadedListener() {
@@ -155,7 +161,7 @@ public class NextMedLiveCard extends Service {
 //                listView.setAdapter(mCurrentAdapter);
                 mController.showProgress(false);
 
-                mLiveCard = new LiveCard(NextMedLiveCard.this, LIVE_CARD_TAG);
+                if(mLiveCard == null) mLiveCard = new LiveCard(NextMedLiveCard.this, LIVE_CARD_TAG);
 
                 remoteViews = new RemoteViews(getPackageName(), R.layout.next_med_live_card);
 

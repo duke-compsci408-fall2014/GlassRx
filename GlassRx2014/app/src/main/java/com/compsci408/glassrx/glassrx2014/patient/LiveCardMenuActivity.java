@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.compsci408.glassrx.glassrx2014.R;
 import com.compsci408.glassrx.glassrx2014.rxcore.Controller;
+import com.google.android.glass.view.WindowUtils;
 
 
 /**
@@ -15,13 +17,29 @@ import com.compsci408.glassrx.glassrx2014.rxcore.Controller;
  */
 public class LiveCardMenuActivity extends Activity {
 
+    @Override
+    protected void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
 
+        // Requests a voice menu on this activity. As for any other
+        // window feature, be sure to request this before
+        // setContentView() is called
+        getWindow().requestFeature(WindowUtils.FEATURE_VOICE_COMMANDS);
+//        setContentView(R.layout.activity_main);
+    }
 
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         // Open the options menu right away.
         openOptionsMenu();
+    }
+
+    @Override
+    public boolean onCreatePanelMenu(int featureId, Menu menu){
+        menu.add(Menu.NONE, R.id.more_info_menu_item, Menu.NONE, "Get more info");
+        menu.add(Menu.NONE, R.id.med_list_menu_item, Menu.NONE, "See medication list");
+        return true;
     }
 
     @Override
