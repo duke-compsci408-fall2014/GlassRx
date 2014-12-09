@@ -1,0 +1,135 @@
+package com.compsci408.rxcore.datatypes;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import com.compsci408.rxcore.Constants;
+
+public class Prescription extends Event implements Comparable<Prescription>{
+	
+//	private transient int id;
+//	private int patientID;
+//	private int dose;
+//	private String dose_description;
+//	private String day_to_take;
+//	private int physicianID;
+	private int general_time;
+//	private String medication;
+	private boolean set;
+	
+	public Prescription() {
+		
+	}
+	
+//	public int getId() {
+//		return id;
+//	}
+//
+//	public void setId(int id) {
+//		this.id = id;
+//	}
+//
+//	public int getPatientID() {
+//		return patientID;
+//	}
+//	public void setPatientID(int patientID) {
+//		this.patientID = patientID;
+//	}
+//	public int getDose() {
+//		return dose;
+//	}
+//	public void setDose(int dose) {
+//		this.dose = dose;
+//	}
+//	public String getDose_description() {
+//		return dose_description;
+//	}
+//	public void setDose_description(String dose_description) {
+//		this.dose_description = dose_description;
+//	}
+//	public String getDay_to_take() {
+//		return day_to_take;
+//	}
+//	public void setDay_to_take(String day_to_take) {
+//		this.day_to_take = day_to_take;
+//	}
+//	public int getPhysicianID() {
+//		return physicianID;
+//	}
+//	public void setPhysicianID(int physicianID) {
+//		this.physicianID = physicianID;
+//	}
+	public int getGeneral_time() {
+		return general_time;
+	}
+	public void setGeneral_time(int general_time) {
+		this.general_time = general_time;
+	}
+//	public String getMedication() {
+//		return medication;
+//	}
+//	public void setMedication(String medication) {
+//		this.medication = medication;
+//	}
+	public boolean getSet() {
+		return set;
+	}
+	public void setSet(boolean set) {
+		this.set = set;
+	}
+	
+
+	/**
+	 * Display detail prescriptions as a readable string
+	 * @param showName Whether or not to display the medication name
+	 * @param dateFormat format in which date should be represented,
+	 * e.g. 'EEE, MMM dd, yyyy'
+	 * @return
+	 */
+	@Override
+	public String toFormattedString(boolean showName, String dateFormat) {
+		String time = null, date = getDay_to_take(), result = "";
+		
+		for (TimeFrame tf : TimeFrame.values()) {
+			if (tf.getId() == getGeneral_time()) {
+				time = tf.getName();
+			}
+		}
+		
+		if (showName) {
+			result += getMedication() + ":  ";
+		}
+		
+		
+		date = formatDate(getDay_to_take());
+		}
+		result += date + " in the " + time;
+		return result;
+	}
+
+	
+	private String formatDate(String input, String outFormat) {
+	    String inputPattern = Constants.DATE_FORMAT_DATABASE;
+	    SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern, Locale.US);
+	    SimpleDateFormat outputFormat = new SimpleDateFormat(outputFormat, Locale.US);
+
+	    Date date = null;
+	    String str = null;
+
+	    try {
+	        date = inputFormat.parse(input);
+	        str = outputFormat.format(date);
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	    }
+	    return str;
+	}
+
+	@Override
+	public int compareTo(Prescription another) {
+		return this.toFormattedString(true, false).compareTo(another.toFormattedString(true, false));
+	}
+
+}

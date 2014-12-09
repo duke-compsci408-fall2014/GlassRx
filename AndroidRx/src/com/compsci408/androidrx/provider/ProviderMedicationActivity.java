@@ -1,26 +1,28 @@
 package com.compsci408.androidrx.provider;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
 import com.compsci408.androidrx.LoginActivity;
 import com.compsci408.androidrx.R;
-import com.compsci408.androidrx.util.CalendarAdapter;
+import com.compsci408.androidrx.util.EventCalendarFragment;
+import com.compsci408.androidrx.util.OnCalendarClickedCallback;
+import com.compsci408.rxcore.Constants;
 import com.compsci408.rxcore.Controller;
+import com.compsci408.rxcore.datatypes.Event;
+import com.compsci408.rxcore.datatypes.Prescription;
+import com.compsci408.rxcore.datatypes.Schedule;
+import com.compsci408.rxcore.listeners.OnPrescriptionLoadedListener;
+import com.compsci408.rxcore.listeners.OnScheduleLoadedListener;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -31,14 +33,10 @@ import android.widget.TextView;
 public class ProviderMedicationActivity extends Activity {
 
 	private TextView mMedName;
-	private GridView mMedEventsCalendar;
+	private EventCalendarFragment mMedEventsCalendar;
 	private LinearLayout mLayout;
 	
-	private GregorianCalendar mMonth, mItemMonth;
-	private CalendarAdapter mAdapter;
-	
-	private List<String> mPrescriptions;
-	private List<String> mDates;
+	private List<Event> mEvents;
 	private List<String> mDescriptions;
 	
 	private Controller mController;
@@ -50,152 +48,89 @@ public class ProviderMedicationActivity extends Activity {
 		Locale.setDefault(Locale.US);
 		
 		mLayout = (LinearLayout) findViewById(R.id.layout_day_events);
-		mMonth = (GregorianCalendar) GregorianCalendar.getInstance();
-		mItemMonth = (GregorianCalendar) mMonth.clone();
 		
-		mMedName = (TextView) findViewById(R.id.textview_med_name);		
+		mMedName = (TextView) findViewById(R.id.textview_med_name);	
 		
 		mController = Controller.getInstance(this);
-		mAdapter = new CalendarAdapter(this, mMonth);
 		
-		mMedEventsCalendar = (GridView) findViewById(R.id.gridview_calendar);
-		mMedEventsCalendar.setAdapter(mAdapter);
+		mMedEventsCalendar = new EventCalendarFragment();
+		getFragmentManager().beginTransaction()
+			.replace(R.id.layout_event_calendar, mMedEventsCalendar).commit();
 		
 		mMedName.setText(mController.getMedName());
 		
-		mPrescriptions = new ArrayList<String>();
+		mEvents = new ArrayList<Event>();
 		
-//		loadEvents();
-		
-		
-		
-
+		setListeners();
+		loadEvents();
 	}
 	
-//	private void loadEvents() {
-//		mController.getPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
-//
-//			@Override
-//			public void onPrescriptionLoaded(List<Prescription> prescriptions) {
-//				for (Prescription p : prescriptions) {
-//					if (p.getMedication().equals(mController.getMedName())) {
-//						mPrescriptions.add(p.toString(true, true));
-//						mItemMonth.add(field, value);
-//					}
-//				}
-//				
-//			}
-//		});
-//	}
+	private void loadEvents() {
+		mEvents.clear();
+		
+		mController.getPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
+
+			@Override
+			public void onPrescriptionLoaded(List<Prescription> prescriptions) {
+				for (Prescription p : prescriptions) {
+					if (p.getMedication().equals(mController.getMedName())) {
+						mEvents.add(p);
+					}
+				}
+				mController.getSchedulesForPatient(new OnScheduleLoadedListener() {
+
+					@Override
+					public void onScheduleLoaded(List<Schedule> schedule) {
+						for (Schedule s : schedule) {
+							if (s.getMedication().equals(mController.getMedName())) {
+								mEvents.add(s);
+							}
+						}
+						mMedEventsCalendar.setEvents(mEvents);
+						
+					}
+					
+				});
+			}
+		});
+		
+		
+	}
 
 	private void setListeners() {
-		
-		RelativeLayout previous = (RelativeLayout) findViewById(R.id.layout_previous_month);
-		previous.setOnClickListener(new OnClickListener() {
+
+		mMedEventsCalendar.setCallback(new OnCalendarClickedCallback() {
 
 			@Override
-			public void onClick(View v) {
-				setPreviousMonth();
-				refreshCalendar();
-			}
-		});
-
-		RelativeLayout next = (RelativeLayout) findViewById(R.id.layout_next_month);
-		next.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				setNextMonth();
-				refreshCalendar();
-
-			}
-		});
-
-		mMedEventsCalendar.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View v,
-					int position, long id) {
-				// removing the previous view if added
+			public void onCalendarClicked(List<Event> selectedDayEvents) {
+				mDescriptions = new ArrayList<String>();
+				
 				if (((LinearLayout) mLayout).getChildCount() > 0) {
 					((LinearLayout) mLayout).removeAllViews();
 				}
-				mDescriptions = new ArrayList<String>();
-				mDates = new ArrayList<String>();
-				((CalendarAdapter) parent.getAdapter()).setSelected(v);
-				String selectedGridDate = CalendarAdapter.dayString
-						.get(position);
-				String[] separatedTime = selectedGridDate.split("-");
-				String gridvalueString = separatedTime[2].replaceFirst("^0*",
-						"");// taking last part of date. ie; 2 from 2012-12-02.
-				int gridvalue = Integer.parseInt(gridvalueString);
-				// navigate to next or previous month on clicking offdays.
-				if ((gridvalue > 10) && (position < 8)) {
-					setPreviousMonth();
-					refreshCalendar();
-				} else if ((gridvalue < 7) && (position > 28)) {
-					setNextMonth();
-					refreshCalendar();
+				
+				for (int i = 0; i < selectedDayEvents.size(); i++) {
+					mDescriptions.add(selectedDayEvents.get(i)
+							.toFormattedString(false, Constants.DATE_FORMAT_READABLE));
 				}
-				((CalendarAdapter) parent.getAdapter()).setSelected(v);
+				
+				if (mDescriptions.size() > 0) {
+					for (int i = 0; i < mDescriptions.size(); i++) {
+						TextView rowTextView = new TextView(ProviderMedicationActivity.this);
 
-//				for (int i = 0; i < Utility.startDates.size(); i++) {
-//					if (Utility.startDates.get(i).equals(selectedGridDate)) {
-//						mDescriptions.add(Utility.nameOfEvent.get(i));
-//					}
-//				}
-//
-//				if (mDescriptions.size() > 0) {
-//					for (int i = 0; i < mDescriptions.size(); i++) {
-//						TextView rowTextView = new TextView(CalendarView.this);
-//
-//						// set some properties of rowTextView or something
-//						rowTextView.setText("Event:" + mDescriptions.get(i));
-//						rowTextView.setTextColor(Color.BLACK);
-//
-//						// add the textview to the linearlayout
-//						mLayout.addView(rowTextView);
-//
-//					}
-//
-//				}
+						// set some properties of rowTextView or something
+						rowTextView.setText(mDescriptions.get(i));
+						rowTextView.setTextColor(Color.BLACK);
 
-				mDescriptions = null;
+						// add the textview to the linearlayout
+						mLayout.addView(rowTextView);
 
+					}
+
+				}
 			}
-
+			
 		});
-	}
-	
-	protected void setNextMonth() {
-		if (mMonth.get(GregorianCalendar.MONTH) == mMonth
-				.getActualMaximum(GregorianCalendar.MONTH)) {
-			mMonth.set((mMonth.get(GregorianCalendar.YEAR) + 1),
-					mMonth.getActualMinimum(GregorianCalendar.MONTH), 1);
-		} else {
-			mMonth.set(GregorianCalendar.MONTH,
-					mMonth.get(GregorianCalendar.MONTH) + 1);
-		}
-
-	}
-
-	protected void setPreviousMonth() {
-		if (mMonth.get(GregorianCalendar.MONTH) == mMonth
-				.getActualMinimum(GregorianCalendar.MONTH)) {
-			mMonth.set((mMonth.get(GregorianCalendar.YEAR) - 1),
-					mMonth.getActualMaximum(GregorianCalendar.MONTH), 1);
-		} else {
-			mMonth.set(GregorianCalendar.MONTH,
-					mMonth.get(GregorianCalendar.MONTH) - 1);
-		}
-
-	}
-	
-	public void refreshCalendar() {
-		TextView title = (TextView) findViewById(R.id.textview_calendar_header);
-
-		mAdapter.refresh();
-		mAdapter.notifyDataSetChanged();
-
-		title.setText(android.text.format.DateFormat.format("MMMM yyyy", mMonth));
 	}
 
 	@Override

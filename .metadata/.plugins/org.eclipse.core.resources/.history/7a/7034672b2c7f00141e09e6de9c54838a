@@ -1,0 +1,7 @@
+package com.compsci408.androidrx.util;
+
+public abstract class OnCalendarClickedCallback {
+	
+	
+
+}

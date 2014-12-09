@@ -1,0 +1,7 @@
+package com.compsci408.androidrx.util;
+
+import android.app.AlertDialog;
+
+public class NewAccountDialog extends AlertDialog {
+
+}

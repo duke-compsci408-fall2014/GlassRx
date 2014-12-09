@@ -64,7 +64,7 @@ public class PatientProfileActivity extends Activity {
 		
 		mController = Controller.getInstance(this);
 		mController.showProgress("Loading patient details", true);
-		mController.getPatientSchedule(new OnScheduleLoadedListener() {
+		mController.getSchedulesForPatient(new OnScheduleLoadedListener() {
 
 			@Override
 			public void onScheduleLoaded(List<Schedule> schedule) {

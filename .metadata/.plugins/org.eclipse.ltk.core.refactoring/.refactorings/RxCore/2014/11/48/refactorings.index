@@ -1,0 +1,5 @@
+1416780629630	Rename method 'getPendingPrescriptionsForPatient'
+1416780666432	Rename method 'getMedication'
+1416780679136	Rename method 'getMedicationsByName'
+1416780689962	Rename method 'filterMedications'
+1416780725863	Rename method 'getPatients'

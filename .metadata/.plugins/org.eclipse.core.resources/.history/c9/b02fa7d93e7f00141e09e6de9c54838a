@@ -1,0 +1,189 @@
+package com.compsci408.androidrx.util;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
+
+import com.compsci408.androidrx.R;
+import com.compsci408.rxcore.Constants;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+/**
+ * Custom adapter for maintaining and displaying 
+ * scheduled events on a calendar. 
+ * @author Evan
+ */
+public class CalendarAdapter extends BaseAdapter {
+	
+	private Context mContext;
+	private Calendar mCalendar;
+	private GregorianCalendar mLastMonth;
+	
+	public GregorianCalendar mLastMonthMax;
+	private GregorianCalendar mSelectedDate;
+	
+	int firstDay;  
+	int maxWeeknumber;  
+	int maxP;  
+	int calMaxP;  
+	int lastWeekDay;  
+	int leftDays;  
+	int mnthlength; 
+	
+	String itemValue, currentDateString;
+	SimpleDateFormat mFormat;
+	
+	private List<String> events;
+	public static List<String> dayString;
+	private View lastView;
+	
+	public CalendarAdapter(Context context, GregorianCalendar calendar) {
+		CalendarAdapter.dayString = new ArrayList<String>();
+		Locale.setDefault(Locale.US);
+		mCalendar = calendar;
+		mSelectedDate = (GregorianCalendar) mCalendar.clone();
+		mContext = context;
+		mCalendar.set(GregorianCalendar.DAY_OF_MONTH, 1);
+		events = new ArrayList<String>();
+		mFormat = new SimpleDateFormat(Constants.DATE_FORMAT_DATABASE, Locale.US);
+		currentDateString = mFormat.format(mSelectedDate.getTime());
+		refresh();
+	}
+
+	@Override
+	public int getCount() {
+		return dayString.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return dayString.get(position);
+	}
+	
+	public void setEvents(List<String> mDates) {
+		for (int i = 0; i < mDates.size(); i++) {
+			if (mDates.get(i).length() == 1) {
+				mDates.set(i,  "0" + mDates.get(i));
+			}
+		}
+		this.events = mDates;
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return 0;
+	}
+
+	@SuppressLint("InflateParams") @Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		View view = convertView;
+		TextView dayView;
+		if (convertView == null) {
+			LayoutInflater inflater = (LayoutInflater) mContext
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			view = inflater.inflate(R.layout.calendar_item, null);
+		}
+		
+		dayView = (TextView) view.findViewById(R.id.date);
+		String[] timeParts = dayString.get(position).split("-");
+		String value = timeParts[2].replaceFirst("^0*", "");
+		
+		if ((Integer.parseInt(value) > 1 && position < firstDay)
+				|| (Integer.parseInt(value) < 7 && position > 28)) {
+			dayView.setTextColor(Color.WHITE);
+			dayView.setClickable(false);
+			dayView.setFocusable(false);
+		}
+		else {
+			dayView.setTextColor(mContext.getResources().getColor(R.color.duke_blue));
+		}
+		
+		if (dayString.get(position).equals(currentDateString)) {
+			setSelected(view);
+			lastView = view;
+		}
+		else {
+			view.setBackgroundResource(R.color.light_gray);
+		}
+		dayView.setText(value);
+		
+		String date = dayString.get(position);
+		
+		if (date.length() == 1) {
+			date = "0" + date;
+		}
+		
+		String month = "" + (mCalendar.get(GregorianCalendar.MONTH) + 1);
+		if (month.length() == 1) {
+			month = "0" + month;
+		}
+		
+		ImageView image = (ImageView) view.findViewById(R.id.date_icon);
+		if (date.length() > 0 && events != null && events.contains(date)) {
+			image.setVisibility(View.VISIBLE);
+		}
+		else {
+			image.setVisibility(View.INVISIBLE);
+		}
+		return view;
+		
+	}
+	
+	public View setSelected(View v) {
+		if (lastView != null) {
+			lastView.setBackgroundResource(R.drawable.custom_listview);
+		}
+		lastView = v;
+		v.setBackgroundResource(R.drawable.calendar_item_selected);
+		return v;
+	}
+	
+	public void refresh() {
+		events.clear();
+		dayString.clear();
+		Locale.setDefault(Locale.US);
+		mLastMonth = (GregorianCalendar) mCalendar.clone();
+		firstDay = mCalendar.get(GregorianCalendar.DAY_OF_WEEK);
+		maxWeeknumber = mCalendar.getActualMaximum(GregorianCalendar.WEEK_OF_MONTH);
+		mnthlength = maxWeeknumber * 7;
+		maxP = getMaxP();
+		calMaxP = maxP - (firstDay - 1);
+		mLastMonthMax = (GregorianCalendar) mLastMonth.clone();
+		mLastMonthMax.set(GregorianCalendar.DAY_OF_MONTH, calMaxP + 1);
+		
+		for (int i = 0; i < mnthlength; i ++) {
+			itemValue = mFormat.format(mLastMonthMax.getTime());
+			mLastMonthMax.add(GregorianCalendar.DATE, 1);
+			dayString.add(itemValue);
+		}
+		
+	}
+	
+	private int getMaxP() {
+		int maxP;
+		if (mCalendar.get(GregorianCalendar.MONTH) == mCalendar
+				.getActualMinimum(GregorianCalendar.MONTH)) {
+			mLastMonth.set((mCalendar.get(GregorianCalendar.YEAR) - 1), 
+					mCalendar.getActualMaximum(GregorianCalendar.MONTH), 1);
+		} 
+		else {
+			mLastMonth.set(GregorianCalendar.MONTH, 
+					mCalendar.get(GregorianCalendar.MONTH) - 1);
+		}
+		maxP = mLastMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+		return maxP;
+	}
+
+}

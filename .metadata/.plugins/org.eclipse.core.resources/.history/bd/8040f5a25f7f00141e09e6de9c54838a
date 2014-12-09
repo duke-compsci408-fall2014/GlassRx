@@ -1,0 +1,13 @@
+package com.compsci408.androidrx.util;
+
+import android.app.AlertDialog;
+import android.content.Context;
+
+public class NewAccountDialog extends AlertDialog {
+
+	protected NewAccountDialog(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
+
+}

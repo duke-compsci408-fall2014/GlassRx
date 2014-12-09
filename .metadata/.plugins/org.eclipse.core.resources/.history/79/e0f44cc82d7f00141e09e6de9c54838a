@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.compsci408.androidrx.provider.ProviderMedicationActivity"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textview_med_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginBottom="10dp" />
+    
+    <TextView
+        android:id="@+id/textview_calendar_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textview_med_name"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginBottom="10dp" />
+    
+    <RelativeLayout
+        android:id="@+id/layout_previous_month"
+        android:layout_width="40dip"
+        android:layout_height="30dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textview_med_name" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null"
+            android:background="@drawable/ic_arrow_left" />
+    </RelativeLayout>
+
+<!--     <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dip"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" /> -->
+
+    <RelativeLayout
+        android:id="@+id/layout_next_month"
+        android:layout_width="40dip"
+        android:layout_height="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textview_med_name" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null"
+            android:background="@drawable/ic_arrow_right" />
+    </RelativeLayout>
+
+    <fragment
+        android:name="com.compsci408.androidrx.EventCalendarFragment"
+        android:id="@+id/fragment_event_calendar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="7"
+        android:stretchMode="columnWidth" />
+    
+    <LinearLayout 
+        android:id="@+id/layout_day_events"
+        android:layout_below="@+id/fragment_event_calendar"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </LinearLayout>
+
+
+
+</RelativeLayout>

@@ -4,8 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -16,6 +18,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -48,6 +51,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	private Spinner mAccountTypeView;
 	private TextView mTitleView;
 	private TextView mErrorView;
+	private TextView mRegisterView;
 	
 	//  Controller reference
 	private Controller mController;
@@ -97,6 +101,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	    mTitleView.setTypeface(typefaceAndroid);
 	    
 	    mErrorView = (TextView) findViewById(R.id.textview_login_error);
+	    
+	    mRegisterView = (TextView) findViewById(R.id.textview_register);
+	    mRegisterView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				createAccount();
+			}
+	    	
+	    });
 	    
 	    mController = Controller.getInstance(this);
 	    
@@ -174,6 +188,51 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			showProgress(true);
 			mController.logIn(username, password, accountType, mListener);
 		}
+	}
+	
+	public void createAccount() {
+		// Reset errors.
+		mUsernameView.setError(null);
+		mPasswordView.setError(null);
+		mErrorView.setText("");
+
+		// Store values at the time of the login attempt.
+		String username = mUsernameView.getText().toString();
+		String password = mPasswordView.getText().toString();
+		String accountType = mAccountTypeView.getSelectedItem().toString();
+
+		boolean cancel = false;
+		View focusView = null;
+
+		// Check for a valid password, if the user entered one.
+		if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+			mPasswordView.setError(getString(R.string.error_invalid_password));
+			focusView = mPasswordView;
+			cancel = true;
+		}
+
+		// Check for a valid username.
+		if (TextUtils.isEmpty(username)) {
+			mUsernameView.setError(getString(R.string.error_field_required));
+			focusView = mUsernameView;
+			cancel = true;
+		} else if (!isUsernameValid(username)) {
+			mUsernameView.setError(getString(R.string.error_invalid_username));
+			focusView = mUsernameView;
+			cancel = true;
+		}
+
+		if (cancel) {
+			// There was an error; don't attempt login and focus the first
+			// form field with an error.
+			focusView.requestFocus();
+		} else {
+			// Show a progress spinner, and kick off a background task to
+			// perform the user login attempt.
+			AlertDialog dialog = createAccountDialog(username, password, accountType, mListener);
+			dialog.show();
+		}
+
 	}
 
 	private boolean isUsernameValid(String username) {
@@ -279,5 +338,32 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 				emailAddressCollection);
 
 		mUsernameView.setAdapter(adapter);
+	}
+	
+	private AlertDialog createAccountDialog(final String username, final String password, 
+			final String accountType, final OnLoginAttemptedListener listener) {
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		final EditText input = new EditText(this);
+	    // Set the dialog title
+	    builder.setTitle("Enter your Name")
+	    	   .setView(input)
+	           .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
+	               @Override
+	               public void onClick(DialogInterface dialog, int id) {
+	                   // User clicked OK -- create the new account
+	            	   String name = input.getText().toString();
+	                   mController.createAccount(username, password, name, accountType, listener);
+	               }
+	           })
+	           .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+	               @Override
+	               public void onClick(DialogInterface dialog, int id) {
+	                  //  Do nothing
+	               }
+	           });
+
+	    return builder.create();
 	}
 }

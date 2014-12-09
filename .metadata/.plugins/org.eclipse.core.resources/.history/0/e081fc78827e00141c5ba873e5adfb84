@@ -1,0 +1,12 @@
+package com.compsci408.rxcore.datatypes;
+
+public abstract class Event {
+	
+	private transient int id;
+	private String day_to_take;
+	private int patientID;
+	private String medication;
+	private String other_info;
+	private String time_to_take;
+
+}

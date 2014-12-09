@@ -100,4 +100,14 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/red" />
 
+    <TextView
+        android:id="@+id/textview_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/textview_login_error"
+        android:layout_marginTop="5dp"
+        android:text="@string/action_register"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </RelativeLayout>

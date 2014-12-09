@@ -1,0 +1,208 @@
+package com.compsci408.androidrx.util;
+
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
+import com.compsci408.androidrx.R;
+import com.compsci408.rxcore.datatypes.Prescription;
+
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+public class EventCalendarFragment extends Fragment {
+
+	private GregorianCalendar mMonth, mItemMonth;
+	private CalendarAdapter mAdapter;
+	private OnCalendarClickedCallback mCallback;
+	
+	private GridView mMedEventGridView;
+	private LinearLayout mLayout;
+	private RelativeLayout mPrevious, mNext;
+	
+	private List<String> mDates;
+	private List<Prescription> mPrescriptions;
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+		View view =  inflater.inflate(R.layout.fragment_event_calendar, container, false);
+		
+		mMonth = (GregorianCalendar) GregorianCalendar.getInstance();
+		mItemMonth = (GregorianCalendar) mMonth.clone();
+		
+		mMedEventGridView = (GridView) view.findViewById(R.id.gridview_calendar);
+		mAdapter = new CalendarAdapter(getActivity(), mMonth);
+		mMedEventGridView.setAdapter(mAdapter);
+		
+		mPrevious = (RelativeLayout) getView().findViewById(R.id.layout_previous_month);
+		mNext = (RelativeLayout) getView().findViewById(R.id.layout_next_month);
+		
+		mPrescriptions = new ArrayList<Prescription>();
+		mDates = new ArrayList<String>();
+		
+		setListeners();
+		refreshCalendar();
+		
+		return view;
+		
+	}
+	
+	public void setCallback(OnCalendarClickedCallback callback) {
+		mCallback = callback;
+	}
+
+	
+	private void setListeners() {
+		
+		mPrevious.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				setPreviousMonth();
+				refreshCalendar();
+			}
+		});
+
+		RelativeLayout next = (RelativeLayout) getView().findViewById(R.id.layout_next_month);
+		next.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				setNextMonth();
+				refreshCalendar();
+
+			}
+		});
+
+		mMedEventGridView.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id) {
+				// removing the previous view if added
+				if (((LinearLayout) mLayout).getChildCount() > 0) {
+					((LinearLayout) mLayout).removeAllViews();
+				}
+//				mDescriptions = new ArrayList<String>();
+				mDates.clear();
+				((CalendarAdapter) parent.getAdapter()).setSelected(v);
+				String selectedGridDate = CalendarAdapter.dayString
+						.get(position);
+				String[] separatedTime = selectedGridDate.split("-");
+				String gridvalueString = separatedTime[2].replaceFirst("^0*",
+						"");// taking last part of date. ie; 2 from 2012-12-02.
+				int gridvalue = Integer.parseInt(gridvalueString);
+				// navigate to next or previous month on clicking offdays.
+				if ((gridvalue > 10) && (position < 8)) {
+					setPreviousMonth();
+					refreshCalendar();
+				} else if ((gridvalue < 7) && (position > 28)) {
+					setNextMonth();
+					refreshCalendar();
+				}
+				((CalendarAdapter) parent.getAdapter()).setSelected(v);
+
+//				for (int i = 0; i < mPrescriptions.size(); i++) {
+//					if (((Prescription) mPrescriptions.get(i))
+//							.getDay_to_take().equals(selectedGridDate)) {
+//						mDescriptions.add(mPrescriptions.get(i).toFormattedString(false, true));
+//					}
+//				}
+//
+//				if (mDescriptions.size() > 0) {
+//					for (int i = 0; i < mDescriptions.size(); i++) {
+//						TextView rowTextView = new TextView(getActivity());
+//
+//						// set some properties of rowTextView or something
+//						rowTextView.setText("Event:" + mDescriptions.get(i));
+//						rowTextView.setTextColor(Color.BLACK);
+//
+//						// add the textview to the linearlayout
+//						mLayout.addView(rowTextView);
+//
+//					}
+//
+//				}
+				if (mCallback != null) {
+					
+					List<Prescription> selected = new ArrayList<Prescription>();
+					for (int i = 0; i < mPrescriptions.size(); i++) {
+						if (((Prescription) mPrescriptions.get(i))
+								.getDay_to_take().equals(selectedGridDate)) {
+							selected.add(mPrescriptions.get(i));
+						}
+					}
+					mCallback.onCalendarClicked(selected);
+				}
+
+			}
+
+		});
+	}
+	
+	public void setEvents(List<Prescription> events) {
+		mPrescriptions.clear();
+		mItemMonth.clear();
+		mPrescriptions = events;
+		for (Prescription p : mPrescriptions) {
+			mItemMonth.add(GregorianCalendar.DATE, 1);
+			mDates.add(p.getDay_to_take());
+		}
+	}
+	
+	/**
+	 * Set the next month to be displayed, i.e. that month which is
+	 * chronologically after the currently selected month
+	 */
+	private void setNextMonth() {
+		if (mMonth.get(GregorianCalendar.MONTH) == mMonth
+				.getActualMaximum(GregorianCalendar.MONTH)) {
+			mMonth.set((mMonth.get(GregorianCalendar.YEAR) + 1),
+					mMonth.getActualMinimum(GregorianCalendar.MONTH), 1);
+		} else {
+			mMonth.set(GregorianCalendar.MONTH,
+					mMonth.get(GregorianCalendar.MONTH) + 1);
+		}
+
+	}
+
+	/**
+	 * Set the previous month to be displayed, i.e. that month which is
+	 * chronologically prior to the currently selected month
+	 */
+	private void setPreviousMonth() {
+		if (mMonth.get(GregorianCalendar.MONTH) == mMonth
+				.getActualMinimum(GregorianCalendar.MONTH)) {
+			mMonth.set((mMonth.get(GregorianCalendar.YEAR) - 1),
+					mMonth.getActualMaximum(GregorianCalendar.MONTH), 1);
+		} else {
+			mMonth.set(GregorianCalendar.MONTH,
+					mMonth.get(GregorianCalendar.MONTH) - 1);
+		}
+
+	}
+	
+	/**
+	 * Refresh the calendar.  This method is called after the user has
+	 * selected a new month to view.  It updates the events to be displayed
+	 * and the title of the calendar (in the format 'MMMM yyyy').
+	 */
+	private void refreshCalendar() {
+		TextView title = (TextView) getView().findViewById(R.id.textview_calendar_header);
+
+		mAdapter.refresh();
+		mAdapter.notifyDataSetChanged();
+
+		title.setText(android.text.format.DateFormat.format("MMMM yyyy", mMonth));
+	}
+
+}

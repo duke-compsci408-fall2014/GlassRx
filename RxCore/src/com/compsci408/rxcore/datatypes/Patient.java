@@ -5,6 +5,8 @@ public class Patient {
 	private String name;
 	private String pharmacy;
 	private String drug_allergies;
+	private String login;
+	private String password;
 	private int patientID;
 	private int physicianID;
 	
@@ -34,6 +36,22 @@ public class Patient {
 
 	public void setDrug_allergies(String drug_allergies) {
 		this.drug_allergies = drug_allergies;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public int getPatientID() {

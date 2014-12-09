@@ -14,10 +14,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.compsci408.rxcore.alarms.Alarm;
 import com.compsci408.rxcore.datatypes.AccountType;
 import com.compsci408.rxcore.datatypes.Medication;
 import com.compsci408.rxcore.datatypes.Patient;
+import com.compsci408.rxcore.datatypes.Physician;
 import com.compsci408.rxcore.datatypes.Prescription;
 import com.compsci408.rxcore.datatypes.Schedule;
 import com.compsci408.rxcore.listeners.OnLoginAttemptedListener;
@@ -226,6 +226,60 @@ public class Controller {
 		
 		return pref.getInt(Constants.ACCOUNT_TYPE, 
 				pref.getInt(Constants.KEY_ACCOUNT_TYPE, Constants.DEFAULT_VALUE));
+	}
+	
+	
+	public void createAccount(final String username, final String password, String name,
+			final String accountType, final OnLoginAttemptedListener listener) {
+		
+		JSONObject json = new JSONObject();
+		JSONArray record = new JSONArray();
+		
+		String url;
+		if (accountType.toLowerCase(Locale.US)
+				.contains(AccountType.PATIENT.getName().toLowerCase(Locale.US))) {
+			url  = Constants.URL_LOG_IN_PATIENT + username + "%27" + Constants.URL_SUFFIX;
+			Patient newPatient = new Patient();
+			newPatient.setLogin(username);
+			newPatient.setPassword(password);
+			try {
+				JSONObject accountObject = new JSONObject(new Gson()
+						.toJson(newPatient, Patient.class));
+				record.put(accountObject);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			url = Constants.URL_LOG_IN_PROVIDER + username + "%27" + Constants.URL_SUFFIX;
+			Physician newPhysician = new Physician();
+			newPhysician.setName(name);
+			newPhysician.setLogin(username);
+			newPhysician.setPassword(password);
+			try {
+				JSONObject accountObject = new JSONObject(new Gson()
+						.toJson(newPhysician, Physician.class));
+				record.put(accountObject);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		try {
+			json.put("record", record);
+			String jsonString = json.toString();
+			mServerRequest.doPost(url, new ResponseCallback() {
+	
+				@Override
+				public void onResponseReceived(JSONObject response) {
+					logIn(username, password, accountType, listener);
+				}
+				
+			}, jsonString);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	/**
@@ -460,7 +514,7 @@ public class Controller {
 	 * @param listener Listener describing UI updates after
 	 * request is executed
 	 */
-	public void getPatientSchedule(final OnScheduleLoadedListener listener) {
+	public void getSchedulesForPatient(final OnScheduleLoadedListener listener) {
 		
 		final List<Schedule> schedule = new ArrayList<Schedule>();
 		final Gson gson = new Gson();
@@ -714,6 +768,7 @@ public class Controller {
 		return BitmapFactory.decodeResource(context.getResources(), android.R.drawable.ic_menu_camera);
 	}
 	
+	@SuppressWarnings("unused")
 	private static void uploadImage(byte[] data) {
 		
 		String dataString = Base64.encodeToString(data, Base64.DEFAULT);
