@@ -6,7 +6,7 @@ You can download the project at https://github.com/duke-compsci408-fall2014/Glas
 
 The technologies used for this project include the following: 
 Java 7, 
-Android 4.4.2 and 5.0, 
+Android 4.0 to 5.0, 
 Google Glass Explorer, 
 MySQL 1.7.0, 
 DreamFactory 1.8.2
