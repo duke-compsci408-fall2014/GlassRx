@@ -7,29 +7,78 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.compsci408.glassrx.glassrx2014.R;
+import com.compsci408.glassrx.glassrx2014.rxcore.Controller;
+import com.compsci408.glassrx.glassrx2014.rxcore.datatypes.Medication;
+import com.compsci408.glassrx.glassrx2014.rxcore.listeners.OnMedInfoLoadedListener;
 import com.google.android.glass.view.WindowUtils;
 import com.google.android.glass.widget.CardBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PatientMoreInfoActivity extends Activity {
 
     View card;
 
+    String myText = "";
+
+    private Controller mController;
+    private TextView mMedText;
+
+    private Medication mMedication;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        String myText = getIntent().getStringExtra("text");
-        int myImage = getIntent().getIntExtra("pic", 0);
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(WindowUtils.FEATURE_VOICE_COMMANDS);
-        card = new CardBuilder(this, CardBuilder.Layout.COLUMNS)
-                .setText(myText)
-                .setTimestamp("just now")
-                .addImage(myImage)
-                .getView();
-        // Display the card we just created
-        setContentView(card);
+        setContentView(R.layout.activity_patient_more_info);
+
+
+
+//        int myImage = getIntent().getIntExtra("pic", 0);
+        mController = Controller.getInstance(this);
+
+        mMedText = (TextView) findViewById(R.id.text12);
+
+//        card = new CardBuilder(this, CardBuilder.Layout.COLUMNS)
+//                .setText(myText)
+//                .setTimestamp("just now")
+//                .addImage(myImage)
+//                .getView();
+
+        mMedText.setText("Loading...");
+
+        mController.getMedication(new OnMedInfoLoadedListener() {
+
+            @Override
+            public void onMedInfoLoaded(Medication med) {
+                if(med==null){
+                    mMedText.setText("Med is null");
+                    return;
+                }
+
+                mMedication = med;
+                List<String> details = new ArrayList<String>();
+                myText += "More Information about"
+                        + " " + mMedication.getName() + ":";
+                myText += "\nPurpose:"
+                        + "  " + mMedication.getPurpose();
+                myText += "\nSide Effects:"
+                        + "  " + mMedication.getSide_effects();
+
+                if(myText.equals("More Information about "
+                        + " " + mMedication.getName())){
+                    myText= "Unable to get further information about"
+                        + " " + mMedication.getName();
+                }
+                mMedText.setText(myText);
+            }
+        });
+
     }
 
     @Override
