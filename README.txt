@@ -3,3 +3,10 @@ GlassRx is focused on making it easy for patients and physicians to manage medic
 Currently one of our main dependencies is our one Google Glass. Because there is no real emulator for Glass available, we can’t really test and write code effectively without more Glass platforms to work on. We also depend on Glass's ability to safely transmit client­patient information. Currently, this is not the case, but we are writing it assuming that one day Glass will be able to securely store and transmit data.A large dependency in the long run will be the Google Glass itself. Right now, information cannot be transferred safely and securely. So in order for this to actually be useful, we’re depending on that to change. But it’s mutually agreed that we will just use fake patients for now, and hopefully at a later point we will be able to use this with actual patients and pills.
 
 You can download the project at https://github.com/duke-compsci408-fall2014/GlassRx/ and deploy the AndroidRx and GlassRx apps to your android device and Glass device respectively using an IDE such as Eclipse or Android Studio.
+
+The technologies used for this project include the following: 
+Java 7, 
+Android 4.4.2 and 5.0, 
+Google Glass Explorer, 
+MySQL 1.7.0, 
+DreamFactory 1.8.2
