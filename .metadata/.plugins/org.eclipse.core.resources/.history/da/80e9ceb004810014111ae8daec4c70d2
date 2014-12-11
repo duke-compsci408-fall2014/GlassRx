@@ -204,7 +204,7 @@ public class EventCalendarFragment extends Fragment {
 	private void refreshCalendar() {
 		mAdapter.refresh();
 		mAdapter.notifyDataSetChanged();
-		setEvents(new ArrayList<Event>(mEvents));
+		mAdapter.setEvents(mDates);
 
 		mTitle.setText(android.text.format.DateFormat.format("MMMM yyyy", mMonth));
 	}

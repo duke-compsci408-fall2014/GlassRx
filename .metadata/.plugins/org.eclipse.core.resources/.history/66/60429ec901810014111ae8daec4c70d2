@@ -1,7 +1,6 @@
 package com.compsci408.rxcore.requests;
 
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -20,7 +19,7 @@ import com.compsci408.rxcore.Constants;
  * @author Evan
  */
 public class PutTask extends AsyncTask<String, Void, JSONObject>{
-	private static final String TAG = "PutTask";
+	private static final String TAG = "PatchTask";
 	
 	private InputStream is = null;
 	private ResponseCallback mCallback;
@@ -73,7 +72,10 @@ public class PutTask extends AsyncTask<String, Void, JSONObject>{
 	        is.close();
 	        json = new JSONObject(result);
 	        
-	    } catch (Exception e) {
+	    } catch (IOException e) {
+	    	
+	    }
+			catch (Exception e) {
 	    	// TODO:  Improve exception handling
 	        e.printStackTrace();
 	    } finally {

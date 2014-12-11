@@ -73,6 +73,8 @@ public class PutTask extends AsyncTask<String, Void, JSONObject>{
 	        is.close();
 	        json = new JSONObject(result);
 	        
+	    } catch (IOException e) {
+	    	Log.d(TAG, urlConnection.getErrorStream().toString());
 	    } catch (Exception e) {
 	    	// TODO:  Improve exception handling
 	        e.printStackTrace();

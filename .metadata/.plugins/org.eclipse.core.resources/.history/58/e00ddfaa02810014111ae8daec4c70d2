@@ -99,7 +99,7 @@ public class PatientProfileActivity extends Activity {
 						mNewPrescriptions = new HashMap<String, List<Prescription>>();
 						for (int i = 0; i < prescription.size(); i++) {	
 							Prescription p = prescription.get(i);
-							int day = Controller.getDayFromDate(p.getDay_to_take());
+							int day = mController.getDayFromDate(p.getDay_to_take());
 							String key = p.getMedication() + ", "; 
 							for (Day d : Day.values()) {
 								if (d.getId() == day) {

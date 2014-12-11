@@ -20,7 +20,7 @@ import com.compsci408.rxcore.Constants;
  * @author Evan
  */
 public class PutTask extends AsyncTask<String, Void, JSONObject>{
-	private static final String TAG = "PutTask";
+	private static final String TAG = "PatchTask";
 	
 	private InputStream is = null;
 	private ResponseCallback mCallback;
@@ -73,6 +73,8 @@ public class PutTask extends AsyncTask<String, Void, JSONObject>{
 	        is.close();
 	        json = new JSONObject(result);
 	        
+	    } catch (IOException e) {
+	    	Log.d(TAG, urlConnection.getErrorStream().toString());
 	    } catch (Exception e) {
 	    	// TODO:  Improve exception handling
 	        e.printStackTrace();
