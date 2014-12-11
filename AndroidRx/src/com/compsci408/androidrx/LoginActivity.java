@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -343,11 +342,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	private AlertDialog createAccountDialog(final String username, final String password, 
 			final String accountType, final OnLoginAttemptedListener listener) {
 		
+//		AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper
+//				(this, R.style.App_AlertDialogStyle));
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		
 		final EditText input = new EditText(this);
+		input.setHint("Enter your name");
 	    // Set the dialog title
-	    builder.setTitle("Enter your Name")
+	    builder.setTitle("Some more info")
 	    	   .setView(input)
 	           .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
 	               @Override

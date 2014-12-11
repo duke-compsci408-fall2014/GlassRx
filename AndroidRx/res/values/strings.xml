@@ -7,6 +7,7 @@
     <string name="action_logout">Log Out</string>
     <string name="androidrx">AndroidRx</string>
     <string name="add_med">+ Add Events</string>
+    <string name="add_patient">+ Add Patient</string>
     <string name="new_med">New Medication</string>
     <string name="enter_med_name">Medication Name</string>
     <string name="medication_icon">Medication Icon</string>
@@ -76,6 +77,7 @@
     <string name="morning">Morning</string>
     <string name="afternoon">Afternoon</string>
     <string name="evening">Evening</string>
+    <string name="anytime">Anytime</string>
     <string name="time_of_day">Select time of day</string>
     <string name="title_activity_provider_medication">Medication Info</string>
     <string name="title_activity_patient_new_prescriptions">New Prescriptions</string>

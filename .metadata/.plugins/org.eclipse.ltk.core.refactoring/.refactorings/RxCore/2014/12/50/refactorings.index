@@ -1,2 +1,7 @@
 1417998626395	Rename method 'toString'
 1418088169743	Rename method 'getPatientSchedule'
+1418166009704	Rename type 'OnSchduleAddedListener'
+1418166438779	Rename field 'URL_GET_PATIENTS'
+1418170859141	Rename type 'PatchTask'
+1418170882485	Rename method 'doPatch'
+1418248446586	Rename method 'setmEndHour'

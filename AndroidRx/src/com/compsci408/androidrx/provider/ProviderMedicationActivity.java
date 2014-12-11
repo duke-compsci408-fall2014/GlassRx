@@ -73,7 +73,8 @@ public class ProviderMedicationActivity extends Activity {
 			@Override
 			public void onPrescriptionLoaded(List<Prescription> prescriptions) {
 				for (Prescription p : prescriptions) {
-					if (p.getMedication().equals(mController.getMedName())) {
+					if (p.getMedication().equals(mController.getMedName())
+							&& !p.getSet()) {
 						mEvents.add(p);
 					}
 				}

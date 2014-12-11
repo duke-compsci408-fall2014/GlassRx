@@ -1,5 +1,10 @@
 package com.compsci408.rxcore.datatypes;
 
+/**
+ * Class describing the attributes of a provider.
+ * Includes name, hospital, login credentials, and ID.
+ * @author Evan
+ */
 public class Physician {
 	
 	private String name;

@@ -1,5 +1,12 @@
 package com.compsci408.rxcore.datatypes;
 
+/**
+ * Class describing the attributes of a patient.
+ * Includes name, pharmacy, login credentials, ID,
+ * and ID of associated provider.
+ * @author Evan
+ *
+ */
 public class Patient {
 	
 	private String name;

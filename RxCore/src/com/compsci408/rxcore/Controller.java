@@ -20,11 +20,12 @@ import com.compsci408.rxcore.datatypes.Patient;
 import com.compsci408.rxcore.datatypes.Physician;
 import com.compsci408.rxcore.datatypes.Prescription;
 import com.compsci408.rxcore.datatypes.Schedule;
+import com.compsci408.rxcore.listeners.OnDataUpdatedListener;
 import com.compsci408.rxcore.listeners.OnLoginAttemptedListener;
 import com.compsci408.rxcore.listeners.OnMedicationsLoadedListener;
 import com.compsci408.rxcore.listeners.OnPrescriptionAddedListener;
 import com.compsci408.rxcore.listeners.OnPrescriptionLoadedListener;
-import com.compsci408.rxcore.listeners.OnSchduleAddedListener;
+import com.compsci408.rxcore.listeners.OnScheduleAddedListener;
 import com.compsci408.rxcore.listeners.OnImageCapturedListener;
 import com.compsci408.rxcore.listeners.OnMedInfoLoadedListener;
 import com.compsci408.rxcore.listeners.OnPatientsLoadedListener;
@@ -40,6 +41,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -155,19 +157,15 @@ public class Controller {
 	public void setTimeRange(int timeRange) {
 		this.mTimeRange = timeRange;
 	}
-
-	public void showProgress(boolean show) {
-		if (show) {
-			progressDialog = new ProgressDialog(mContext);
-			progressDialog.show();
-		}
-		
-		else if (progressDialog != null) {
-			progressDialog.dismiss();
-		}
-	}
 	
-	public int getDayFromDate(String dateString) {
+	/**
+	 * Given a date formatted as a string ('YYYY-MM-dd'),
+	 * return the integer value of the day of the week on which
+	 * this date falls.
+	 * @param dateString  String of date whose day is to be determined
+	 * @return  Integer [1-7] representing the day of the week.
+	 */
+	public static int getDayFromDate(String dateString) {
 		try {
 			Date date = new SimpleDateFormat(Constants.DATE_FORMAT_DATABASE, Locale.US)
 								.parse(dateString);
@@ -192,8 +190,26 @@ public class Controller {
 			progressDialog.show();
 		}
 		
-		else if (progressDialog != null) {
+		else if (!show && progressDialog != null) {
 			progressDialog.dismiss();
+			progressDialog = null;
+		}
+	}
+	
+	/**
+	 * Same as {@link Controller#showProgress(String, boolean)}, but without
+	 * a message
+	 * @param show True if should be shown, false otherwise.
+	 */
+	public void showProgress(boolean show) {
+		if (show && progressDialog == null) {
+			progressDialog = new ProgressDialog(mContext);
+			progressDialog.show();
+		}
+		
+		else if (!show && progressDialog != null) {
+			progressDialog.dismiss();
+			progressDialog = null;
 		}
 	}
 	
@@ -229,6 +245,15 @@ public class Controller {
 	}
 	
 	
+	/**
+	 * Create a new account with the given credentials
+	 * @param username  Username of new account
+	 * @param password  Password of new account
+	 * @param name  Name of account holder
+	 * @param accountType  Type of account (patient or provider)
+	 * @param listener Listener indicating appropriate UI updates after
+	 * web request completes
+	 */
 	public void createAccount(final String username, final String password, String name,
 			final String accountType, final OnLoginAttemptedListener listener) {
 		
@@ -350,6 +375,9 @@ public class Controller {
 					// TODO Improve exception handling
 					listener.onLoginFailed("An error occurred.\nPlease try again.");
 					e1.printStackTrace();
+				} catch (Exception e) {
+					listener.onLoginFailed("An error occurred.\nPlease try again.");
+					e.printStackTrace();
 				}
 			}
 	    	
@@ -374,29 +402,7 @@ public class Controller {
 		editor.putLong(Constants.KEY_LAST_ACTIVITY, seconds);
 		
 		editor.commit();
-	}
-	
-//	/**
-//	 * Get all alarms associated with given patient
-//	 * @param patientId Id of patient
-//	 * @return List of {@link Alarm}s for given patient
-//	 */
-//	public List<Alarm> getAllAlarms(int patientId) {
-//		//TODO:  Implement function
-//		return null;
-//	}
-//	
-//	
-//	/**
-//	 * Get alarm which will occur soonest from now
-//	 * @param alarms List of {@link Alarm}s
-//	 * @return Next alarm to occur
-//	 */
-//	public Alarm getNextAlarm(List<Alarm> alarms) {
-//		//TODO:  Implement function
-//		return null;
-//	}
-	
+	}	
 	
 	/**
 	 * Add new {@link Prescription}s to the database
@@ -442,7 +448,7 @@ public class Controller {
 	 * @param listener  Listener describing UI updates after
 	 * request is executed
 	 */
-	public void addSchedules(List<Schedule> schedules, final OnSchduleAddedListener listener) {
+	public void addSchedules(List<Schedule> schedules, final OnScheduleAddedListener listener) {
 		
 		JSONObject json = new JSONObject();
 		JSONArray record = new JSONArray();
@@ -476,6 +482,82 @@ public class Controller {
 	}
 	
 	/**
+	 * Update information for a list of patients.  Useful in changing a patient's
+	 * associated provider, password, name, etc.
+	 * @param patients  List of updated patients
+	 * @param listener Listener indicating appropriate UI updates after
+	 * web request completes
+	 */
+	public void updatePatients(List<Patient> patients, final OnDataUpdatedListener listener) {
+		
+		JSONObject json = new JSONObject();
+		JSONArray record = new JSONArray();
+		for (int i = 0; i < patients.size(); i++) {
+			try {
+				JSONObject scheduleObject = new JSONObject(new Gson().toJson(patients.get(i), Patient.class));
+				record.put(scheduleObject);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		try {
+			json.put("record", record);
+			String jsonString = json.toString();
+			mServerRequest.doPut(Constants.URL_ADD_PATIENT, new ResponseCallback() {
+
+				@Override
+				public void onResponseReceived(JSONObject response) {
+					//TODO distinguish between successes and failures
+					listener.onDataUpdated(true);
+				}
+				
+			}, jsonString);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * Update information for a list of prescriptions.  Used particularly
+	 * for marking prescriptions as 'set' once an associated schedule (with
+	 * an actual time) has been set
+	 * @param patients  List of updated prescriptions
+	 * @param listener Listener indicating appropriate UI updates after
+	 * web request completes
+	 */
+	public void updatePrescriptions(List<Prescription> prescriptions, final OnDataUpdatedListener listener) {
+		
+		JSONObject json = new JSONObject();
+		JSONArray record = new JSONArray();
+		for (int i = 0; i < prescriptions.size(); i++) {
+			try {
+				JSONObject scheduleObject = new JSONObject(new Gson().toJson(prescriptions.get(i), Prescription.class));
+				record.put(scheduleObject);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		try {
+			json.put("record", record);
+			String jsonString = json.toString();
+			mServerRequest.doPut(Constants.URL_ADD_PRESCRIPTION, new ResponseCallback() {
+
+				@Override
+				public void onResponseReceived(JSONObject response) {
+					//TODO distinguish between successes and failures
+					listener.onDataUpdated(true);
+				}
+				
+			}, jsonString);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * Get all of the patients associated with the currently logged in provider.
 	 * @param listener Listener describing UI updates after request is executed
 	 */
@@ -484,8 +566,41 @@ public class Controller {
 		final List<Patient> patients = new ArrayList<Patient>();
 		final Gson gson = new Gson();
 		
-		String url = Constants.URL_GET_PATIENTS + Integer.toString(mProviderId) 
+		String url = Constants.URL_GET_PATIENTS_BY_ID + Integer.toString(mProviderId) 
 				+ Constants.URL_SUFFIX;
+		
+		mServerRequest.doGet(url, new ResponseCallback() {
+
+			@Override
+			public void onResponseReceived(JSONObject response) {
+				try {
+					JSONArray array = response.getJSONArray("record");
+					for (int i = 0; i < array.length(); i++) {
+						Patient p = gson.fromJson(array.getString(i), Patient.class);
+						patients.add(p);
+					}
+					
+					listener.onPatientsLoaded(patients);
+					
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+		});
+	}
+	
+	/**
+	 * Get all of the patients from the database.
+	 * @param listener Listener describing UI updates after request is executed
+	 */
+	public void getAllPatients(final OnPatientsLoadedListener listener) {
+		
+		final List<Patient> patients = new ArrayList<Patient>();
+		final Gson gson = new Gson();
+		
+		String url = Constants.URL_GET_ALL_PATIENTS;
 		
 		mServerRequest.doGet(url, new ResponseCallback() {
 
@@ -544,8 +659,7 @@ public class Controller {
 		});
 	}
 
-	
-	
+
 	/**
 	 * Filter all of the medications by an input string.  Used for
 	 * autocomplete functionality.
@@ -554,7 +668,8 @@ public class Controller {
 	 * request is executed
 	 */
 	public void filterMedicationsByName(String input, final OnMedicationsLoadedListener listener) {
-		String url = Constants.URL_FILTER_MEDS_BY_NAME + input + "%25%27" + Constants.URL_SUFFIX;
+		//TODO:  Accommodate medication names which contain whitespace (currently throws connection error)
+		String url = Constants.URL_FILTER_MEDS_BY_NAME + input.replace(" ", "") + "%25%27" + Constants.URL_SUFFIX;
 		
 		mServerRequest.doGet(url, new ResponseCallback() {
 
@@ -609,32 +724,6 @@ public class Controller {
 			
 		});
 	}
-	
-//	public void getAllPrescriptions(final OnPrescriptionLoadedListener listener) {
-//		String url = Constants.URL_GET_PATIENT_PRESCRIP + Integer.toString(mPatientId) 
-//				+ "%27" + Constants.URL_SUFFIX ;
-//		
-//		mServerRequest.doGet(url, new ResponseCallback() {
-//
-//			@Override
-//			public void onResponseReceived(JSONObject response) {
-//				try {
-//					JSONArray array = response.getJSONArray("record");
-//					List<Prescription> prescription = new ArrayList<Prescription>();
-//					for (int i = 0; i < array.length(); i++) {
-//						Prescription p = new Gson().fromJson(array.getString(i), Prescription.class);
-//						prescription.add(p);
-//					}
-//					listener.onPrescriptionLoaded(prescription);
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				}
-//				
-//				
-//			}
-//			
-//		});
-//	}
 	
 	/**
 	 * Get all of the prescriptions associated with the current patient.
@@ -699,7 +788,7 @@ public class Controller {
 				boolean success = false;
 				if (!upload) {
 					success = saveImage(data, mMedName, mContext);
-				};
+				}
 				
 				//TODO  Implement image upload
 				
@@ -730,7 +819,11 @@ public class Controller {
 				new File(path + Constants.RX_DIRECTORY).mkdirs();
 			}
 			
-			filename = new File (path + Constants.RX_DIRECTORY + name.toLowerCase(Locale.US));
+			filename = new File (path + Constants.RX_DIRECTORY, name);
+			
+			if (filename.exists()) {
+				filename.delete();
+			}
 			
 			FileOutputStream out = new FileOutputStream(filename);
 			
@@ -761,9 +854,17 @@ public class Controller {
 	 */
 	public static Bitmap loadImage(String name, Context context) {
 		String path = Environment.getExternalStorageDirectory().toString();
-		File file = new File (path + Constants.RX_DIRECTORY + name.toLowerCase(Locale.US));
+		File file = new File (path + Constants.RX_DIRECTORY, name);
 		if(file.exists()){
-		    return BitmapFactory.decodeFile(file.getAbsolutePath());
+		    Bitmap original =  BitmapFactory.decodeFile(file.getAbsolutePath());
+		    Matrix matrix = new Matrix();
+		    matrix.postRotate(90);
+		    Bitmap scaledBitmap = 
+		    		Bitmap.createScaledBitmap(original,original.getHeight(),original.getHeight(),true);
+		    Bitmap rotatedBitmap = 
+		    		Bitmap.createBitmap(scaledBitmap , 0, 0, 
+		    		scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+		    return rotatedBitmap;
 		}
 		return BitmapFactory.decodeResource(context.getResources(), android.R.drawable.ic_menu_camera);
 	}

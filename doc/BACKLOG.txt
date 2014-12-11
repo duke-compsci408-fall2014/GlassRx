@@ -1,7 +1,9 @@
-1. Logging in - currently the app uses a default login name and password, thus you can't log in to different accounts. This is tricky because you can't type with the glass device, and it isn't very secure to have the user saying their password out loud. It should be doable by linking the Google account associated with the glass device, but this isn't incredibly straightforward.
+GlassRx
+	1. Logging in - currently the app uses a default login name and password, thus you can't log in to different accounts. This is tricky because you can't type with the glass device, and it isn't very secure to have the user saying their password out loud. It should be doable by linking the Google account associated with the glass device, but this isn't incredibly straightforward.
+	2. Schedule modification on the device - Currently the app can only view schedules but is not capable of editing them or adding new entries. This is a difficult task to accomplish intuitively and easily on the limited platform of the Glass device, but it should be possible.
+	3. Image capture - The user should be able to use the camera to take pictures of medications that are remembered by the app and show up when it's time to take that medication.
+	4. Alert confirmation - A feature could be added to get confirmation from the user that he/she actually took the medication, or else be able to "snooze" the alert, and get reminded of it in a certain amount of time, or the glass device could look for certain gestures that resemble opening a pill bottle and eating a pill, and confirm it like that. 
 
-2. Schedule modification on the device - Currently the app can only view schedules but is not capable of editing them or adding new entries. This is a difficult task to accomplish intuitively and easily on the limited platform of the Glass device, but it should be possible.
-
-3. Image capture - The user should be able to use the camera to take pictures of medications that are remembered by the app and show up when it's time to take that medication.
-
-4. Alert confirmation - A feature could be added to get confirmation from the user that he/she actually took the medication, or else be able to "snooze" the alert, and get reminded of it in a certain amount of time, or the glass device could look for certain gestures that resemble opening a pill bottle and eating a pill, and confirm it like that. 
+AndroidRx
+	1.  Image upload - All images are currently saved locally on the device.  To be able to upload these images to the server for viewing on other devices--in particular, on Glass--would be particularly useful
+	2.  

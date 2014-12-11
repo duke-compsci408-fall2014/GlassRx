@@ -12,6 +12,7 @@ import com.compsci408.rxcore.Constants;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,6 +43,7 @@ public class NewPrescriptionFragment extends Fragment {
 	CheckBox cbMorning;
 	CheckBox cbAfternoon;
 	CheckBox cbEvening;
+	CheckBox cbAnytime;
 	CheckBox cbRepeat;
 	
 	CheckBox[] timesArray;
@@ -71,8 +73,9 @@ public class NewPrescriptionFragment extends Fragment {
         cbMorning = (CheckBox) view.findViewById(R.id.checkbox_morning);
         cbAfternoon = (CheckBox) view.findViewById(R.id.checkbox_afternoon);
         cbEvening = (CheckBox) view.findViewById(R.id.checkbox_evening);
+        cbAnytime = (CheckBox) view.findViewById(R.id.checkbox_anytime);
         
-        timesArray = new CheckBox[]{cbMorning, cbAfternoon, cbEvening};
+        timesArray = new CheckBox[]{cbMorning, cbAfternoon, cbEvening, cbAnytime};
         
         spinnerRepeatInterval = (Spinner) view.findViewById(R.id.spinner_repeat_interval);
         etRepeatCount = (EditText) view.findViewById(R.id.edittext_repeat_count);
@@ -151,6 +154,7 @@ public class NewPrescriptionFragment extends Fragment {
 					else {
 						times[i] = false;
 					}
+					Log.d("NewPrescriptionActivity", Boolean.valueOf(times[i]).toString());
 				}
 				
 				List<String> dates = getDates();

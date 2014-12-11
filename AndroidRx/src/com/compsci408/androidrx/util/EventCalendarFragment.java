@@ -17,10 +17,22 @@ import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/**
+ * Fragment for displaying a calendar of {@link Event}s.
+ * This fragment contains functionality for selecting
+ * different dates and viewing event information for
+ * a selected date.  
+ * @author Evan
+ *
+ */
 public class EventCalendarFragment extends Fragment {
 
 	private GregorianCalendar mMonth, mItemMonth;
 	private CalendarAdapter mAdapter;
+	
+	//  Describes behavior for when a date is selected.
+	//  Can be used to receive the descriptions of events
+	//  for the selected day.
 	private OnCalendarClickedCallback mCallback;
 	
 	private GridView mMedEventGridView;
@@ -56,11 +68,19 @@ public class EventCalendarFragment extends Fragment {
 		
 	}
 	
+	/**
+	 * Set the callback for when a date is selected on the calendar
+	 * @param callback  Callback to be set
+	 */
 	public void setCallback(OnCalendarClickedCallback callback) {
 		mCallback = callback;
 	}
 
 	
+	/**
+	 * Set the listeners for all the views and widgets on
+	 * the calendar.
+	 */
 	private void setListeners() {
 		
 		mPrevious.setOnClickListener(new OnClickListener() {
@@ -90,7 +110,7 @@ public class EventCalendarFragment extends Fragment {
 				
 				((CalendarAdapter) parent.getAdapter()).setSelected(v);
 				
-				String selectedGridDate = CalendarAdapter.dayString
+				String selectedGridDate = CalendarAdapter.mDayString
 						.get(position);
 				String[] separatedTime = selectedGridDate.split("-");
 				String gridvalueString = separatedTime[2].replaceFirst("^0*", "");
@@ -128,6 +148,11 @@ public class EventCalendarFragment extends Fragment {
 		});
 	}
 	
+	
+	/**
+	 * Set the events to be displayed in this calendar.
+	 * @param events  List of events to be displayed.
+	 */
 	public void setEvents(List<Event> events) {
 		mEvents.clear();
 		mItemMonth.clear();
@@ -179,6 +204,7 @@ public class EventCalendarFragment extends Fragment {
 	private void refreshCalendar() {
 		mAdapter.refresh();
 		mAdapter.notifyDataSetChanged();
+		mAdapter.setEvents(mDates);
 
 		mTitle.setText(android.text.format.DateFormat.format("MMMM yyyy", mMonth));
 	}

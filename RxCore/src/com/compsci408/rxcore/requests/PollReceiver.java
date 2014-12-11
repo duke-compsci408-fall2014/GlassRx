@@ -9,6 +9,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 
+/**
+ * {@link BroadcastReceiver} for handling intermittent server polling
+ * @author Evan
+ */
 public class PollReceiver extends BroadcastReceiver {
 
 	@Override
@@ -22,6 +26,9 @@ public class PollReceiver extends BroadcastReceiver {
         wl.release();
     }
 
+	/**
+	 * Set an alarm, at which time the server will be polled
+	 */
 	public void SetAlarm(Context context) {
 	    AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 	    Intent i = new Intent(context, PollReceiver.class);
@@ -29,6 +36,9 @@ public class PollReceiver extends BroadcastReceiver {
 	    am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), Constants.POLLING_INTERVAL, pi); // Millisec * Second * Minute
 	}
 	
+	/**
+	 * Cancel an alarm
+	 */
 	public void CancelAlarm(Context context) {
 	    Intent intent = new Intent(context, PollReceiver.class);
 	    PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);

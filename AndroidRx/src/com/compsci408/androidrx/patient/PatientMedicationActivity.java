@@ -5,15 +5,21 @@ import java.util.List;
 
 import com.compsci408.androidrx.LoginActivity;
 import com.compsci408.androidrx.R;
-import com.compsci408.androidrx.adapters.PrescriptionAdapter;
+import com.compsci408.androidrx.util.EventCalendarFragment;
+import com.compsci408.androidrx.util.OnCalendarClickedCallback;
+import com.compsci408.rxcore.Constants;
 import com.compsci408.rxcore.Controller;
+import com.compsci408.rxcore.datatypes.Event;
 import com.compsci408.rxcore.datatypes.Medication;
 import com.compsci408.rxcore.datatypes.Prescription;
+import com.compsci408.rxcore.datatypes.Schedule;
 import com.compsci408.rxcore.listeners.OnMedInfoLoadedListener;
 import com.compsci408.rxcore.listeners.OnPrescriptionLoadedListener;
+import com.compsci408.rxcore.listeners.OnScheduleLoadedListener;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +27,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,11 +43,11 @@ public class PatientMedicationActivity extends Activity {
 	// UI references
 	private ImageView mMedImage;
 	private ListView mMedDetails;
-	private ListView mMedEvents;
-	private TextView mMedName;
+	private EventCalendarFragment mMedEventsCalendar;
+	private LinearLayout mMedEvents;
 	
-	private List<Prescription> mPrescriptions;
-	private PrescriptionAdapter mAdapter;
+	private List<Event> mEvents;
+	private List<String> mDescriptions;
 	
 	private Controller mController;
 	
@@ -74,29 +81,60 @@ public class PatientMedicationActivity extends Activity {
 			}			
 		});
 		
-		mController.getPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
-
-			@Override
-			public void onPrescriptionLoaded(List<Prescription> prescription) {
-				mPrescriptions = prescription;
-				mAdapter = new PrescriptionAdapter(PatientMedicationActivity.this,
-													R.layout.prescription_list_item,
-													mPrescriptions, false);
-				
-				mAdapter.clear();
-				mAdapter.addAll(mPrescriptions);
-				mMedEvents.setAdapter(mAdapter);
-				mAdapter.notifyDataSetChanged();
-			}
-			
-		});
-		
-		mMedName = (TextView) findViewById(R.id.textview_med_name);
-		mMedName.setText(mController.getMedName());
+		mMedEventsCalendar = new EventCalendarFragment();
+		getFragmentManager().beginTransaction()
+			.replace(R.id.layout_event_calendar, mMedEventsCalendar).commit();
 		
 		mMedImage = (ImageView) findViewById(R.id.imageview_med);
 		
 		mMedImage.setImageBitmap(Controller.loadImage(mController.getMedName(), this));
+
+		mMedDetails = (ListView) findViewById(R.id.listview_med_details);	
+		mMedEvents = (LinearLayout) findViewById(R.id.layout_day_events);
+		
+		mEvents = new ArrayList<Event>();
+		
+		setListeners();
+		loadEvents();
+		
+
+	}
+	
+	private void loadEvents() {
+		mEvents.clear();
+		mController.showProgress("Loading Medication Details", true);
+		mController.getPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
+
+			@Override
+			public void onPrescriptionLoaded(List<Prescription> prescriptions) {
+				for (Prescription p : prescriptions) {
+					if (p.getMedication().equals(mController.getMedName())
+							&& !p.getSet()) {
+						mEvents.add(p);
+					}
+				}
+				mController.getSchedulesForPatient(new OnScheduleLoadedListener() {
+
+					@Override
+					public void onScheduleLoaded(List<Schedule> schedule) {
+						for (Schedule s : schedule) {
+							if (s.getMedication().equals(mController.getMedName())) {
+								mEvents.add(s);
+							}
+						}
+						mMedEventsCalendar.setEvents(mEvents);
+						mController.showProgress(false);
+						
+					}
+					
+				});
+			}
+		});
+		
+		
+	}
+	
+	private void setListeners() {
 		
 		mMedImage.setOnClickListener(new OnClickListener() {
 
@@ -109,11 +147,39 @@ public class PatientMedicationActivity extends Activity {
 			}
 			
 		});
-		
-		
-		mMedDetails = (ListView) findViewById(R.id.listview_med_details);	
-		mMedEvents = (ListView) findViewById(R.id.listview_med_events);
 
+		mMedEventsCalendar.setCallback(new OnCalendarClickedCallback() {
+
+			@Override
+			public void onCalendarClicked(List<Event> selectedDayEvents) {
+				mDescriptions = new ArrayList<String>();
+				
+				if (((LinearLayout) mMedEvents).getChildCount() > 0) {
+					((LinearLayout) mMedEvents).removeAllViews();
+				}
+				
+				for (int i = 0; i < selectedDayEvents.size(); i++) {
+					mDescriptions.add(selectedDayEvents.get(i)
+							.toFormattedString(false, Constants.DATE_FORMAT_READABLE));
+				}
+				
+				if (mDescriptions.size() > 0) {
+					for (int i = 0; i < mDescriptions.size(); i++) {
+						TextView rowTextView = new TextView(PatientMedicationActivity.this);
+
+						// set some properties of rowTextView or something
+						rowTextView.setText(mDescriptions.get(i));
+						rowTextView.setTextColor(Color.BLACK);
+
+						// add the textview to the linearlayout
+						mMedEvents.addView(rowTextView);
+
+					}
+
+				}
+			}
+			
+		});
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.compsci408.androidrx.provider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.compsci408.androidrx.LoginActivity;
@@ -7,19 +8,26 @@ import com.compsci408.androidrx.R;
 import com.compsci408.androidrx.adapters.PatientListAdapter;
 import com.compsci408.rxcore.Controller;
 import com.compsci408.rxcore.datatypes.Patient;
+import com.compsci408.rxcore.listeners.OnDataUpdatedListener;
 import com.compsci408.rxcore.listeners.OnPatientsLoadedListener;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Spinner;
 
 /**
  * {@link Activity} which displays a list of the current
@@ -32,6 +40,7 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 
 	ListView patientList;
 	SearchView patientSearch;
+	Button addPatient;
 	
 	PatientListAdapter mAdapter;
 	Filter mFilter;
@@ -55,8 +64,19 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 		                PatientListActivity.this, 
 		                android.R.layout.simple_list_item_1,
 		                patients);
-				patientList.setAdapter(mAdapter);
-				mFilter = mAdapter.getFilter();
+				if (patients.isEmpty()) {
+					ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+							PatientListActivity.this, 
+							android.R.layout.simple_list_item_1);
+					adapter.add("No patients");
+					patientList.setAdapter(adapter);
+					patientList.setOnItemClickListener(null);
+				}
+				else {
+					patientList.setAdapter(mAdapter);
+					mFilter = mAdapter.getFilter();
+				}
+				
 				mController.showProgress(false);
 			}
 			
@@ -81,7 +101,20 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 			}
 		});
-		patientList.setTextFilterEnabled(false);		
+		patientList.setTextFilterEnabled(false);
+		
+		addPatient = (Button) findViewById(R.id.button_add_patient);
+		addPatient.setOnClickListener(new OnClickListener () {
+
+			@Override
+			public void onClick(View v) {
+				AlertDialog dialog = createAddPatientDialog();
+				dialog.show();
+			}
+
+			
+			
+		});
 	}
 	
 	/**
@@ -93,6 +126,61 @@ public class PatientListActivity extends Activity implements SearchView.OnQueryT
         patientSearch.setOnQueryTextListener(this);
         patientSearch.setSubmitButtonEnabled(false);
         patientSearch.setQueryHint("Filter Results");
+	}
+	
+	private AlertDialog createAddPatientDialog() {
+		
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		final Spinner patientSpinner = new Spinner(this);
+		
+		builder.setTitle("Select a Patient");
+		builder.setView(patientSpinner);
+		
+		mController.getAllPatients(new OnPatientsLoadedListener() {
+
+			@Override
+			public void onPatientsLoaded(List<Patient> patients) {
+				List<Patient> availablePatients = new ArrayList<Patient>();
+				for (Patient p : patients) {
+					if (p.getPhysicianID() != mController.getProviderId()) {
+						availablePatients.add(p);
+					}
+				}
+				PatientListAdapter adapter = new PatientListAdapter(
+		                PatientListActivity.this, 
+		                android.R.layout.simple_list_item_1,
+		                availablePatients);
+				patientSpinner.setAdapter(adapter);
+			}
+			
+		});
+		
+		builder.setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Patient selectedPatient = (Patient) patientSpinner.getSelectedItem();
+				if (selectedPatient != null) {
+					selectedPatient.setPhysicianID(mController.getProviderId());
+					List<Patient> toUpdate = new ArrayList<Patient>();
+					toUpdate.add(selectedPatient);
+					
+					mController.updatePatients(toUpdate, new OnDataUpdatedListener() {
+						
+						@Override
+						public void onDataUpdated(boolean success) {
+							PatientListActivity.this.finish();
+							PatientListActivity.this.startActivity(getIntent());
+						}
+					});
+				}
+			}
+		});
+		
+		
+		return builder.create();
 	}
 
 	@Override

@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:weightSum="1"
+    android:weightSum="5"
     android:orientation="vertical"
     tools:context="com.compsci408.androidrx.patient.PatientMedicationActivity" >
 
@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".25"
+        android:layout_weight="1"
         android:weightSum="1"
         android:orientation="horizontal">
         
@@ -22,46 +22,41 @@
 	        android:id="@+id/imageview_med"
 	        android:layout_width="0dp"
 	        android:layout_height="match_parent"
-	        android:layout_weight=".5"
+	        android:layout_weight=".25"
 	        android:contentDescription="@string/medication_icon" />
+        
+        <ListView
+            android:id="@+id/listview_med_details"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" 
+            android:layout_weight=".75"
+            android:background="@color/light_gray">
+        </ListView>
 	    
-	    <TextView
-	        android:id="@+id/textview_med_name"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center_vertical"
-	        android:layout_weight=".5"
-	        android:gravity="bottom"
-	        android:textAppearance="?android:attr/textAppearanceLarge"
-	        android:textColor="@color/white" />
+	  
 	    
     </LinearLayout>
     
-
     <LinearLayout
+        android:id="@+id/layout_event_calendar"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal" />
+    
+    <LinearLayout 
+        android:id="@+id/layout_day_events"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".75"
-        android:orientation="vertical"
-        android:weightSum="1" >
-
-        <ListView
-            android:id="@+id/listview_med_details"
-            android:layout_width="match_parent"
-            android:layout_height="0dp" 
-            android:layout_weight=".66">
-        </ListView>
-
-        <ListView
-	        android:id="@+id/listview_med_events"
-	        android:layout_width="match_parent"
-	        android:layout_height="0dp"
-		    android:layout_weight=".34"
-	        android:layout_marginTop="10dp"
-	        android:entries="@array/alarm_array" >
-	    </ListView>
-        
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:orientation="vertical">
     </LinearLayout>
+        
+
 
 
 

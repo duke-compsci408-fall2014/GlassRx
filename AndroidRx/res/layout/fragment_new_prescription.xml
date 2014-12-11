@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-    <LinearLayout 
+  	<LinearLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent" 
 	    android:orientation="vertical"
@@ -21,29 +21,49 @@
 	        android:id="@+id/checkboxes_times"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:orientation="horizontal">
+	        android:orientation="vertical">
 	        
-	        <CheckBox
-		        android:id="@+id/checkbox_morning"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="@string/morning" />
+	        <LinearLayout
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:orientation="horizontal">
+	            
+	            <CheckBox
+			        android:id="@+id/checkbox_morning"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/morning" />
 		    
-		    <CheckBox
-		        android:id="@+id/checkbox_afternoon"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="@string/afternoon" />
-		    
+			    <CheckBox
+			        android:id="@+id/checkbox_afternoon"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/afternoon" />
+	            
+	        </LinearLayout>
+	        
+	         <LinearLayout
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:orientation="horizontal"
+   	        	android:layout_marginBottom="10dp">
+			    
+			    <CheckBox
+			        android:id="@+id/checkbox_evening"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/evening" />
+			    
+			    <CheckBox
+			        android:id="@+id/checkbox_anytime"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/anytime" />
+		    </LinearLayout>
 		    
 	    </LinearLayout>
-	    
-	    <CheckBox
-	        android:id="@+id/checkbox_evening"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-   	        android:layout_marginBottom="10dp"
-	        android:text="@string/evening" />
+
+	  
 	    
 	    <CheckBox
 	        android:id="@+id/checkbox_repeat"

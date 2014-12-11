@@ -34,42 +34,42 @@ public class CalendarAdapter extends BaseAdapter {
 	public GregorianCalendar mLastMonthMax;
 	private GregorianCalendar mSelectedDate;
 	
-	int firstDay;  
-	int maxWeeknumber;  
-	int maxP;  
-	int calMaxP;  
-	int lastWeekDay;  
-	int leftDays;  
-	int mnthlength; 
+	int mFirstDay;  
+	int mMaxWeekNumber;  
+	int mMaxPrev;  
+	int mCalMaxPrev;  
+	int mLastWeekDay;  
+	int mDaysLeft;  
+	int mMonthLength; 
 	
-	String itemValue, currentDateString;
+	String mItemValue, mCurrentDateString;
 	SimpleDateFormat mFormat;
 	
-	private List<String> events;
-	public static List<String> dayString;
-	private View lastView;
+	private List<String> mEvents;
+	public static List<String> mDayString;
+	private View mLastView;
 	
 	public CalendarAdapter(Context context, GregorianCalendar calendar) {
-		CalendarAdapter.dayString = new ArrayList<String>();
+		CalendarAdapter.mDayString = new ArrayList<String>();
 		Locale.setDefault(Locale.US);
 		mCalendar = calendar;
 		mSelectedDate = (GregorianCalendar) mCalendar.clone();
 		mContext = context;
 		mCalendar.set(GregorianCalendar.DAY_OF_MONTH, 1);
-		events = new ArrayList<String>();
+		mEvents = new ArrayList<String>();
 		mFormat = new SimpleDateFormat(Constants.DATE_FORMAT_DATABASE, Locale.US);
-		currentDateString = mFormat.format(mSelectedDate.getTime());
+		mCurrentDateString = mFormat.format(mSelectedDate.getTime());
 		refresh();
 	}
 
 	@Override
 	public int getCount() {
-		return dayString.size();
+		return mDayString.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return dayString.get(position);
+		return mDayString.get(position);
 	}
 	
 	public void setEvents(List<String> mDates) {
@@ -78,7 +78,7 @@ public class CalendarAdapter extends BaseAdapter {
 				mDates.set(i,  "0" + mDates.get(i));
 			}
 		}
-		this.events = mDates;
+		this.mEvents = mDates;
 		notifyDataSetChanged();
 	}
 
@@ -98,10 +98,10 @@ public class CalendarAdapter extends BaseAdapter {
 		}
 		
 		dayView = (TextView) view.findViewById(R.id.date);
-		String[] timeParts = dayString.get(position).split("-");
+		String[] timeParts = mDayString.get(position).split("-");
 		String value = timeParts[2].replaceFirst("^0*", "");
 		
-		if ((Integer.parseInt(value) > 1 && position < firstDay)
+		if ((Integer.parseInt(value) > 1 && position < mFirstDay)
 				|| (Integer.parseInt(value) < 7 && position > 28)) {
 			dayView.setTextColor(Color.WHITE);
 			dayView.setClickable(false);
@@ -111,16 +111,16 @@ public class CalendarAdapter extends BaseAdapter {
 			dayView.setTextColor(mContext.getResources().getColor(R.color.duke_blue));
 		}
 		
-		if (dayString.get(position).equals(currentDateString)) {
+		if (mDayString.get(position).equals(mCurrentDateString)) {
 			setSelected(view);
-			lastView = view;
+			mLastView = view;
 		}
 		else {
 			view.setBackgroundResource(R.color.light_gray);
 		}
 		dayView.setText(value);
 		
-		String date = dayString.get(position);
+		String date = mDayString.get(position);
 		
 		if (date.length() == 1) {
 			date = "0" + date;
@@ -132,7 +132,7 @@ public class CalendarAdapter extends BaseAdapter {
 		}
 		
 		ImageView image = (ImageView) view.findViewById(R.id.date_icon);
-		if (date.length() > 0 && events != null && events.contains(date)) {
+		if (date.length() > 0 && mEvents != null && mEvents.contains(date)) {
 			image.setVisibility(View.VISIBLE);
 		}
 		else {
@@ -142,37 +142,54 @@ public class CalendarAdapter extends BaseAdapter {
 		
 	}
 	
+	/**
+	 * Modify background of selected date
+	 * to indicate that the date has been selected
+	 * @param v  View of selected date
+	 * @return Original view with modified background.
+	 */
 	public View setSelected(View v) {
-		if (lastView != null) {
-			lastView.setBackgroundResource(R.color.light_gray);
+		if (mLastView != null) {
+			mLastView.setBackgroundResource(R.color.light_gray);
 		}
-		lastView = v;
+		mLastView = v;
 		v.setBackgroundResource(R.drawable.calendar_item_selected);
 		return v;
 	}
 	
+	/**
+	 * Refresh the calendar adapter, clearing stored events,
+	 * recalculating dates (in case the selected month has
+	 * changed), and redrawing the views.
+	 */
 	public void refresh() {
-//		events.clear();
-		dayString.clear();
+		mEvents.clear();
+		mDayString.clear();
 		Locale.setDefault(Locale.US);
 		mLastMonth = (GregorianCalendar) mCalendar.clone();
-		firstDay = mCalendar.get(GregorianCalendar.DAY_OF_WEEK);
-		maxWeeknumber = mCalendar.getActualMaximum(GregorianCalendar.WEEK_OF_MONTH);
-		mnthlength = maxWeeknumber * 7;
-		maxP = getMaxP();
-		calMaxP = maxP - (firstDay - 1);
+		mFirstDay = mCalendar.get(GregorianCalendar.DAY_OF_WEEK);
+		mMaxWeekNumber = mCalendar.getActualMaximum(GregorianCalendar.WEEK_OF_MONTH);
+		mMonthLength = mMaxWeekNumber * 7;
+		mMaxPrev = getMaxPrevious();
+		mCalMaxPrev = mMaxPrev - (mFirstDay - 1);
 		mLastMonthMax = (GregorianCalendar) mLastMonth.clone();
-		mLastMonthMax.set(GregorianCalendar.DAY_OF_MONTH, calMaxP + 1);
+		mLastMonthMax.set(GregorianCalendar.DAY_OF_MONTH, mCalMaxPrev + 1);
 		
-		for (int i = 0; i < mnthlength; i ++) {
-			itemValue = mFormat.format(mLastMonthMax.getTime());
+		for (int i = 0; i < mMonthLength; i ++) {
+			mItemValue = mFormat.format(mLastMonthMax.getTime());
 			mLastMonthMax.add(GregorianCalendar.DATE, 1);
-			dayString.add(itemValue);
+			mDayString.add(mItemValue);
 		}
 		
 	}
 	
-	private int getMaxP() {
+	
+	/**
+	 * Get the maximum date of the previous month
+	 * @return  Integer value representing date of
+	 * last day of previous month
+	 */
+	private int getMaxPrevious() {
 		int maxP;
 		if (mCalendar.get(GregorianCalendar.MONTH) == mCalendar
 				.getActualMinimum(GregorianCalendar.MONTH)) {

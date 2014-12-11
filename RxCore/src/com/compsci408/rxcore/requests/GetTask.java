@@ -3,9 +3,6 @@ package com.compsci408.rxcore.requests;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
 import org.json.JSONObject;
 
 import com.compsci408.rxcore.Constants;

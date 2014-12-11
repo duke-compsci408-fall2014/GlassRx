@@ -11,6 +11,8 @@ import android.preference.PreferenceManager;
 
 /**
  * Singleton class for handling requests.
+ * Through this class, GET, POST, and PUT requests
+ * can be made;
  * @author Evan
  */
 public class ServerRequest {
@@ -45,6 +47,16 @@ public class ServerRequest {
 		if (RequestUtils.checkConnection(mContext)) {
 			logLastRequestTime();
 			new PostTask(callback, body).execute(url);
+		}
+	}
+	
+	/**
+	 * Perform a PATCH request
+	 */
+	public void doPut(String url, ResponseCallback callback, String body) {
+		if (RequestUtils.checkConnection(mContext)) {
+			logLastRequestTime();
+			new PutTask(callback, body).execute(url);
 		}
 	}
 	

@@ -1,5 +1,12 @@
 package com.compsci408.rxcore.datatypes;
 
+/**
+ * Enum of account types.  These types
+ * are currently limited to patient and provider.
+ * Used to distinguish between types of users and
+ * to differentiate what is shown to each. 
+ * @author Evan
+ */
 public enum AccountType {
 	
 	PATIENT(0, "Patient"),

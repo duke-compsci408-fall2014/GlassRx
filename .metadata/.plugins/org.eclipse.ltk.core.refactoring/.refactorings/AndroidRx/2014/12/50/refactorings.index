@@ -4,3 +4,21 @@
 1418087625549	Rename field 'mPrescriptions'
 1418100946184	Delete element
 1418101485613	Delete element
+1418165856128	Delete element
+1418165866006	Delete element
+1418228518391	Rename field 'mPrescriptions'
+1418246203185	Rename field 'maxWeeknumber'
+1418246208539	Rename field 'firstDay'
+1418246232768	Rename method 'getMaxP'
+1418246297812	Rename field 'maxWeekNumber'
+1418246303366	Rename field 'maxP'
+1418246308930	Rename field 'mMaxP'
+1418246316089	Rename field 'calMaxP'
+1418246322006	Rename field 'lastWeekDay'
+1418246329749	Rename field 'leftDays'
+1418246337715	Rename field 'mnthlength'
+1418246345561	Rename field 'itemValue'
+1418246351545	Rename field 'currentDateString'
+1418246356862	Rename field 'events'
+1418246362179	Rename field 'dayString'
+1418246367147	Rename field 'lastView'

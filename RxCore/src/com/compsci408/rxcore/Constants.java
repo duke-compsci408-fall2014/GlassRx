@@ -52,6 +52,7 @@ public class Constants {
 	
 	public static final String GET						= "GET";
 	public static final String POST						= "POST";
+	public static final String PUT						= "PUT";
 	
 	public static final String RESPONSE_SUCCESS			= "success";
 	public static final String RESPONSE_TIMEOUT			= "timeout";
@@ -71,7 +72,9 @@ public class Constants {
 	public static final String URL_LOG_IN_PROVIDER		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Physician?filter=login%3D%27";
 
 	//  Patients
-	public static final String URL_GET_PATIENTS			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Patient?filter=physicianID%3D";
+	public static final String URL_GET_PATIENTS_BY_ID	= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Patient?filter=physicianID%3D";
+	public static final String URL_GET_ALL_PATIENTS		= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Patient?app_name=glass-rx";
+	public static final String URL_ADD_PATIENT			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com:443/rest/db/Patient?app_name=glass-rx";
 	
 	//  Medications
 	public static final String URL_GET_MED_INFO			= "https://dsp-glass-rx-duke.cloud.dreamfactory.com/rest/db/Medication?filter=name%3D";

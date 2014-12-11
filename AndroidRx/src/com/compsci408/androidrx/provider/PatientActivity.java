@@ -62,7 +62,18 @@ public class PatientActivity extends Activity {
 		                PatientActivity.this, 
 		                android.R.layout.simple_list_item_1,
 						new ArrayList<String>(currentMeds));
-				medList.setAdapter(mAdapter);
+				
+				if (currentMeds.isEmpty()) {
+					ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+							PatientActivity.this,
+							android.R.layout.simple_list_item_1);
+					adapter.add("No current medications");
+					medList.setAdapter(adapter);
+					medList.setOnItemClickListener(null);
+				}
+				else {
+					medList.setAdapter(mAdapter);
+				}
 				mController.showProgress(false);
 			}
 			

@@ -94,7 +94,7 @@ public class PrescriptionAdapter extends ArrayAdapter<Prescription> {
 			holder.name.setText(prescription.getMedication());	
 		}
 		
-		holder.date.setText(formatDate(prescription.getDay_to_take()) + " in the");
+		holder.date.setText(formatDate(prescription.getDay_to_take()));
 		holder.time.setText(formatTime(prescription.getGeneral_time()));
 		
 		if (deleteListener != null) {
@@ -116,12 +116,18 @@ public class PrescriptionAdapter extends ArrayAdapter<Prescription> {
 	}
 
 	private CharSequence formatTime(int general_time) {
+		String result = "";
+		
 		for(TimeFrame tf : TimeFrame.values()) {
 			if (tf.getId() == general_time) {
-				return tf.getName();
+				result += tf.getName();
 			}
 		}
-		return "No time";
+		
+		if (general_time < 3) {
+			result = "in the " + result;
+		}
+		return result;
 	}
 
 }

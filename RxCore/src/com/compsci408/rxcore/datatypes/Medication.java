@@ -3,7 +3,7 @@ package com.compsci408.rxcore.datatypes;
 /**
  * Class describing the attributes of a
  * medication object.  Includes names,
- * colors, shapes, and identification.
+ * colors, purpose, side-effects, and ID.
  * @author Evan
  *
  */

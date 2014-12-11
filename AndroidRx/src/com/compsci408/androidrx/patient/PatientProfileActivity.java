@@ -15,7 +15,9 @@ import com.compsci408.rxcore.datatypes.Day;
 import com.compsci408.rxcore.datatypes.Prescription;
 import com.compsci408.rxcore.datatypes.Schedule;
 import com.compsci408.rxcore.datatypes.TimeFrame;
+import com.compsci408.rxcore.listeners.OnDataUpdatedListener;
 import com.compsci408.rxcore.listeners.OnPrescriptionLoadedListener;
+import com.compsci408.rxcore.listeners.OnScheduleAddedListener;
 import com.compsci408.rxcore.listeners.OnScheduleLoadedListener;
 
 import android.app.Activity;
@@ -63,6 +65,13 @@ public class PatientProfileActivity extends Activity {
 		lvNewPrescriptions = (ListView) findViewById(R.id.listview_new_prescriptions);
 		
 		mController = Controller.getInstance(this);
+		setListeners();
+		loadData();
+
+	}
+	
+	private void loadData() {
+		
 		mController.showProgress("Loading patient details", true);
 		mController.getSchedulesForPatient(new OnScheduleLoadedListener() {
 
@@ -77,51 +86,59 @@ public class PatientProfileActivity extends Activity {
 		                PatientProfileActivity.this, 
 		                android.R.layout.simple_list_item_1,
 						new ArrayList<String>(currentMeds));
+				
+				if (currentMeds.isEmpty()) {
+					mCurrentAdapter.add("No scheduled prescriptions");
+					lvCurrentMeds.setOnItemClickListener(null);
+				}
 				lvCurrentMeds.setAdapter(mCurrentAdapter);
-				mController.showProgress(false);
+				mController.getPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
+
+					@Override
+					public void onPrescriptionLoaded(List<Prescription> prescription) {
+						mNewPrescriptions = new HashMap<String, List<Prescription>>();
+						for (int i = 0; i < prescription.size(); i++) {	
+							Prescription p = prescription.get(i);
+							int day = mController.getDayFromDate(p.getDay_to_take());
+							String key = p.getMedication() + ", "; 
+							for (Day d : Day.values()) {
+								if (d.getId() == day) {
+									key += d.getName() + " ";
+								}
+							}
+							for (TimeFrame tf : TimeFrame.values()) {
+								if (tf.getId() == p.getGeneral_time()) {
+									key += tf.getName() + "s";
+								}
+							}
+							if (!mNewPrescriptions.containsKey(key)) {
+								mNewPrescriptions.put(key, new ArrayList<Prescription>());
+							}
+							mNewPrescriptions.get(key).add(p);
+							
+						}
+						mNewAdapter = new ArrayAdapter<String>(PatientProfileActivity.this, 
+								android.R.layout.simple_list_item_1, 
+								new ArrayList<String>(mNewPrescriptions.keySet()));
+						
+						mNewAdapter.clear();
+						mNewAdapter.addAll(mNewPrescriptions.keySet());
+						
+						if (mNewAdapter.isEmpty()) {
+							mNewAdapter.add("No new prescriptions");
+							lvNewPrescriptions.setOnItemClickListener(null);
+						}
+						
+						mNewAdapter.notifyDataSetChanged();
+						lvNewPrescriptions.setAdapter(mNewAdapter);
+						mController.showProgress(false);
+					}
+					
+				});
 			}
 			
 		});
 		
-		mController.showProgress("Loading patient details", true);
-		mController.getPrescriptionsForPatient(new OnPrescriptionLoadedListener() {
-
-			@Override
-			public void onPrescriptionLoaded(List<Prescription> prescription) {
-				mNewPrescriptions = new HashMap<String, List<Prescription>>();
-				for (int i = 0; i < prescription.size(); i++) {	
-					Prescription p = prescription.get(i);
-					int day = mController.getDayFromDate(p.getDay_to_take());
-					String key = p.getMedication() + ", "; 
-					for (Day d : Day.values()) {
-						if (d.getId() == day) {
-							key += d.getName() + " ";
-						}
-					}
-					for (TimeFrame tf : TimeFrame.values()) {
-						if (tf.getId() == p.getGeneral_time()) {
-							key += tf.getName() + "s";
-						}
-					}
-					if (!mNewPrescriptions.containsKey(key)) {
-						mNewPrescriptions.put(key, new ArrayList<Prescription>());
-					}
-					mNewPrescriptions.get(key).add(p);
-					
-				}
-				mNewAdapter = new ArrayAdapter<String>(PatientProfileActivity.this, 
-						android.R.layout.simple_list_item_1, 
-						new ArrayList<String>(mNewPrescriptions.keySet()));
-				
-				mNewAdapter.clear();
-				mNewAdapter.addAll(mNewPrescriptions.keySet());
-				mNewAdapter.notifyDataSetChanged();
-				lvNewPrescriptions.setAdapter(mNewAdapter);
-				mController.showProgress(false);
-			}
-			
-		});
-		setListeners();
 	}
 	
 	private void setListeners() {
@@ -150,17 +167,53 @@ public class PatientProfileActivity extends Activity {
 					@Override
 					public void onTimeSet(TimePicker view, int hourOfDay,
 							int minute) {
-						String time = Integer.toString(hourOfDay) + ":" + Integer.toString(minute);
-						List<Schedule> schedules = new ArrayList<Schedule>();
-						for (int i = 0; i < prescriptions.size(); i++) {
-							Schedule s = new Schedule();
-							Prescription p = prescriptions.get(i);
-							p.setSet(true);
-							s.setDay_to_take(p.getDay_to_take());
-							s.setMedication(p.getMedication());
-							s.setPatientID(p.getPatientID());
-						}
-						
+						if (view.isShown()) {
+							String time;
+							
+							if (hourOfDay < 10) {
+								time = "0" + Integer.toString(hourOfDay) + ":";
+							}
+							else {
+								time = Integer.toString(hourOfDay);
+							}
+							
+							if (minute < 10) {
+								time += "0" + Integer.toString(minute);
+							}
+							else {
+								time += Integer.toString(minute);
+							}
+							
+							List<Schedule> schedules = new ArrayList<Schedule>();
+							for (int i = 0; i < prescriptions.size(); i++) {
+								Schedule s = new Schedule();
+								Prescription p = prescriptions.get(i);
+								p.setSet(true);
+								s.setDay_to_take(p.getDay_to_take());
+								s.setMedication(p.getMedication());
+								s.setPatientID(p.getPatientID());
+								s.setTime_to_take(time);
+								schedules.add(s);
+							}
+							mController.addSchedules(schedules, new OnScheduleAddedListener () {
+
+								@Override
+								public void onScheduleAdded(boolean success) {
+									mController.updatePrescriptions(prescriptions, new OnDataUpdatedListener() {
+
+										@Override
+										public void onDataUpdated(boolean success) {
+											PatientProfileActivity.this.finish();
+											PatientProfileActivity.this.startActivity(getIntent());
+										}
+										
+									});
+									
+								}
+								
+							});
+							
+				        }
 						
 					}
 					

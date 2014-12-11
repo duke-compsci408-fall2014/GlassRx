@@ -8,6 +8,7 @@ import com.compsci408.rxcore.datatypes.Patient;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,10 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
 	static class PatientHolder {
 		TextView name;
 	}
+	
+	public List<Patient> getData() {
+		return mOriginalData;
+	}
 
 	
 	@Override
@@ -70,6 +75,17 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
 		
 		return row;
 	}
+	
+	@Override
+    public View getDropDownView(int position, View convertView,
+            ViewGroup parent) {
+        TextView label = new TextView(mContext);
+        label.setTextColor(Color.BLACK);
+        label.setTextSize(24);
+        label.setText(mOriginalData.get(position).getName());
+
+        return label;
+    }
 	
 	
 	/**

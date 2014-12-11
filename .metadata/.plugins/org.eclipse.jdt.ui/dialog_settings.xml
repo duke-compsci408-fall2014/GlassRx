@@ -100,7 +100,7 @@
 			<section name="RxCore">
 				<item value="C:\Users\Evan\compsci408s\GlassRx\AndroidRx\javadoc.xml" key="antpath"/>
 				<item value="C:\Users\Evan\compsci408s\GlassRx\RxCore\doc" key="destdir"/>
-				<item value="http://developer.android.com/reference/" key="href"/>
+				<item value="" key="href"/>
 			</section>
 		</section>
 	</section>

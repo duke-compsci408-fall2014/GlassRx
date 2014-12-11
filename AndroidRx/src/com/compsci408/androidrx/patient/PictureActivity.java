@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,7 +21,7 @@ import android.widget.ImageButton;
  * and saving it for later use.
  * @author Evan
  */
-public class PictureActivity extends Activity {
+public class PictureActivity extends Activity implements SurfaceHolder.Callback{
 
 	SurfaceView mSurface;
 	ImageButton mTakePictureButton;
@@ -57,9 +58,8 @@ public class PictureActivity extends Activity {
 			}
 			
 		});
-		
-		mController.startCamera(mSurface.getHolder());
-		
+				
+		mSurface.getHolder().addCallback(this);
 		
 	}
 
@@ -84,5 +84,22 @@ public class PictureActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		mController.startCamera(holder);
+	}
+
+	@Override
+	public void surfaceChanged(SurfaceHolder holder, int format, int width,
+			int height) {
+		//  Do nothing
+	}
+
+	@Override
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		// Do nothing
+		
 	}
 }

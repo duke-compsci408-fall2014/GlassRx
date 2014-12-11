@@ -17,6 +17,7 @@ public class CameraManager {
 	private static CameraManager instance;
 	
 	private int mCamId;
+	private Camera mCam;
 	private boolean mCanCapture = false;
 	
 	public static CameraManager getInstance() {
@@ -43,38 +44,47 @@ public class CameraManager {
 	}	
 	
 	
-	public Camera startCamera(SurfaceHolder preview) {
+	/**
+	 * Start the backwards-facing camera and display
+	 * its preview on the given surface
+	 * @param preview {@link SurfaceHolder} on which
+	 * to display the camera's preview
+	 */
+	public void startCamera(SurfaceHolder preview) {
 		if (!canCapture()) {
 			try {
 				setCamId(CameraInfo.CAMERA_FACING_BACK);
 				setCanCapture(true);
-				Camera cam = Camera.open(mCamId);
-				cam.setPreviewDisplay(preview);
-				cam.startPreview();
-				return cam;
+				mCam = Camera.open(mCamId);
+				mCam.setPreviewDisplay(preview);
+				mCam.setDisplayOrientation(90);
+				mCam.startPreview();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		return null;
 		
 	}
 	
 	/**
 	 * Capture an image using the device's camera
-	 * @param id Id of camera to be used
+	 * @param preview {@link SurfaceHolder} on which to display preview
 	 * @param listener Callback describing what should be
 	 * done with the image data
 	 */
 	public void captureImage(SurfaceHolder preview, final OnImageCapturedListener listener) {
-		Camera cam = startCamera(preview);
+		if (mCam == null) {
+			startCamera(preview);
+		}
 		setCanCapture(false);
-		cam.takePicture(null, null, new PictureCallback() {
+		mCam.takePicture(null, null, new PictureCallback() {
 
 			@Override
 			public void onPictureTaken(byte[] data, Camera camera) {	
 				listener.onImageCaptured(data);
+				camera.stopPreview();
 				camera.release();
+				mCam = null;
 			}
 		});
 	}
