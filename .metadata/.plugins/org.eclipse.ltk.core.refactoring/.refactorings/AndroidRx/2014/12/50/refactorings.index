@@ -22,3 +22,4 @@
 1418246356862	Rename field 'events'
 1418246362179	Rename field 'dayString'
 1418246367147	Rename field 'lastView'
+1418281837205	Rename local variable 'maxP'

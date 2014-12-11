@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="21" />
+        android:targetSdkVersion="20" />
 
     <uses-feature android:glEsVersion="0x00020000" >
     </uses-feature>
@@ -71,38 +71,31 @@
         </activity>
         <activity
             android:name=".patient.PatientMedicationActivity"
-            android:label="@string/title_activity_medication"
-            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_medication" >
         </activity>
         <activity
             android:name=".MedInfoActivity"
-            android:label="@string/title_activity_med_info"
-            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_med_info" >
         </activity>
         <activity
             android:name="com.compsci408.androidrx.patient.PictureActivity"
-            android:label="@string/title_activity_picture"
-            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_picture" >
         </activity>
         <activity
             android:name=".provider.ProviderMedicationActivity"
-            android:label="@string/title_activity_provider_medication"
-            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_provider_medication" >
         </activity>
         <activity
             android:name=".patient.PatientNewPrescriptionsActivity"
-            android:label="@string/title_activity_patient_new_prescriptions"
-            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_patient_new_prescriptions" >
         </activity>
         <activity
             android:name=".patient.PatientProfileActivity"
-            android:label="@string/title_activity_patient_profile"
-            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_patient_profile" >
         </activity>
         <activity
             android:name="com.compsci408.androidrx.patient.PatientSetScheduleActivity"
-            android:label="@string/title_activity_patient_set_schedule"
-            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_patient_set_schedule" >
         </activity>
     </application>
 

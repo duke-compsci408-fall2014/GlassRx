@@ -190,7 +190,7 @@ public class CalendarAdapter extends BaseAdapter {
 	 * last day of previous month
 	 */
 	private int getMaxPrevious() {
-		int maxPrev;
+		int maxP;
 		if (mCalendar.get(GregorianCalendar.MONTH) == mCalendar
 				.getActualMinimum(GregorianCalendar.MONTH)) {
 			mLastMonth.set((mCalendar.get(GregorianCalendar.YEAR) - 1), 
@@ -200,8 +200,8 @@ public class CalendarAdapter extends BaseAdapter {
 			mLastMonth.set(GregorianCalendar.MONTH, 
 					mCalendar.get(GregorianCalendar.MONTH) - 1);
 		}
-		maxPrev = mLastMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-		return maxPrev;
+		maxP = mLastMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+		return maxP;
 	}
 
 }

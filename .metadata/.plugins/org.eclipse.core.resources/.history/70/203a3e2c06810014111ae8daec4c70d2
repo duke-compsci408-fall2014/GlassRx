@@ -48,7 +48,7 @@ public class Prescription extends Event {
 		date = formatDate(getDay_to_take(), dateFormat);
 		
 		result += date + " in the " + time + 
-				" (" + Integer.toString(getDose()) + " " + getDose_description() + ")";
+				"(" + Integer.toString(getDose()) + " " + getDose_description() + ")";
 		return result;
 	}
 

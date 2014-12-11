@@ -38,7 +38,7 @@ public class Schedule extends Event{
 		date = formatDate(getDay_to_take(), dateFormat);
 		
 		result += date + " at " + formatTime(time) + 
-				" (" + Integer.toString(getDose()) + " " + getDose_description() + ")";
+				"(" + Integer.toString(getDose()) + " " + getDose_description() + ")";
 		return result;
 	}
 	
