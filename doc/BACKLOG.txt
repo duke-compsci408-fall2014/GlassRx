@@ -5,5 +5,6 @@ GlassRx
 	4. Alert confirmation - A feature could be added to get confirmation from the user that he/she actually took the medication, or else be able to "snooze" the alert, and get reminded of it in a certain amount of time, or the glass device could look for certain gestures that resemble opening a pill bottle and eating a pill, and confirm it like that. 
 
 AndroidRx
-	1.  Image upload - All images are currently saved locally on the device.  To be able to upload these images to the server for viewing on other devices--in particular, on Glass--would be particularly useful
-	2.  
+	1.  Image upload - All images are currently saved locally on the device.  To be able to upload these images to the server for viewing on other devices--in particular, on Glass--would be particularly useful, as patients would only have to capture a medication's image once while being able to access it across devices.
+	2.  Phone alerts - Currently, alerts are only set on the phone--not received.  Only the Glass device receives alerts.  Core functionality is in place for handling alarms on the phone (see:  alarms package in RxCore), but has not been implemented.
+	3.  Long polling (optional) - If necessary, code has been put in place to handle intermittent server polling (for checking schedule updates).  This code can be found in the request package of RxCore.

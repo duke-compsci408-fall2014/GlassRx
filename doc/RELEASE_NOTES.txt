@@ -1,1 +1,10 @@
-The current iteration of GlassRx is capable of reading in a default patient's pill schedule from a database, created through the companion app AndroidRx, or a default provider's list of patients, and presenting that information for easy navigation. On the patient side, the application will send notifications when it is time to take a pill. 
+The current iteration of GlassRx is capable of reading in a default patient's pill schedule from a database, created through the companion app AndroidRx, or a default provider's list of patients, and presenting that information for easy navigation. On the patient side, the application will send notifications when it is time to take a pill.
+
+Dependencies:
+	AndroidRx and RxCore:
+		1.  Android 4.4.2
+		2.  Minimum API level:  14
+		3.  Target API level:  19
+		4.  Gson 2.3
+		5.  Android Support Library v4
+		   

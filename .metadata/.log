@@ -330,3 +330,6 @@ Contains: Could not delete: C:\Users\Evan\compsci408s\GlassRx\AndroidRx\bin\clas
 !MESSAGE Could not delete: C:\Users\Evan\compsci408s\GlassRx\AndroidRx\bin\classes\com\compsci408.
 !SUBENTRY 5 org.eclipse.core.filesystem 4 273 2014-12-10 16:00:43.331
 !MESSAGE Could not delete: C:\Users\Evan\compsci408s\GlassRx\AndroidRx\bin\classes\com.
+
+!ENTRY org.eclipse.ui 2 2 2014-12-10 19:40:39.482
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.xml.ui, propertyPage: org.eclipse.wst.xml.ui.propertyPage.project.validation)
