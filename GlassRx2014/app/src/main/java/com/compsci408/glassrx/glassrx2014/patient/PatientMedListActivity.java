@@ -1,5 +1,7 @@
 package com.compsci408.glassrx.glassrx2014.patient;
 
+
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -75,11 +77,6 @@ public class PatientMedListActivity extends Activity implements SensorEventListe
                         medList.add(med);
                     }
                 }
-                currentMeds.add("Hello");
-                currentMeds.add("HUE");
-                currentMeds.add("Hel2lo");
-
-                currentMeds.add("H6ello");
 
 
                 mCurrentAdapter = new ArrayAdapter<String>(
