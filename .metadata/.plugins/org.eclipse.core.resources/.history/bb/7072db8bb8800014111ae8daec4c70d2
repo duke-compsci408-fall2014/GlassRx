@@ -1,0 +1,6 @@
+package com.compsci408.rxcore.listeners;
+
+public abstract class OnScheduleAddedListener {
+
+	public abstract void onScheduleAdded(boolean success);
+}

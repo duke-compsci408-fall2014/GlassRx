@@ -1,0 +1,6 @@
+package com.compsci408.rxcore.listeners;
+
+public abstract class OnDataUpdatedListener {
+
+	public abstract void onDataUpdated(boolean success);
+}

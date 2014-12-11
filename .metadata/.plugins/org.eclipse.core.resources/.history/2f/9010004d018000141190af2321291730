@@ -1,0 +1,5 @@
+package com.compsci408.rxcore.requests;
+
+public class PatchTask {
+
+}

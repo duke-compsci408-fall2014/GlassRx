@@ -1,0 +1,104 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:windowBackground">@drawable/gradient_background</item>
+        <item name="android:buttonStyle">@style/App_ButtonStyle</item>
+        <item name="android:editTextStyle">@style/App_EditTextStyle</item>
+        <item name="android:spinnerItemStyle">@style/App_SpinnerItemStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/App_SpinnerItemDropDownStyle</item>
+        <item name="android:listViewStyle">@style/App_ListViewStyle</item>
+        <item name="android:calendarViewStyle">@style/App_CalendarViewStyle</item>
+        <item name="android:alertDialogStyle">@style/App_AlertDialogStyle</item>
+    </style>
+    
+    <style name="App_EditTextStyle" parent="@android:style/Widget.EditText">
+	    <item name="android:background">@drawable/custom_edittext</item>
+	    <item name="android:padding">5dp</item>
+	</style>
+	
+    <style name="App_ButtonStyle" parent="@android:style/Widget.Button">
+	    <item name="android:background">@drawable/custom_button</item>
+	    <item name="android:textColor">#FFFFFFFF</item>
+	    <item name="android:textStyle">bold</item>
+	    <item name="android:height">45dp</item>
+	    <item name="android:padding">5dp</item>
+	</style>
+
+    <style name="App_SpinnerItemStyle" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@drawable/custom_spinner</item>
+    </style>
+
+    <style name="App_SpinnerItemDropDownStyle" parent="@android:style/Widget.DropDownItem.Spinner">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@drawable/custom_spinner</item>
+    </style>
+    
+    <style name="App_ListViewStyle" parent="@android:style/Widget.ListView">
+        <item name="android:background">@drawable/custom_listview</item>
+        <item name="android:padding">5dp</item>
+    </style>
+    
+    <style name="App_CalendarViewStyle" parent="@android:style/Widget.CalendarView">
+        <item name="android:padding">5dp</item>
+        <item name="android:showWeekNumber">false</item>
+    </style>
+    
+    <style name="App_AlertDialogTitle">
+	    <item name="android:maxLines">1</item>
+	    <item name="android:scrollHorizontally">true</item>
+	</style>
+	
+	<style name="App_AlertTextAppearance">
+	    <!-- Set text size and color of title and message here -->
+	    <item name="android:textSize"> 14sp </item>
+	    <item name="android:textColor">@color/light_gray</item>
+	</style>
+	
+	<style name="App_AlertDialogTheme">
+	    <item name="android:windowBackground">@android:color/transparent</item>
+	    <item name="android:windowTitleStyle">@style/MyAlertDialogTitle</item>
+	    <item name="android:windowContentOverlay">@null</item>
+	    <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+	    <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+	    <item name="android:windowIsFloating">true</item>
+	    <item name="android:textAppearanceMedium">@style/MyAlertTextAppearance</item>
+	    <!-- If you don't want your own button bar style use
+	            @android:style/Holo.Light.ButtonBar.AlertDialog
+	            and
+	            ?android:attr/borderlessButtonStyle
+	         instead of @style/MyButtonBar and @style/MyBorderlessButton -->
+	    <item name="android:buttonBarStyle">@style/MyButtonBar</item>
+	    <item name="android:buttonBarButtonStyle">@style/MyBorderlessButton</item>
+	</style>
+	
+	<style name="MyAlertDialogStyle">
+	    <!-- Define background colors of title, message, buttons, etc. here -->
+	    <item name="android:fullDark">...</item>
+	    <item name="android:topDark">...</item>
+	    <item name="android:centerDark">...</item>
+	    <item name="android:bottomDark">...</item>
+	    <item name="android:fullBright">...</item>
+	    <item name="android:topBright">...</item>
+	    <item name="android:centerBright">...</item>
+	    <item name="android:bottomBright">...</item>
+	    <item name="android:bottomMedium">...</item>
+	    <item name="android:centerMedium">...</item>
+	</style>
+</resources>
