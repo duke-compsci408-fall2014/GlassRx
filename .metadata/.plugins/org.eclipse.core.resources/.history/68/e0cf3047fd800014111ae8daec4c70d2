@@ -428,7 +428,6 @@ public class Controller {
 		try {
 			json.put("record", record);
 			String jsonString = json.toString();
-			Log.d("AddPrescriptions", jsonString);
 			mServerRequest.doPost(Constants.URL_ADD_PRESCRIPTION, new ResponseCallback() {
 	
 				@Override
@@ -467,7 +466,6 @@ public class Controller {
 		try {
 			json.put("record", record);
 			String jsonString = json.toString();
-			Log.d("AddSchedules", jsonString);
 			mServerRequest.doPost(Constants.URL_ADD_SCHEDULE, new ResponseCallback() {
 
 				@Override
@@ -507,7 +505,7 @@ public class Controller {
 		try {
 			json.put("record", record);
 			String jsonString = json.toString();
-			Log.d("AddPatient", jsonString);
+			Log.d("AddPaitent", jsonString);
 			mServerRequest.doPut(Constants.URL_ADD_PATIENT, new ResponseCallback() {
 
 				@Override

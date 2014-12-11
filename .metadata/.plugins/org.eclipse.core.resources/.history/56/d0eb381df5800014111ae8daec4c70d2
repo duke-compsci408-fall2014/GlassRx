@@ -65,7 +65,7 @@ public class Constants {
 	//TODO:  add appropriate URLs
 	// --------------------------------------URLs---------------------------------------------------
 	//  Prefix/Suffix of all URLs
-	public static final String URL_PREFIX				= "http://107.178.211.37";
+	public static final String URL_PREFIX				= "http://http://107.178.211.37/";
 	public static final String URL_SUFFIX 				= "&app_name=glass-rx";
 	
 	//  Log in
@@ -75,7 +75,7 @@ public class Constants {
 	//  Patients
 	public static final String URL_GET_PATIENTS_BY_ID	= URL_PREFIX + "/rest/db/Patient?filter=physicianID%3D";
 	public static final String URL_GET_ALL_PATIENTS		= URL_PREFIX + "/rest/db/Patient?app_name=glass-rx";
-	public static final String URL_ADD_PATIENT			= URL_PREFIX + ":80/rest/db/Patient?app_name=glass-rx";
+	public static final String URL_ADD_PATIENT			= URL_PREFIX + ":443/rest/db/Patient?app_name=glass-rx";
 	
 	//  Medications
 	public static final String URL_GET_MED_INFO			= URL_PREFIX + "/rest/db/Medication?filter=name%3D";
@@ -83,8 +83,8 @@ public class Constants {
 	public static final String URL_GET_MED_BY_NAME		= URL_PREFIX + "/rest/db/Medication?filter=name%20%3D%20%27";
 	
 	// Prescription/Schedule
-	public static final String URL_ADD_PRESCRIPTION		= URL_PREFIX + ":80/rest/db/Prescription?app_name=glass-rx";
-	public static final String URL_ADD_SCHEDULE			= URL_PREFIX + ":80/rest/db/Schedule?app_name=glass-rx";
+	public static final String URL_ADD_PRESCRIPTION		= URL_PREFIX + ":443/rest/db/Prescription?app_name=glass-rx";
+	public static final String URL_ADD_SCHEDULE			= URL_PREFIX + ":443/rest/db/Schedule?app_name=glass-rx";
 	public static final String URL_GET_PATIENT_SCHEDULE	= URL_PREFIX + "/rest/db/Schedule?filter=patientID%3D%27";
 	public static final String URL_GET_PATIENT_PRESCRIP	= URL_PREFIX + "/rest/db/Prescription?filter=patientID%3D%27";
 	

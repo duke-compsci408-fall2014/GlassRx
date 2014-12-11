@@ -428,7 +428,6 @@ public class Controller {
 		try {
 			json.put("record", record);
 			String jsonString = json.toString();
-			Log.d("AddPrescriptions", jsonString);
 			mServerRequest.doPost(Constants.URL_ADD_PRESCRIPTION, new ResponseCallback() {
 	
 				@Override
