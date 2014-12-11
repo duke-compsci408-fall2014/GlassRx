@@ -67,6 +67,8 @@ public class Controller {
 	private int mTimeRange;
 	
 	private ProgressDialog progressDialog;
+
+    private Patient mPatient;
 	
 	public static Controller getInstance(Context ctxt) {
 		if (instance == null) {
@@ -77,7 +79,11 @@ public class Controller {
 		mCameraManager = CameraManager.getInstance();
 		return instance;
 	}
-	
+
+    public void setmPatient(Patient patient){ this.mPatient = patient;}
+
+    public Patient getmPatient(){ return this.mPatient;}
+
 	public Context getContext() {
 		return mContext;
 	}
@@ -527,8 +533,11 @@ public class Controller {
 				JSONArray array;
 				try {
 					array = response.getJSONArray("record");
-					Medication med = new Gson().fromJson(array.getString(0), Medication.class);
-					listener.onMedInfoLoaded(med);
+                    if(array == null) {listener.onMedInfoLoaded(null);}
+                    else {
+                        Medication med = new Gson().fromJson(array.getString(0), Medication.class);
+                        listener.onMedInfoLoaded(med);
+                    }
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

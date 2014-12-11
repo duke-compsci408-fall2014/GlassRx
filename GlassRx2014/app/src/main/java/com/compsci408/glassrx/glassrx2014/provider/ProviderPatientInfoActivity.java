@@ -3,6 +3,10 @@ package com.compsci408.glassrx.glassrx2014.provider;
 import com.compsci408.glassrx.glassrx2014.R;
 //import com.compsci408.glassrx.glassrx2014.patient.PatientMainActivity;
 import com.compsci408.glassrx.glassrx2014.patient.PatientMedListActivity;
+import com.compsci408.glassrx.glassrx2014.rxcore.Controller;
+import com.compsci408.glassrx.glassrx2014.rxcore.datatypes.Patient;
+import com.compsci408.glassrx.glassrx2014.rxcore.datatypes.Prescription;
+import com.compsci408.glassrx.glassrx2014.rxcore.listeners.OnPrescriptionLoadedListener;
 import com.google.android.glass.media.Sounds;
 import com.google.android.glass.view.WindowUtils;
 import com.google.android.glass.widget.CardBuilder;
@@ -20,6 +24,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * An {@link Activity} showing a tuggable "Hello World!" card.
@@ -35,21 +46,50 @@ public class ProviderPatientInfoActivity extends Activity {
 
     View card;
 
+    private Controller mController;
+    TextView patientText;
+    String toSet = "";
+    Patient mPatient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Intent intent = getIntent();
-        String myText = intent.getStringExtra("text");
-        int myImage = intent.getIntExtra("pic", 0);
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(WindowUtils.FEATURE_VOICE_COMMANDS);
-        card = new CardBuilder(this, CardBuilder.Layout.COLUMNS)
-                .setText(myText)
-                .setTimestamp("just now")
-                .addImage(myImage)
-                .getView();
-        // Display the card we just created
-        setContentView(card);
+        setContentView(R.layout.activity_provider_more_info);
+
+        mController = Controller.getInstance(this);
+
+        mPatient = mController.getmPatient();
+
+        mController = Controller.getInstance(this);
+
+
+        patientText = (TextView) findViewById(R.id.text13);
+
+        patientText.setText("Loading...");
+
+        mController.getAllPrescriptions(new OnPrescriptionLoadedListener() {
+
+            @Override
+            public void onPrescriptionLoaded(List<Prescription> prescription) {
+                Set<String> currentMeds = new HashSet<String>();
+                toSet += "Name: " + mPatient.getName();
+
+                for (int i = 0; i < prescription.size(); i++) {
+                    currentMeds.add(prescription.get(i).getMedication());
+                }
+                toSet += "\nCurrently taking:  ";
+                for(String s : currentMeds){
+                    toSet += s + ", ";
+                }
+
+                toSet += "\nDrug Allergies: " + mPatient.getDrug_allergies();
+                mController.showProgress(false);
+                patientText.setText(toSet);
+            }
+
+        });
+
     }
 
     @Override
@@ -64,23 +104,14 @@ public class ProviderPatientInfoActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.more_info, menu);
+//        getMenuInflater().inflate(R.menu.more_info, menu);
         return true;
     }
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS) {
-            switch (item.getItemId()) {
-                case R.id.main_menu_item:
-//                    startActivity(new Intent(this, PatientMainActivity.class));
-                    break;
-                case R.id.med_list_menu_item:
-//                    startActivity(new Intent(this, PatientMedListActivity.class));
-                    break;
-                default:
-                    return true;
-            }
+
             return true;
         }
         // Good practice to pass through to super if not handled
